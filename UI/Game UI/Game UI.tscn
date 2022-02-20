@@ -24,7 +24,7 @@ __meta__ = {
 }
 
 [node name="LifeBar" type="HBoxContainer" parent="PlayerStatus"]
-margin_right = 393.0
+margin_right = 415.0
 margin_bottom = 31.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -32,16 +32,18 @@ __meta__ = {
 
 [node name="LabelLB" type="Label" parent="PlayerStatus/LifeBar"]
 margin_top = 8.0
-margin_right = 18.0
+margin_right = 40.0
 margin_bottom = 22.0
+rect_min_size = Vector2( 40, 0 )
 text = "HP"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureProgress" type="TextureProgress" parent="PlayerStatus/LifeBar"]
-margin_left = 22.0
-margin_right = 393.0
+margin_left = 44.0
+margin_right = 415.0
 margin_bottom = 31.0
 value = 20.0
 texture_under = ExtResource( 3 )
@@ -50,7 +52,7 @@ texture_progress = ExtResource( 1 )
 
 [node name="StaminaBar" type="HBoxContainer" parent="PlayerStatus"]
 margin_top = 35.0
-margin_right = 393.0
+margin_right = 415.0
 margin_bottom = 66.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -58,16 +60,18 @@ __meta__ = {
 
 [node name="LabelSB" type="Label" parent="PlayerStatus/StaminaBar"]
 margin_top = 8.0
-margin_right = 15.0
+margin_right = 40.0
 margin_bottom = 22.0
+rect_min_size = Vector2( 40, 0 )
 text = "SP"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureProgress" type="TextureProgress" parent="PlayerStatus/StaminaBar"]
-margin_left = 19.0
-margin_right = 390.0
+margin_left = 44.0
+margin_right = 415.0
 margin_bottom = 31.0
 value = 50.0
 texture_under = ExtResource( 3 )
