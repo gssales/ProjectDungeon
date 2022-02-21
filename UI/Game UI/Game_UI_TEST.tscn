@@ -3,7 +3,7 @@
 [ext_resource path="res://UI/Game UI/StatusBar/StatusBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/Game UI/StatusBar/stamina_progress.png" type="Texture" id=2]
 [ext_resource path="res://UI/Game UI/inventory UI/Inventory UI.tscn" type="PackedScene" id=3]
-[ext_resource path="res://UI/SP_icon.png" type="Texture" id=4]
+[ext_resource path="res://UI/Game UI/Counter/SP_icon.png" type="Texture" id=4]
 
 [node name="GameUI_TEST" type="Control"]
 anchor_right = 1.0
@@ -28,6 +28,9 @@ margin_bottom = 31.0
 
 [node name="Counter" parent="PlayerStatus/StatusBar" index="0"]
 margin_bottom = 31.0
+
+[node name="Label" parent="PlayerStatus/StatusBar/Counter" index="1"]
+text = "20/100"
 
 [node name="TextureProgress" parent="PlayerStatus/StatusBar" index="1"]
 margin_bottom = 31.0
