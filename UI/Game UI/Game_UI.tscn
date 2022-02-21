@@ -1,12 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/Game UI/bar_progress2.png" type="Texture" id=1]
-[ext_resource path="res://UI/Game UI/stamina_progress.png" type="Texture" id=2]
-[ext_resource path="res://UI/Game UI/bar_outline2.png" type="Texture" id=3]
+[ext_resource path="res://UI/Game UI/StatusBar/bar_progress2.png" type="Texture" id=1]
+[ext_resource path="res://UI/Game UI/StatusBar/stamina_progress.png" type="Texture" id=2]
+[ext_resource path="res://UI/Game UI/StatusBar/bar_outline2.png" type="Texture" id=3]
+[ext_resource path="res://UI/Game UI/inventory UI/Inventory UI.tscn" type="PackedScene" id=4]
 
-[sub_resource type="AnimatedTexture" id=1]
-
-[node name="Game UI" type="Control"]
+[node name="GameUI_OG" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -45,10 +44,12 @@ __meta__ = {
 margin_left = 44.0
 margin_right = 415.0
 margin_bottom = 31.0
-value = 20.0
+value = 50.0
 texture_under = ExtResource( 3 )
-texture_over = SubResource( 1 )
 texture_progress = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StaminaBar" type="HBoxContainer" parent="PlayerStatus"]
 margin_top = 35.0
@@ -73,6 +74,13 @@ __meta__ = {
 margin_left = 44.0
 margin_right = 415.0
 margin_bottom = 31.0
-value = 50.0
+value = 70.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 2 )
+
+[node name="Inventory UI" parent="." instance=ExtResource( 4 )]
+anchor_left = 1.0
+anchor_top = 1.0
+margin_left = -1026.0
+margin_top = -600.0
+margin_right = 0.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bar_outline2.png-9de8caeca359c5c85c73b15fc9690311.stex"
+path="res://.import/bar_progress2.png-c2d08ce3f2020f32031a9fcf4183f196.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Game UI/bar_outline2.png"
-dest_files=[ "res://.import/bar_outline2.png-9de8caeca359c5c85c73b15fc9690311.stex" ]
+source_file="res://UI/Game UI/StatusBar/bar_progress2.png"
+dest_files=[ "res://.import/bar_progress2.png-c2d08ce3f2020f32031a9fcf4183f196.stex" ]
 
 [params]
 

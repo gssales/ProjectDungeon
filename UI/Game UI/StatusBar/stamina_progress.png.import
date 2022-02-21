@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stamina_progress.png-6371dc31d694e4749bacbe657fa90cf6.stex"
+path="res://.import/stamina_progress.png-9cae826cf883d5046c6b42255ece2652.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Game UI/stamina_progress.png"
-dest_files=[ "res://.import/stamina_progress.png-6371dc31d694e4749bacbe657fa90cf6.stex" ]
+source_file="res://UI/Game UI/StatusBar/stamina_progress.png"
+dest_files=[ "res://.import/stamina_progress.png-9cae826cf883d5046c6b42255ece2652.stex" ]
 
 [params]
 
