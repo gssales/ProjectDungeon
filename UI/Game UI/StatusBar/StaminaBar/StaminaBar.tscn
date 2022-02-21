@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/Game UI/Counter/UI_background.png" type="Texture" id=1]
+[ext_resource path="res://UI/Game UI/StatusBarScript.gd" type="Script" id=2]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -17,6 +18,7 @@ load_path = "res://.import/stamina_progress.png-9cae826cf883d5046c6b42255ece2652
 [node name="StaminaBar" type="HBoxContainer"]
 margin_right = 495.0
 margin_bottom = 31.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

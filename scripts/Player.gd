@@ -4,6 +4,10 @@ extends KinematicBody
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+
+#signal stamina_changed(new_stamina)
+signal toggle_pause_menu()
+
 export var GRAVITY = 980
 export var max_speed = 20
 export var acceleration = 15
@@ -15,6 +19,13 @@ var speed = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
+
+func _input(event):
+  if event is InputEventKey: 
+    if event.is_action_pressed("pause_menu"): # precisa pausar de fato o jogo (apenas para teste)
+      emit_signal("toggle_pause_menu")
+    if event.is_action_pressed("take_damage"):
+      $Health.take_damage(4)
 
 func _physics_process(delta):
   var move_vec = Vector3()
@@ -40,8 +51,10 @@ func _physics_process(delta):
   else:
     speed = max(speed - acceleration * delta, 0) 
 
-  if Input.is_action_pressed("sprint"):
+  if Input.is_action_pressed("sprint"): # temporario, apenas para testar interface
       move_vec *= speed*1.5
+      $Stamina.use_stamina(2)
+      
   else:
     move_vec *= speed
 
@@ -52,6 +65,7 @@ func _physics_process(delta):
 
   _velocity = move_and_slide_with_snap(_velocity, Vector3.DOWN)
 
+  
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #  pass
