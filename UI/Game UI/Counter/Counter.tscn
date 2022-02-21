@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/Game UI/Counter/UI_background.png" type="Texture" id=1]
-[ext_resource path="res://UI/Game UI/Counter/HP.png" type="Texture" id=2]
+[ext_resource path="res://UI/HP_icon.png" type="Texture" id=2]
 
 [node name="Counter" type="NinePatchRect"]
 margin_right = 120.0
