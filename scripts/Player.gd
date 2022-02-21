@@ -40,7 +40,10 @@ func _physics_process(delta):
   else:
     speed = max(speed - acceleration * delta, 0) 
 
-  move_vec *= speed
+  if Input.is_action_pressed("sprint"):
+      move_vec *= speed*1.5
+  else:
+    move_vec *= speed
 
   if not $DetectGround.is_colliding():
     move_vec += Vector3.DOWN * GRAVITY * delta

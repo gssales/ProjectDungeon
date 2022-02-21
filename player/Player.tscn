@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://UI/Game UI/Game_UI.tscn" type="PackedScene" id=2]
-[ext_resource path="res://UI/Game UI/Game_UI_TEST.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Game UI/Game_UI_NEW.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -45,6 +45,6 @@ material = SubResource( 3 )
 [node name="TweenRotation" type="Tween" parent="Model"]
 
 [node name="GameUI_TEST" parent="." instance=ExtResource( 3 )]
-visible = false
 
-[node name="Game UI" parent="." instance=ExtResource( 2 )]
+[node name="GameUI_OG" parent="." instance=ExtResource( 2 )]
+visible = false

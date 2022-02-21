@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SP_icon.png-c549d98aab7638ba705bf198107d632b.stex"
+path="res://.import/bar_outline.png-44ae1f7373273fbc5c67b6f250c84ecb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Game UI/Counter/SP_icon.png"
-dest_files=[ "res://.import/SP_icon.png-c549d98aab7638ba705bf198107d632b.stex" ]
+source_file="res://UI/Game UI/StatusBar/LifeBar/bar_outline.png"
+dest_files=[ "res://.import/bar_outline.png-44ae1f7373273fbc5c67b6f250c84ecb.stex" ]
 
 [params]
 

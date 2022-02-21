@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/HP_icon.png-60048b808b2d3f2e4272c78860281d08.stex"
+path="res://.import/HP_icon.png-9a7ae1d3b8ad08039d46c6076eddd1bf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Game UI/Counter/HP_icon.png"
-dest_files=[ "res://.import/HP_icon.png-60048b808b2d3f2e4272c78860281d08.stex" ]
+source_file="res://UI/Game UI/StatusBar/LifeBar/HP_icon.png"
+dest_files=[ "res://.import/HP_icon.png-9a7ae1d3b8ad08039d46c6076eddd1bf.stex" ]
 
 [params]
 

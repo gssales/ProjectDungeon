@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bar_outline.png-2249c7b2eabe5a3e0154585a13c44419.stex"
+path="res://.import/Counter_icon.png-e406acefb5de21c7f9417cafb711470f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Game UI/StatusBar/bar_outline.png"
-dest_files=[ "res://.import/bar_outline.png-2249c7b2eabe5a3e0154585a13c44419.stex" ]
+source_file="res://UI/Game UI/Counter/Counter_icon.png"
+dest_files=[ "res://.import/Counter_icon.png-e406acefb5de21c7f9417cafb711470f.stex" ]
 
 [params]
 
