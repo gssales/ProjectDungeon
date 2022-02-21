@@ -4,8 +4,8 @@
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
 [ext_resource path="res://UI/Game UI/Game_UI_NEW.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/Stamina.gd" type="Script" id=4]
-[ext_resource path="res://UI/Game UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://UI/Game UI/PauseMenu/PauseMenu.gd" type="Script" id=6]
+[ext_resource path="res://UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/PauseMenu/PauseMenu.gd" type="Script" id=6]
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 
 [sub_resource type="SphereShape" id=1]
