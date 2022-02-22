@@ -15,10 +15,16 @@ func use_stamina(amount):
   stamina -= amount
   if stamina < 0:
     stamina = 0 
-    print("Stamina already depleted")
+    #print("Stamina already depleted")
   
   emit_signal("stamina_changed", stamina)
-  print("Signal emmited")
+  #print("Signal emmited")
 
 func regen_stamina(amount):
-  pass
+  stamina += amount
+  if stamina > max_stamina:
+    stamina = max_stamina 
+    #print("Stamina already full")
+  
+  emit_signal("stamina_changed", stamina)
+  #print("Signal emmited")

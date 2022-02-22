@@ -15,10 +15,15 @@ func take_damage(amount):
   health -= amount
   if health < 0:
     health = 0 
-    print("Health already depleted")
+    #print("Health already depleted")
   
   emit_signal("health_changed", health)
-  print("Signal emmited")
+  #print("Signal emmited")
 
 func regen_health(amount):
-  pass
+  health += amount
+  if health > max_health:
+    health = max_health 
+    #print("Health already full")
+  
+  emit_signal("health_changed", health)

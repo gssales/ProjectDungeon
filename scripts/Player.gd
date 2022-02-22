@@ -6,10 +6,10 @@ extends KinematicBody
 # var b = "text"
 
 #signal stamina_changed(new_stamina)
-signal toggle_pause_menu()
+#signal toggle_pause_menu()
 
 export var GRAVITY = 980
-export var max_speed = 20
+export var max_speed = 15
 export var acceleration = 15
 
 var _velocity = Vector3.ZERO
@@ -22,8 +22,6 @@ func _ready():
 
 func _input(event):
   if event is InputEventKey: 
-    if event.is_action_pressed("pause_menu"): # precisa pausar de fato o jogo (apenas para teste)
-      emit_signal("toggle_pause_menu")
     if event.is_action_pressed("take_damage"):
       $Health.take_damage(4)
 
@@ -49,11 +47,14 @@ func _physics_process(delta):
 
     speed = min(speed + acceleration * delta, max_speed)
   else:
-    speed = max(speed - acceleration * delta, 0) 
-
+    speed = max(speed - acceleration * delta, 0)
+    $Stamina.regen_stamina(1)
+  
+  
+  # checar quanto tempo passou
   if Input.is_action_pressed("sprint"): # temporario, apenas para testar interface
       move_vec *= speed*1.5
-      $Stamina.use_stamina(2)
+      $Stamina.use_stamina(0.25)
       
   else:
     move_vec *= speed

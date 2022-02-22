@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
 [ext_resource path="res://UI/Game UI/Game_UI_NEW.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/Stamina.gd" type="Script" id=4]
 [ext_resource path="res://UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://UI/PauseMenu/PauseMenu.gd" type="Script" id=6]
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 
 [sub_resource type="SphereShape" id=1]
@@ -47,15 +46,20 @@ material = SubResource( 3 )
 
 [node name="TweenRotation" type="Tween" parent="Model"]
 
-[node name="GameUI_NEW" parent="." instance=ExtResource( 3 )]
+[node name="GameUILayer" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="GameUI_NEW" parent="GameUILayer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1024.0
 margin_bottom = 600.0
 
-[node name="PauseMenu" parent="." instance=ExtResource( 5 )]
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="PauseMenu" parent="PauseLayer" instance=ExtResource( 5 )]
 visible = false
-script = ExtResource( 6 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
@@ -63,9 +67,12 @@ script = ExtResource( 2 )
 [node name="Stamina" type="Node" parent="."]
 script = ExtResource( 4 )
 
+[node name="StaminaRegenTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 7 )
 
-[connection signal="toggle_pause_menu" from="." to="PauseMenu" method="_on_Player_toggle_pause_menu"]
-[connection signal="health_changed" from="Health" to="GameUI_NEW" method="_on_Health_health_changed"]
-[connection signal="stamina_changed" from="Stamina" to="GameUI_NEW" method="_on_Stamina_stamina_changed"]
+[connection signal="health_changed" from="Health" to="GameUILayer/GameUI_NEW" method="_on_Health_health_changed"]
+[connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI_NEW" method="_on_Stamina_stamina_changed"]
