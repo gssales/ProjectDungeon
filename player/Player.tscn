@@ -46,30 +46,4 @@ material = SubResource( 3 )
 
 [node name="TweenRotation" type="Tween" parent="Model"]
 
-[node name="GameUILayer" type="CanvasLayer" parent="."]
-layer = 99
-
-[node name="GameUI" parent="GameUILayer" instance=ExtResource( 3 )]
-
-[node name="PauseLayer" type="CanvasLayer" parent="."]
-layer = 100
-
-[node name="PauseMenu" parent="PauseLayer" instance=ExtResource( 5 )]
-visible = false
-
-[node name="Health" type="Node" parent="."]
-script = ExtResource( 2 )
-
-[node name="Stamina" type="Node" parent="."]
-script = ExtResource( 4 )
-
-[node name="StaminaRegenTimer" type="Timer" parent="Stamina"]
-process_mode = 0
-one_shot = true
-autostart = true
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource( 7 )
-
-[connection signal="health_changed" from="Health" to="GameUILayer/GameUI" method="_on_Health_health_changed"]
-[connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI" method="_on_Stamina_stamina_changed"]
+[node name="Inventory" parent="." instance=ExtResource( 2 )]
