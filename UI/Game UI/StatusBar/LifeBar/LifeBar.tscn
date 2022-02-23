@@ -4,7 +4,7 @@
 [ext_resource path="res://UI/Game UI/StatusBar/LifeBar/bar_outline.png" type="Texture" id=2]
 [ext_resource path="res://UI/Game UI/Counter/UI_background.png" type="Texture" id=3]
 [ext_resource path="res://UI/Game UI/StatusBar/LifeBar/bar_progress.png" type="Texture" id=4]
-[ext_resource path="res://UI/Game UI/LifeBarScript.gd" type="Script" id=5]
+[ext_resource path="res://UI/Game UI/StatusBar/LifeBar/LifeBarScript.gd" type="Script" id=5]
 
 [node name="LifeBar" type="HBoxContainer"]
 margin_right = 495.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/Game UI/Counter/UI_background.png" type="Texture" id=1]
-[ext_resource path="res://UI/Game UI/StatusBarScript.gd" type="Script" id=2]
+[ext_resource path="res://UI/Game UI/StatusBar/StaminaBar/StaminaBarScript.gd" type="Script" id=2]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4

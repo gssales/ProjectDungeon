@@ -5,7 +5,6 @@
 [node name="Inventory UI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 2.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -15,10 +14,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -191.0
-margin_top = -107.0
-margin_right = -126.0
-margin_bottom = -42.0
+margin_left = -169.0
+margin_top = -94.0
+margin_right = -104.0
+margin_bottom = -29.0
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
@@ -26,13 +25,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item2" type="TextureRect" parent="Item1"]
+[node name="Item2" type="TextureRect" parent="."]
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-margin_left = 17.0
-margin_top = 9.0
-margin_right = 67.0
-margin_bottom = 59.0
+anchor_bottom = 1.0
+margin_left = -87.0
+margin_top = -86.0
+margin_right = -37.0
+margin_bottom = -36.0
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
