@@ -14,5 +14,5 @@ func init(params):
   self.damageRange = params.damageRange
 
 func damage(multiplier = 1):
-  var damage = rand.randf_range(damageRange[0], damageRange[1])
+  var damage = (randf() * (damageRange[1] - damageRange[0])) + damageRange[0]
   print(damage * multiplier)
