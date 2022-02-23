@@ -3,13 +3,16 @@ extends Node
 
 signal stamina_changed(new_stamina)
 
-export(int) var stamina = 0
+var stamina = 0
 export(int) var max_stamina = 100
 
 func _ready():
   stamina = max_stamina
   emit_signal("stamina_changed", max_stamina)
   #emit a signal to the StaminaBar to set its max value correctly aswell
+
+func get_stamina():
+  return stamina
 
 func use_stamina(amount):
   stamina -= amount

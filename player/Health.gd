@@ -11,6 +11,9 @@ func _ready():
   emit_signal("health_changed", max_health)
   #emit a signal to the StaminaBar to set its max value correctly aswell
 
+func get_health():
+  return health
+
 func take_damage(amount):
   health -= amount
   if health < 0:
