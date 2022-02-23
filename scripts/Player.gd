@@ -46,17 +46,26 @@ func _physics_process(delta):
     $Model.transform.basis = Basis(interp)
 
     speed = min(speed + acceleration * delta, max_speed)
-  else:
-    speed = max(speed - acceleration * delta, 0)
-    $Stamina.regen_stamina(1)
-  
-  
-  # checar quanto tempo passou
-  if Input.is_action_pressed("sprint"): # temporario, apenas para testar interface
-      move_vec *= speed*1.5
-      $Stamina.use_stamina(0.25)
+    
+    #Se já passou o cooldown e não está correndo -> regen stamina
+    if $Stamina/StaminaRegenTimer.is_stopped() and not Input.is_action_pressed("sprint"):
+      $Stamina.regen_stamina(4*delta)
+      #print("Regen stamina")
       
   else:
+    speed = max(speed - acceleration * delta, 0)
+    #Se já passou o cooldown e não está se movendo -> regen stamina faster
+    if $Stamina/StaminaRegenTimer.is_stopped():
+      $Stamina.regen_stamina(8*delta)
+      #print("Regen stamina")
+      
+  # Se está se movendo e correndo -> aumentar velocidade e usar stamina
+  if move_vec.length() > 0 and Input.is_action_pressed("sprint"): # temporario, apenas para testar interface
+      move_vec *= speed*1.5
+      $Stamina.use_stamina(10*delta)
+      $Stamina/StaminaRegenTimer.start(1)
+      #print("is sprinting")
+  else: #senão velocidade normal
     move_vec *= speed
 
   if not $DetectGround.is_colliding():

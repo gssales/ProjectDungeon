@@ -8,4 +8,4 @@ func set_max_value(maximum):
 
 func _on_GameUI_NEW_stamina_changed(stamina):
   $TextureProgress.value = stamina
-  $Counter/Label.text = "%s/%s" % [stamina, maximum_value]
+  $Counter/Label.text = "%s/%s" % [round(stamina), maximum_value]
