@@ -1,0 +1,5 @@
+[
+  {"_type":"espada","_name":"Espada","_range":2.0,"damageRange":[5,10],"modelPath":"res://item/items/models/item.obj"},
+  {"_type":"adaga","_name":"Adaga","_range":1.0,"damageRange":[2,7],"modelPath":"res://item/items/models/item.obj"},
+  {"_type":"machado","_name":"Machado","_range":3.0,"damageRange":[7,15],"modelPath":"res://item/items/models/item.obj"}
+]
