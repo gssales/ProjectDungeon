@@ -76,3 +76,5 @@ shape = SubResource( 5 )
 [node name="CSGBox" type="CSGBox" parent="Props/Box4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0303655, 0 )
 height = 4.0
+
+[editable path="Player"]
