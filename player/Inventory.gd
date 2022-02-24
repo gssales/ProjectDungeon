@@ -1,5 +1,7 @@
 extends Node
 
+signal inventory_changed(item_icons)
+
 var ref_closest_item = null
 
 func _input(event):
@@ -10,13 +12,20 @@ func _input(event):
       if container != null:
         container.remove_child(ref_closest_item)
       ref_closest_item = null
+      
+    if event.is_action_pressed("toggle_item"):
+      toggle_item()
+
 
 func _process(delta):
   select_closest_item()
 
-func toggleItem():
+
+func toggle_item():
   move_child(get_child(1), 0)
-  
+  notify_inventory_changed()
+
+ 
 func add_item(params):
   var item_node = preload("res://item/Item.tscn").instance()
   item_node.init(params)
@@ -30,6 +39,9 @@ func add_item(params):
   add_child(item_node)
   move_child(item_node, 0)
     
+  notify_inventory_changed()
+
+
 func drop_item(params):
   var item_model_node = preload("res://item/ItemModel.tscn").instance()
   item_model_node.params = params
@@ -37,6 +49,7 @@ func drop_item(params):
   var container = get_tree().get_nodes_in_group("item_model_container")[0]
   if container != null:
     container.add_child(item_model_node)
+
 
 func select_closest_item():
   var player_position = get_parent().transform.origin
@@ -60,3 +73,10 @@ func select_closest_item():
     if ref_closest_item != null:
       ref_closest_item.show_tooltip(false)
       ref_closest_item = null
+
+
+func notify_inventory_changed():
+  var item_icons = []
+  for item in get_children():
+    item_icons.append(item.params.icon_path)
+  emit_signal("inventory_changed", item_icons)
