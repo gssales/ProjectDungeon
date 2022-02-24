@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
@@ -24,11 +24,6 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
-
-[sub_resource type="StreamTexture" id=4]
-resource_local_to_scene = true
-flags = 4
-load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -56,12 +51,6 @@ layer = 99
 
 [node name="GameUI" parent="GameUILayer" instance=ExtResource( 3 )]
 
-[node name="Item1" parent="GameUILayer/GameUI/Inventory" index="0"]
-texture = SubResource( 4 )
-
-[node name="Item2" parent="GameUILayer/GameUI/Inventory" index="1"]
-texture = SubResource( 4 )
-
 [node name="PauseLayer" type="CanvasLayer" parent="."]
 layer = 100
 
@@ -85,5 +74,3 @@ script = ExtResource( 7 )
 [connection signal="health_changed" from="Health" to="GameUILayer/GameUI" method="_on_Health_health_changed"]
 [connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI" method="_on_Stamina_stamina_changed"]
 [connection signal="inventory_changed" from="Inventory" to="GameUILayer/GameUI/Inventory" method="_on_Inventory_inventory_changed"]
-
-[editable path="GameUILayer/GameUI"]
