@@ -68,15 +68,3 @@ func _physics_process(delta):
 
   _velocity = move_vec
   _velocity = move_and_slide_with_snap(_velocity, Vector3.DOWN)
-  
-var cont = 0
-func _process(delta):
-  
-  if Input.is_action_just_pressed("ui_select"):
-    $Inventory.addItem({ _type= "Espada", _name= "Espada %d" % cont, _range= 1.5, damageRange= [5, 10] })
-    cont += 1
-    
-  if Input.is_action_just_pressed("ui_accept"):
-    $Inventory.toggleItem()
-    
-      
