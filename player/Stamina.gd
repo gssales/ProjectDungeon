@@ -11,6 +11,9 @@ func _ready():
   emit_signal("stamina_changed", max_stamina)
   #emit a signal to the StaminaBar to set its max value correctly aswell
 
+func get_stamina():
+  return stamina
+
 func use_stamina(amount):
   stamina -= amount
   if stamina < 0:

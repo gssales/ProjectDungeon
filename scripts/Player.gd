@@ -60,10 +60,10 @@ func _physics_process(delta):
       #print("Regen stamina")
       
   # Se está se movendo e correndo -> aumentar velocidade e usar stamina
-  if move_vec.length() > 0 and Input.is_action_pressed("sprint"): # temporario, apenas para testar interface
+  if move_vec.length() > 0 and Input.is_action_pressed("sprint") and $Stamina.get_stamina() > 0: # temporario, apenas para testar interface
       move_vec *= speed*1.5
       $Stamina.use_stamina(10*delta)
-      $Stamina/StaminaRegenTimer.start(1)
+      $Stamina/StaminaRegenTimer.start(1) # cooldown até começar a regenerar (se parar de correr)
       #print("is sprinting")
   else: #senão velocidade normal
     move_vec *= speed
