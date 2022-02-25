@@ -84,6 +84,14 @@ height = 4.0
 
 [node name="ItemModel" parent="Items" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.41327, 4.94806, -17.0508 )
+params = {
+"_name": "Espada",
+"_range": 2.0,
+"_type": "espada",
+"damageRange": [ 5, 10 ],
+"icon_path": "res://assets/item1.png",
+"modelPath": "res://item/items/models/item.obj"
+}
 
 [node name="ItemModel3" parent="Items" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5348, 4.94806, -17.0508 )
@@ -92,7 +100,7 @@ params = {
 "_range": 2.0,
 "_type": "espada",
 "damageRange": [ 5, 10 ],
-"icon_path": "res://assets/icon2.png",
+"icon_path": "res://assets/item2.png",
 "modelPath": "res://item/items/models/item.obj"
 }
 
@@ -103,6 +111,6 @@ params = {
 "_range": 2.0,
 "_type": "espada",
 "damageRange": [ 5, 10 ],
-"icon_path": "res://assets/icon3.png",
+"icon_path": "res://assets/item3.png",
 "modelPath": "res://item/items/models/item.obj"
 }

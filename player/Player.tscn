@@ -40,8 +40,10 @@ cast_to = Vector3( 0, -1.1, 0 )
 debug_shape_thickness = 5.0
 
 [node name="Model" type="Spatial" parent="."]
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Model"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 material = SubResource( 3 )
 
 [node name="TweenRotation" type="Tween" parent="Model"]

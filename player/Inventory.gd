@@ -17,7 +17,7 @@ func _input(event):
       toggle_item()
 
 
-func _process(delta):
+func _process(_delta):
   select_closest_item()
 
 

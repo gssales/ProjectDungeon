@@ -1,6 +1,6 @@
 extends KinematicBody
 
-signal camera_position(pos)
+#signal camera_position(pos)
 
 export var GRAVITY = 980
 export var max_speed = 15
@@ -19,6 +19,8 @@ func _input(event):
   if event is InputEventKey: 
     if event.is_action_pressed("take_damage"):
       $Health.take_damage(4)
+  if event is InputEventMouseButton:
+    pass
 
 func _physics_process(delta):
   var move_vec = Vector3()
@@ -32,13 +34,15 @@ func _physics_process(delta):
     move_vec += Vector3.RIGHT
 
   move_vec = move_vec.normalized()
-
+  
+  look_at_cursor()
+  
   if move_vec.length() > 0 :
-    var new_yaw = atan2(move_vec.x, move_vec.z) # 0,2*PI
-    var rot = Quat(Vector3(0.0, new_yaw, 0.0))
-    var t = Quat($Model.transform.basis)
-    var interp = t.slerp(rot, 0.2)
-    $Model.transform.basis = Basis(interp)
+#    var new_yaw = atan2(move_vec.x, move_vec.z) # 0,2*PI
+#    var rot = Quat(Vector3(0.0, new_yaw, 0.0))
+#    var t = Quat($Model.transform.basis)
+#    var interp = t.slerp(rot, 0.2)
+#    $Model.transform.basis = Basis(interp)
 
     speed = min(speed + acceleration * delta, max_speed)
     
@@ -68,3 +72,23 @@ func _physics_process(delta):
 
   _velocity = move_vec
   _velocity = move_and_slide_with_snap(_velocity, Vector3.DOWN)
+
+
+func look_at_cursor():
+  var player_pos = global_transform.origin
+  var intersecPlane = Plane(Vector3.UP, player_pos.y) # para ficar no mesmo plano y do jogador (quando subir em algo)
+  
+  # Faz um ray cast e verifica onde intersecta no plano 
+  var ray_length = 1000
+  var mouse_pos = get_viewport().get_mouse_position()
+  var ray_origin = $Camera.project_ray_origin(mouse_pos)
+  var ray_end = ray_origin + $Camera.project_ray_normal(mouse_pos) * ray_length
+  var cursor_pos = intersecPlane.intersects_ray(ray_origin, ray_end)
+  
+  if cursor_pos != null:
+    #look at the -z axis
+    $Model.look_at(cursor_pos, Vector3.UP)
+    
+  # se for usar cursor position para mirar com armas de longo alcance: 
+  # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
+  
