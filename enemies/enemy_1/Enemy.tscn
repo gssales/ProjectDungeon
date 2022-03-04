@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://enemies/enemy_1/Enemy.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.653388
-height = 1.17863
+height = 1.65
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CapsuleMesh" id=3]
+material = SubResource( 2 )
+radius = 0.7
+mid_height = 1.65
 
 [node name="Enemy" type="KinematicBody" groups=["Enemy"]]
 script = ExtResource( 1 )
@@ -18,7 +23,8 @@ shape = SubResource( 1 )
 
 [node name="CSGMesh" type="CSGMesh" parent="."]
 
-[node name="CSGCylinder" type="CSGCylinder" parent="CSGMesh"]
-radius = 0.65
-height = 2.5
-material = SubResource( 2 )
+[node name="MeshInstance" type="MeshInstance" parent="CSGMesh"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+material/0 = null
