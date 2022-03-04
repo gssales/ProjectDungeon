@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://item/ItemModel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://enemies/enemy_1/Enemy.tscn" type="PackedScene" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 20, 0.5, 20 )
@@ -16,6 +17,15 @@ extents = Vector3( 1, 2, 1 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.70291, 0 )
 GRAVITY = 400
+
+[node name="Enemy1" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.365, 1.5353, 2.58215 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.76239, 1.42253, 14.099 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0336, 1.42253, 14.099 )
 
 [node name="Ground" type="StaticBody" parent="."]
 collision_layer = 3

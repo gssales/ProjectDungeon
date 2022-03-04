@@ -12,6 +12,10 @@ var speed = 0
 
 var ref_closest_item = null
 
+onready var attack_hitbox = get_node("Model/Attack_hitbox")
+onready var attack_cooldown = get_node("Attack_timer")
+var weapon_damage = 25
+
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
 
@@ -19,8 +23,6 @@ func _input(event):
   if event is InputEventKey: 
     if event.is_action_pressed("take_damage"):
       $Health.take_damage(4)
-  if event is InputEventMouseButton:
-    pass
 
 func _physics_process(delta):
   var move_vec = Vector3()
@@ -36,6 +38,15 @@ func _physics_process(delta):
   move_vec = move_vec.normalized()
   
   look_at_cursor()
+  
+  # Combat controls: 
+  if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
+    for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
+      if body.is_in_group("Enemy"): #if it is an enemy
+        body.take_damage(weapon_damage)
+        print("hit enemy")
+    attack_cooldown.start()
+  
   
   if move_vec.length() > 0 :
 #    var new_yaw = atan2(move_vec.x, move_vec.z) # 0,2*PI
