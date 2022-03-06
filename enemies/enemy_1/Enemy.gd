@@ -1,12 +1,12 @@
 extends KinematicBody
 
-export(int) var maxhealth = 100
+export(float) var maxhealth = 35
 var health = 0
 
 func _ready():
   health = maxhealth
 
-func _physics_process(delta):
+func _physics_process(_delta):
   if health <= 0:
     queue_free()
 

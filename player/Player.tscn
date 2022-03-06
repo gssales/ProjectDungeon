@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
 [ext_resource path="res://UI/Game UI/Game_UI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/Stamina.gd" type="Script" id=4]
 [ext_resource path="res://UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://player/attack_hitbox/Attack_hitbox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 
 [sub_resource type="SphereShape" id=1]
@@ -49,8 +48,8 @@ material = SubResource( 3 )
 
 [node name="TweenRotation" type="Tween" parent="Model"]
 
-[node name="Attack_hitbox" parent="Model" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 2.83539e-08, 0, -1.97917 )
+[node name="Hand" type="Position3D" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.979 )
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
 layer = 99
@@ -86,3 +85,4 @@ autostart = true
 [connection signal="health_changed" from="Health" to="GameUILayer/GameUI" method="_on_Health_health_changed"]
 [connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI" method="_on_Stamina_stamina_changed"]
 [connection signal="inventory_changed" from="Inventory" to="GameUILayer/GameUI/Inventory" method="_on_Inventory_inventory_changed"]
+[connection signal="new_weapon_equiped" from="Inventory" to="." method="_on_Inventory_new_weapon_equiped"]

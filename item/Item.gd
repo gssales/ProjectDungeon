@@ -7,6 +7,8 @@ var _name
 var _range
 var damageRange
 var params
+export(PackedScene) var weapon_model
+var attack_speed
   
 func init(params):
   self._type = params._type
@@ -14,7 +16,16 @@ func init(params):
   self._range = params._range
   self.damageRange = params.damageRange
   self.params = params
+  self.weapon_model = params.weapon_model
+  self.attack_speed = params.attack_speed
 
 func damage(multiplier = 1):
   var damage = (randf() * (damageRange[1] - damageRange[0])) + damageRange[0]
   print(damage * multiplier)
+  return damage
+
+func get_weapon_model():
+  return weapon_model
+
+func get_attack_speed():
+  return attack_speed

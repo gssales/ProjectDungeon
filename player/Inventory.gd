@@ -1,8 +1,11 @@
 extends Node
 
 signal inventory_changed(item_icons)
+#added
+signal new_weapon_equiped(new_weapon)
 
 var ref_closest_item = null
+var equipped_weapon :String #: Spatial #added
 
 func _input(event):
   if event is InputEventKey: 
@@ -24,6 +27,11 @@ func _process(_delta):
 func toggle_item():
   move_child(get_child(1), 0)
   notify_inventory_changed()
+  
+  #added
+  equipped_weapon = get_child(0).get_weapon_model()
+  #print(equipped_weapon)
+  emit_signal("new_weapon_equiped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
 
  
 func add_item(params):
@@ -38,7 +46,11 @@ func add_item(params):
     
   add_child(item_node)
   move_child(item_node, 0)
-    
+  
+  # Send item model to be equipped
+  equipped_weapon = item_node.get_weapon_model()
+  #print(equipped_weapon)
+  emit_signal("new_weapon_equiped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
   notify_inventory_changed()
 
 

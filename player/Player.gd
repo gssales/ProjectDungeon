@@ -12,9 +12,14 @@ var speed = 0
 
 var ref_closest_item = null
 
-onready var attack_hitbox = get_node("Model/Attack_hitbox")
+onready var inventory = get_node("Inventory")
+onready var attack_hitbox : Area
 onready var attack_cooldown = get_node("Attack_timer")
-var weapon_damage = 25
+var weapon_damage = 7
+var equipped_weapon : Spatial
+var item : Node
+var attack_speed = 0.3
+
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
@@ -41,11 +46,16 @@ func _physics_process(delta):
   
   # Combat controls: 
   if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
-    for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
-      if body.is_in_group("Enemy"): #if it is an enemy
-        body.take_damage(weapon_damage)
-        print("hit enemy")
-    attack_cooldown.start()
+    if attack_hitbox != null:
+      for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
+        if body.is_in_group("Enemy"): #if it is an enemy
+          item = inventory.get_child(0)
+          weapon_damage = item.damage() # get weapon damage
+          attack_speed = item.get_attack_speed() / 1000.0 # get attack speed (milisecs)
+          print(weapon_damage)
+          body.take_damage(weapon_damage)
+          print("hit enemy")
+      attack_cooldown.start(attack_speed)
   
   
   if move_vec.length() > 0 :
@@ -97,9 +107,23 @@ func look_at_cursor():
   var cursor_pos = intersecPlane.intersects_ray(ray_origin, ray_end)
   
   if cursor_pos != null:
-    #look at the -z axis
+    # -z side/face of the model looks at position
     $Model.look_at(cursor_pos, Vector3.UP)
     
   # se for usar cursor position para mirar com armas de longo alcance: 
   # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
   
+
+# instance new weapon attack hitbox
+func _on_Inventory_new_weapon_equiped(new_weapon):
+  equipped_weapon = new_weapon.instance()
+  if equipped_weapon != null: # and weapon.type == "melee"
+    # Find and remove the old weapon model
+    var old_model = get_tree().get_nodes_in_group("weapon_model")
+    if not old_model.empty():
+      #print(old_model)
+      old_model[0].queue_free()
+    
+    # Insert the new weapon model
+    $Model/Hand.add_child(equipped_weapon)
+    attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
