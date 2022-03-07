@@ -34,3 +34,6 @@ func get_hitbox():
 
 func get_attack_speed():
   return attack_speed
+
+func get_type():
+  return _type

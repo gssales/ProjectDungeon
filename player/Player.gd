@@ -16,8 +16,8 @@ onready var inventory = get_node("Inventory")
 onready var attack_hitbox : Area
 onready var attack_cooldown = get_node("Attack_timer")
 var weapon_damage = 7
-var equipped_weapon : Spatial
-var item : Node
+var weapon_model : Spatial
+var equipped_weapon : Node
 var attack_speed = 0.3
 
 
@@ -46,16 +46,23 @@ func _physics_process(delta):
   
   # Combat controls: 
   if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
-    if attack_hitbox != null:
-      for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
-        if body.is_in_group("Enemy"): #if it is an enemy
-          item = inventory.get_child(0)
-          weapon_damage = item.damage() # get weapon damage
-          attack_speed = item.get_attack_speed() / 1000.0 # get attack speed (milisecs)
-          print(weapon_damage)
-          body.take_damage(weapon_damage)
-          print("hit enemy")
-      attack_cooldown.start(attack_speed)
+    equipped_weapon = inventory.get_child(0)
+    # If its a sword / melee type weapon -> use hitbox
+    if (equipped_weapon != null) and (equipped_weapon.get_type() == "espada"):
+      if attack_hitbox != null:
+        for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
+          if body.is_in_group("Enemy"): #if it is an enemy 
+            weapon_damage = equipped_weapon.damage() # get weapon damage
+            attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
+            print(weapon_damage)
+            body.take_damage(weapon_damage)
+            print("hit enemy")
+        attack_cooldown.start(attack_speed)
+    else:
+      # If its a crossbow/bow/ranged weapon -> instance arrows/bolts/projectiles
+      #if (equipped_weapon != null) and (equipped_weapon.type == "ranged"):
+        #equipped_weapon.shoot()
+      pass
   
   
   if move_vec.length() > 0 :
@@ -116,8 +123,8 @@ func look_at_cursor():
 
 # instance new weapon attack hitbox
 func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
-  equipped_weapon = new_weapon.instance()
-  if equipped_weapon != null: # and weapon.type == "melee"
+  weapon_model = new_weapon.instance()
+  if weapon_model != null: # and weapon.type == "melee"
     # Find and remove the old weapon model
     var old_model = get_tree().get_nodes_in_group("weapon_model")
     if not old_model.empty():
@@ -125,7 +132,7 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
       old_model[0].queue_free()
     
     # Insert the new weapon model
-    $Model/Hand.add_child(equipped_weapon)
+    $Model/Hand.add_child(weapon_model)
     #attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
     if new_hitbox != null:
       var hitbox_node = new_hitbox.instance()
