@@ -31,9 +31,13 @@ func toggle_item():
   #added
   equipped_weapon = get_child(0)
   if equipped_weapon:
-    var weapon_model = equipped_weapon.get_weapon_model()
-    var hitbox = equipped_weapon.get_hitbox()
-    emit_signal("new_weapon_equipped", load(weapon_model), load(hitbox)) #ver se tem como fazer isso sem o load
+    #ver se tem como fazer isso sem o load
+    var weapon_model = load(equipped_weapon.get_weapon_model())
+    var hitbox = null
+    var hitbox_path = equipped_weapon.get_hitbox()
+    if hitbox_path:
+      hitbox = load(hitbox_path)
+    emit_signal("new_weapon_equipped", weapon_model, hitbox)
     #equipped_weapon = get_child(0).get_weapon_model()
     #emit_signal("new_weapon_equipped", load(equipped_weapon))
  
@@ -54,9 +58,12 @@ func add_item(params):
 #  equipped_weapon = item_node.get_weapon_model()
 #  emit_signal("new_weapon_equipped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
   equipped_weapon = item_node
-  var weapon_model = equipped_weapon.get_weapon_model()
-  var hitbox = equipped_weapon.get_hitbox()
-  emit_signal("new_weapon_equipped", load(weapon_model), load(hitbox)) #ver se tem como fazer isso sem o load
+  var weapon_model = load(equipped_weapon.get_weapon_model())
+  var hitbox = null
+  var hitbox_path = equipped_weapon.get_hitbox()
+  if hitbox_path:
+    hitbox = load(hitbox_path)
+  emit_signal("new_weapon_equipped", weapon_model, hitbox)
   
   notify_inventory_changed()
 

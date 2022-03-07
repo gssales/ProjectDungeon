@@ -127,27 +127,28 @@ func look_at_cursor():
   # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
   
 
-# instance new weapon attack hitbox
+# instance new weapon and attack hitbox
 func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
-  weapon_model = new_weapon.instance()
-  if weapon_model != null: # and weapon.type == "melee"
-    # Find and remove the old weapon model
-    var old_model = get_tree().get_nodes_in_group("weapon_model")
-    if not old_model.empty():
-      #print(old_model)
-      old_model[0].queue_free()
-    
-    # Insert the new weapon model
-    $Model/Hand.add_child(weapon_model)
-    #attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
-    
-    var old_hitbox = get_tree().get_nodes_in_group("weapon_hitbox")
-    if not old_hitbox.empty():
-      old_hitbox[0].queue_free()
+  if new_weapon != null:
+    weapon_model = new_weapon.instance()
+    if weapon_model != null: # and weapon.type == "melee"
+      # Find and remove the old weapon model
+      var old_model = get_tree().get_nodes_in_group("weapon_model")
+      if not old_model.empty():
+        #print(old_model)
+        old_model[0].queue_free()
       
-    if new_hitbox != null:
-      var hitbox_node = new_hitbox.instance()
-      $Model/MeleeHitbox.add_child(hitbox_node)
-      attack_hitbox = hitbox_node.get_child(0) 
+      # Insert the new weapon model
+      $Model/Hand.add_child(weapon_model)
+      #attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
+      
+      var old_hitbox = get_tree().get_nodes_in_group("weapon_hitbox")
+      if not old_hitbox.empty():
+        old_hitbox[0].queue_free()
+        
+      if new_hitbox != null:
+        var hitbox_node = new_hitbox.instance()
+        $Model/MeleeHitbox.add_child(hitbox_node)
+        attack_hitbox = hitbox_node.get_child(0) 
   
   
