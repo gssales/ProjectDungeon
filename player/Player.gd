@@ -51,12 +51,14 @@ func _physics_process(delta):
     equipped_weapon = inventory.get_child(0)
     # If its a sword / melee type weapon -> use hitbox
     if equipped_weapon != null:
+      weapon_damage = equipped_weapon.damage() # get weapon damage
+      attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
       if equipped_weapon.get_type() == "espada":
         if attack_hitbox != null: # depois fazer a hitbox ficar ativa somente por um periodo de tempo
           for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
             if body.is_in_group("Enemy"): #if it is an enemy 
-              weapon_damage = equipped_weapon.damage() # get weapon damage
-              attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
+#              weapon_damage = equipped_weapon.damage() # get weapon damage
+#              attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
               print(weapon_damage)
               body.take_damage(weapon_damage)
               print("hit enemy")
@@ -64,9 +66,9 @@ func _physics_process(delta):
       else:
         # If its a crossbow/bow/ranged weapon -> instance arrows/bolts/projectiles
         if equipped_weapon.get_type() == "crossbow":
-          weapon_model.bolt_damage = equipped_weapon.damage()
+          weapon_model.bolt_damage = weapon_damage
           weapon_model.shoot()
-          attack_speed = equipped_weapon.get_attack_speed() / 1000.0
+          #attack_speed = equipped_weapon.get_attack_speed() / 1000.0
           attack_cooldown.start(attack_speed)
         #pass
   
