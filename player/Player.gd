@@ -12,6 +12,8 @@ var speed = 0
 
 var ref_closest_item = null
 
+var cursor_pos = Vector3()
+
 onready var inventory = get_node("Inventory")
 onready var attack_hitbox : Area
 onready var attack_cooldown = get_node("Attack_timer")
@@ -19,7 +21,6 @@ var weapon_damage = 7
 var weapon_model : Spatial
 var equipped_weapon : Node
 var attack_speed = 0.3
-
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
@@ -46,23 +47,28 @@ func _physics_process(delta):
   
   # Combat controls: 
   if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
+    #print("attack")
     equipped_weapon = inventory.get_child(0)
     # If its a sword / melee type weapon -> use hitbox
-    if (equipped_weapon != null) and (equipped_weapon.get_type() == "espada"):
-      if attack_hitbox != null:
-        for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
-          if body.is_in_group("Enemy"): #if it is an enemy 
-            weapon_damage = equipped_weapon.damage() # get weapon damage
-            attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
-            print(weapon_damage)
-            body.take_damage(weapon_damage)
-            print("hit enemy")
-        attack_cooldown.start(attack_speed)
-    else:
-      # If its a crossbow/bow/ranged weapon -> instance arrows/bolts/projectiles
-      #if (equipped_weapon != null) and (equipped_weapon.type == "ranged"):
-        #equipped_weapon.shoot()
-      pass
+    if equipped_weapon != null:
+      if equipped_weapon.get_type() == "espada":
+        if attack_hitbox != null: # depois fazer a hitbox ficar ativa somente por um periodo de tempo
+          for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
+            if body.is_in_group("Enemy"): #if it is an enemy 
+              weapon_damage = equipped_weapon.damage() # get weapon damage
+              attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
+              print(weapon_damage)
+              body.take_damage(weapon_damage)
+              print("hit enemy")
+          attack_cooldown.start(attack_speed)
+      else:
+        # If its a crossbow/bow/ranged weapon -> instance arrows/bolts/projectiles
+        if equipped_weapon.get_type() == "crossbow":
+          weapon_model.bolt_damage = equipped_weapon.damage()
+          weapon_model.shoot()
+          attack_speed = equipped_weapon.get_attack_speed() / 1000.0
+          attack_cooldown.start(attack_speed)
+        #pass
   
   
   if move_vec.length() > 0 :
@@ -111,7 +117,7 @@ func look_at_cursor():
   var mouse_pos = get_viewport().get_mouse_position()
   var ray_origin = $Camera.project_ray_origin(mouse_pos)
   var ray_end = ray_origin + $Camera.project_ray_normal(mouse_pos) * ray_length
-  var cursor_pos = intersecPlane.intersects_ray(ray_origin, ray_end)
+  cursor_pos = intersecPlane.intersects_ray(ray_origin, ray_end)
   
   if cursor_pos != null:
     # -z side/face of the model looks at position
@@ -134,9 +140,14 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
     # Insert the new weapon model
     $Model/Hand.add_child(weapon_model)
     #attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
+    
+    var old_hitbox = get_tree().get_nodes_in_group("weapon_hitbox")
+    if not old_hitbox.empty():
+      old_hitbox[0].queue_free()
+      
     if new_hitbox != null:
       var hitbox_node = new_hitbox.instance()
       $Model/MeleeHitbox.add_child(hitbox_node)
       attack_hitbox = hitbox_node.get_child(0) 
-    
+  
   

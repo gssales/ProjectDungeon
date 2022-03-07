@@ -10,7 +10,7 @@ albedo_color = Color( 0, 1, 0.639216, 1 )
 material = SubResource( 2 )
 size = Vector3( 0.5, 1, 0.5 )
 
-[node name="Hitbox" type="Area"]
+[node name="Hitbox" type="Area" groups=["weapon_hitbox"]]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9955 )
