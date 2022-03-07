@@ -2,10 +2,10 @@ extends Node
 
 signal inventory_changed(item_icons)
 #added
-signal new_weapon_equiped(new_weapon)
+signal new_weapon_equipped(new_weapon, new_hitbox)
 
 var ref_closest_item = null
-var equipped_weapon :String #: Spatial #added
+var equipped_weapon : Node #added
 
 func _input(event):
   if event is InputEventKey: 
@@ -29,10 +29,12 @@ func toggle_item():
   notify_inventory_changed()
   
   #added
-  equipped_weapon = get_child(0).get_weapon_model()
-  #print(equipped_weapon)
-  emit_signal("new_weapon_equiped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
-
+  equipped_weapon = get_child(0)
+  var weapon_model = equipped_weapon.get_weapon_model()
+  var hitbox = equipped_weapon.get_hitbox()
+  emit_signal("new_weapon_equipped", load(weapon_model), load(hitbox)) #ver se tem como fazer isso sem o load
+  #equipped_weapon = get_child(0).get_weapon_model()
+  #emit_signal("new_weapon_equipped", load(equipped_weapon))
  
 func add_item(params):
   var item_node = preload("res://item/Item.tscn").instance()
@@ -48,9 +50,13 @@ func add_item(params):
   move_child(item_node, 0)
   
   # Send item model to be equipped
-  equipped_weapon = item_node.get_weapon_model()
-  #print(equipped_weapon)
-  emit_signal("new_weapon_equiped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
+#  equipped_weapon = item_node.get_weapon_model()
+#  emit_signal("new_weapon_equipped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
+  equipped_weapon = item_node
+  var weapon_model = equipped_weapon.get_weapon_model()
+  var hitbox = equipped_weapon.get_hitbox()
+  emit_signal("new_weapon_equipped", load(weapon_model), load(hitbox)) #ver se tem como fazer isso sem o load
+  
   notify_inventory_changed()
 
 

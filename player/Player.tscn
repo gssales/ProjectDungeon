@@ -49,7 +49,10 @@ material = SubResource( 3 )
 [node name="TweenRotation" type="Tween" parent="Model"]
 
 [node name="Hand" type="Position3D" parent="Model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.979 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0097, 0, -0.655946 )
+
+[node name="MeleeHitbox" type="Position3D" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
 layer = 99
@@ -78,11 +81,11 @@ script = ExtResource( 7 )
 
 [node name="Attack_timer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 0.3
+wait_time = 0.1
 one_shot = true
 autostart = true
 
 [connection signal="health_changed" from="Health" to="GameUILayer/GameUI" method="_on_Health_health_changed"]
 [connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI" method="_on_Stamina_stamina_changed"]
 [connection signal="inventory_changed" from="Inventory" to="GameUILayer/GameUI/Inventory" method="_on_Inventory_inventory_changed"]
-[connection signal="new_weapon_equiped" from="Inventory" to="." method="_on_Inventory_new_weapon_equiped"]
+[connection signal="new_weapon_equipped" from="Inventory" to="." method="_on_Inventory_new_weapon_equipped"]

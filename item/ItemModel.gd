@@ -11,7 +11,8 @@ export var params = {
   attack_speed = 300, #in milisecs
   modelPath="res://item/items/models/item.obj",
   icon_path = "res://assets/icon1.png",
-  weapon_model = "res://item/items/weapon1/Sword_model1.tscn"
+  weapon_model = "res://item/items/weapon1/Sword_model1.tscn",
+  hitbox = "res://item/items/weapon1/Attack_Hitbox1.tscn"
 }
 
 var _shader_sheen_level = -1.25

@@ -115,7 +115,7 @@ func look_at_cursor():
   
 
 # instance new weapon attack hitbox
-func _on_Inventory_new_weapon_equiped(new_weapon):
+func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
   equipped_weapon = new_weapon.instance()
   if equipped_weapon != null: # and weapon.type == "melee"
     # Find and remove the old weapon model
@@ -126,4 +126,10 @@ func _on_Inventory_new_weapon_equiped(new_weapon):
     
     # Insert the new weapon model
     $Model/Hand.add_child(equipped_weapon)
-    attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
+    #attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
+    if new_hitbox != null:
+      var hitbox_node = new_hitbox.instance()
+      $Model/MeleeHitbox.add_child(hitbox_node)
+      attack_hitbox = hitbox_node.get_child(0) 
+    
+  
