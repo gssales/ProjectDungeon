@@ -175,3 +175,8 @@ params = {
 "modelPath": "res://item/items/models/item.obj",
 "weapon_model": "res://item/items/weapon2/crossbow_model.tscn"
 }
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41746, 5.52577, 0 )
