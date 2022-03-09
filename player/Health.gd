@@ -4,7 +4,7 @@ extends Node
 signal health_changed(new_health)
 
 var health = 100
-export(int) var max_health = 100
+export(float) var max_health = 100
 
 func _ready():
   health = max_health

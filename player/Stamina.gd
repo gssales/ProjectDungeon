@@ -4,7 +4,7 @@ extends Node
 signal stamina_changed(new_stamina)
 
 var stamina = 0
-export(int) var max_stamina = 100
+export(float) var max_stamina = 100
 
 func _ready():
   stamina = max_stamina

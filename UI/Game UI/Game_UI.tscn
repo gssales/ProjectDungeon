@@ -8,20 +8,10 @@
 [ext_resource path="res://UI/Game UI/Counter/UI_background.png" type="Texture" id=6]
 [ext_resource path="res://UI/Game UI/StatusBar/LifeBar/bar_progress.png" type="Texture" id=7]
 [ext_resource path="res://UI/Game UI/inventory UI/InventoryUI.gd" type="Script" id=8]
-
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-
-[sub_resource type="StreamTexture" id=2]
-flags = 4
-
-[sub_resource type="StreamTexture" id=3]
-flags = 4
-
-[sub_resource type="StreamTexture" id=4]
-resource_local_to_scene = true
-flags = 4
-load_path = "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+[ext_resource path="res://UI/Game UI/StatusBar/StaminaBar/bar_outline.png" type="Texture" id=9]
+[ext_resource path="res://UI/Game UI/StatusBar/StaminaBar/SP_icon.png" type="Texture" id=10]
+[ext_resource path="res://UI/Game UI/StatusBar/StaminaBar/stamina_progress.png" type="Texture" id=11]
+[ext_resource path="res://UI/Game UI/inventory UI/InventorySlot.png" type="Texture" id=12]
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -131,7 +121,7 @@ margin_left = 9.0
 margin_top = -12.5
 margin_right = 49.0
 margin_bottom = 12.5
-texture = SubResource( 1 )
+texture = ExtResource( 10 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -156,11 +146,11 @@ __meta__ = {
 
 [node name="TextureProgress" type="TextureProgress" parent="PlayerStatus/StaminaBar"]
 margin_left = 124.0
-margin_right = 124.0
-margin_bottom = 16.0
+margin_right = 495.0
+margin_bottom = 31.0
 value = 50.0
-texture_under = SubResource( 2 )
-texture_progress = SubResource( 3 )
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 11 )
 
 [node name="Inventory" type="HBoxContainer" parent="."]
 anchor_left = 1.0
@@ -181,7 +171,7 @@ __meta__ = {
 margin_right = 65.0
 margin_bottom = 65.0
 rect_min_size = Vector2( 65, 65 )
-texture = SubResource( 4 )
+texture = ExtResource( 12 )
 expand = true
 stretch_mode = 6
 __meta__ = {
@@ -193,7 +183,7 @@ margin_left = 83.0
 margin_right = 133.0
 margin_bottom = 65.0
 rect_min_size = Vector2( 50, 50 )
-texture = SubResource( 4 )
+texture = ExtResource( 12 )
 expand = true
 stretch_mode = 6
 __meta__ = {

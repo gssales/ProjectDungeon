@@ -1,8 +1,11 @@
 extends Node
 
 signal inventory_changed(item_icons)
+#added
+signal new_weapon_equipped(new_weapon, new_hitbox)
 
 var ref_closest_item = null
+var equipped_weapon : Node #added
 
 func _input(event):
   if event is InputEventKey: 
@@ -17,14 +20,26 @@ func _input(event):
       toggle_item()
 
 
-func _process(delta):
+func _process(_delta):
   select_closest_item()
 
 
 func toggle_item():
   move_child(get_child(1), 0)
   notify_inventory_changed()
-
+  
+  #added
+  equipped_weapon = get_child(0)
+  if equipped_weapon:
+    #ver se tem como fazer isso sem o load
+    var weapon_model = load(equipped_weapon.get_weapon_model())
+    var hitbox = null
+    var hitbox_path = equipped_weapon.get_hitbox()
+    if hitbox_path:
+      hitbox = load(hitbox_path)
+    emit_signal("new_weapon_equipped", weapon_model, hitbox)
+    #equipped_weapon = get_child(0).get_weapon_model()
+    #emit_signal("new_weapon_equipped", load(equipped_weapon))
  
 func add_item(params):
   var item_node = preload("res://item/Item.tscn").instance()
@@ -38,7 +53,18 @@ func add_item(params):
     
   add_child(item_node)
   move_child(item_node, 0)
-    
+  
+  # Send item model to be equipped
+#  equipped_weapon = item_node.get_weapon_model()
+#  emit_signal("new_weapon_equipped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
+  equipped_weapon = item_node
+  var weapon_model = load(equipped_weapon.get_weapon_model())
+  var hitbox = null
+  var hitbox_path = equipped_weapon.get_hitbox()
+  if hitbox_path:
+    hitbox = load(hitbox_path)
+  emit_signal("new_weapon_equipped", weapon_model, hitbox)
+  
   notify_inventory_changed()
 
 
