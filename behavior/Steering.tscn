@@ -2,5 +2,5 @@
 
 [ext_resource path="res://behavior/Steering.gd" type="Script" id=1]
 
-[node name="Steering" type="Node"]
+[node name="Steering" type="Spatial"]
 script = ExtResource( 1 )

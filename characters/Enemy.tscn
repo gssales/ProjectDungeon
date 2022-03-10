@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://characters/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://behavior/Steering.tscn" type="PackedScene" id=2]
 [ext_resource path="res://behavior/Behavior.tscn" type="PackedScene" id=3]
+[ext_resource path="res://behavior/sensor/LineOfSight.tscn" type="PackedScene" id=4]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.5 )
@@ -28,3 +29,11 @@ debug_shape_thickness = 5.0
 [node name="Steering" parent="." instance=ExtResource( 2 )]
 
 [node name="Behavior" parent="." instance=ExtResource( 3 )]
+
+[node name="LineOfSight" parent="." instance=ExtResource( 4 )]
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 0, -2 )
+debug_shape_custom_color = Color( 0.584314, 0.278431, 0.278431, 1 )
+debug_shape_thickness = 5.0

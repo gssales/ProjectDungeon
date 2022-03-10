@@ -9,10 +9,45 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "BaseSteeringBehavior",
+"class": "ArriveSteering",
+"language": "GDScript",
+"path": "res://behavior/steering/ArriveSteering.gd"
+}, {
+"base": "BaseState",
+"class": "AttackBase",
+"language": "GDScript",
+"path": "res://behavior/states/AttackState.gd"
+}, {
+"base": "Object",
+"class": "BaseState",
+"language": "GDScript",
+"path": "res://behavior/states/BaseState.gd"
+}, {
+"base": "Object",
+"class": "BaseSteeringBehavior",
+"language": "GDScript",
+"path": "res://behavior/steering/BaseSteeringBehavior.gd"
+}, {
 "base": "Node",
 "class": "Behavior",
 "language": "GDScript",
 "path": "res://behavior/Behavior.gd"
+}, {
+"base": "BaseState",
+"class": "BeserkState",
+"language": "GDScript",
+"path": "res://behavior/states/BeserkState.gd"
+}, {
+"base": "KinematicBody",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://characters/Enemy.gd"
+}, {
+"base": "BaseState",
+"class": "FleeState",
+"language": "GDScript",
+"path": "res://behavior/states/FleeState.gd"
 }, {
 "base": "BaseState",
 "class": "FollowState",
@@ -24,33 +59,59 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://item/ItemModel.gd"
 }, {
-"base": "Object",
-"class": "StateBehavior",
+"base": "Spatial",
+"class": "LineOfSight",
 "language": "GDScript",
-"path": "res://behavior/states/StateBehavior.gd"
+"path": "res://behavior/sensor/LineOfSight.gd"
+}, {
+"base": "BaseState",
+"class": "LookOutState",
+"language": "GDScript",
+"path": "res://behavior/states/LookOutState.gd"
+}, {
+"base": "BaseSteeringBehavior",
+"class": "SeekSteering",
+"language": "GDScript",
+"path": "res://behavior/steering/SeekSteering.gd"
 }, {
 "base": "Spatial",
 "class": "Steering",
 "language": "GDScript",
 "path": "res://behavior/Steering.gd"
 }, {
-"base": "Object",
-"class": "SteeringBehaviors",
+"base": "BaseSteeringBehavior",
+"class": "StoppingSteering",
 "language": "GDScript",
-"path": "res://behavior/steering/SteeringBehaviors.gd"
+"path": "res://behavior/steering/StoppingSteering.gd"
+}, {
+"base": "BaseState",
+"class": "WanderState",
+"language": "GDScript",
+"path": "res://behavior/states/WanderState.gd"
+}, {
+"base": "BaseSteeringBehavior",
+"class": "WanderSteering",
+"language": "GDScript",
+"path": "res://behavior/steering/WanderSteering.gd"
 } ]
 _global_script_class_icons={
+"ArriveSteering": "",
+"AttackBase": "",
+"BaseState": "",
+"BaseSteeringBehavior": "",
 "Behavior": "",
+"BeserkState": "",
+"Enemy": "",
+"FleeState": "",
 "FollowState": "",
 "ItemModel": "",
-"StateBehavior": "",
+"LineOfSight": "",
+"LookOutState": "",
+"SeekSteering": "",
 "Steering": "",
-"SteeringBehaviors": ""
-}
-
-[application]
-
-config/name="Project Dungeon"
+"StoppingSteering": "",
+"WanderState": "",
+"WanderSteering": ""
 run/main_scene="res://scenes/TestScene.tscn"
 config/icon="res://icon.png"
 
