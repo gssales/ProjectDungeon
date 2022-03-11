@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
 [ext_resource path="res://UI/Game UI/Game_UI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/Stamina.gd" type="Script" id=4]
 [ext_resource path="res://UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/Game UI/DeathScreen/DeathScreen.tscn" type="PackedScene" id=6]
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 
 [sub_resource type="SphereShape" id=1]
@@ -65,6 +66,8 @@ layer = 100
 [node name="PauseMenu" parent="PauseLayer" instance=ExtResource( 5 )]
 visible = false
 
+[node name="DeathScreen" parent="." instance=ExtResource( 6 )]
+
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
 
@@ -86,6 +89,8 @@ one_shot = true
 autostart = true
 
 [connection signal="health_changed" from="Health" to="GameUILayer/GameUI" method="_on_Health_health_changed"]
+[connection signal="you_died" from="Health" to="." method="_on_Health_you_died"]
+[connection signal="you_died" from="Health" to="DeathScreen" method="_on_Health_you_died"]
 [connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI" method="_on_Stamina_stamina_changed"]
 [connection signal="inventory_changed" from="Inventory" to="GameUILayer/GameUI/Inventory" method="_on_Inventory_inventory_changed"]
 [connection signal="new_weapon_equipped" from="Inventory" to="." method="_on_Inventory_new_weapon_equipped"]

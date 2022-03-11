@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://enemies/enemy_1/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://behavior/Behavior.tscn" type="PackedScene" id=2]
@@ -17,6 +17,13 @@ material = SubResource( 2 )
 radius = 0.7
 mid_height = 1.65
 
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+
+[sub_resource type="CubeMesh" id=5]
+material = SubResource( 4 )
+size = Vector3( 1, 0.5, 0.5 )
+
 [node name="Enemy" type="KinematicBody" groups=["Enemy"]]
 script = ExtResource( 1 )
 
@@ -30,6 +37,11 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
+material/0 = null
+
+[node name="Eyes" type="MeshInstance" parent="CSGMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843472, -0.596589 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="DetectGround" type="RayCast" parent="."]

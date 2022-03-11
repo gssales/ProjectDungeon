@@ -2,6 +2,7 @@ extends Node
 
 
 signal health_changed(new_health)
+signal you_died()
 
 var health = 100
 export(float) var max_health = 100
@@ -18,6 +19,7 @@ func take_damage(amount):
   health -= amount
   if health < 0:
     health = 0 
+    emit_signal("you_died")
     #print("Health already depleted")
   
   emit_signal("health_changed", health)

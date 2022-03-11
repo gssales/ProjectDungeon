@@ -154,3 +154,7 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
         attack_hitbox = hitbox_node.get_child(0) 
   
   
+
+
+func _on_Health_you_died():
+  print("You Died")
