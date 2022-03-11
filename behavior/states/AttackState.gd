@@ -3,8 +3,10 @@ class_name AttackState extends BaseState
 var steer_node : Steering
 var timer = 0 
 var COOLDOWN = 1
+var vision : LineOfSight
 
 func _enter(entity: Enemy):
+  vision = entity.get_node("LineOfSight")
   steer_node = entity.get_node("Steering")
   var SeekSteering = load("res://behavior/steering/SeekSteering.gd")
   steer_node.current_behavior = SeekSteering.new()
@@ -12,6 +14,17 @@ func _enter(entity: Enemy):
   
 func _execute(entity: Enemy, delta: float):
   timer += delta
+  
+  var seen = vision._look()
+  if seen == null:
+    entity.target_foe = null   
+  else:
+    entity.target_foe = seen
+  
+  if entity.target_foe == null:
+    var behavior = entity.get_node("Behavior")
+    var LookOutState = load("res://behavior/states/LookOutState.gd")
+    behavior.change_state(LookOutState.new())
   
   var distance_to_foe = entity.transform.origin.distance_to(steer_node.target_position)
   if distance_to_foe > 5:
