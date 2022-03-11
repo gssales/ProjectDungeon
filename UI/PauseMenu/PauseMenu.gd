@@ -12,10 +12,10 @@ func _input(event):
 func toggle_pause_menu():
   self.visible = not self.visible
 
-#func _on_Player_toggle_pause_menu():
-#  self.visible = not self.visible
-
-
 func _on_ResumeBTN_pressed():
   toggle_pause_menu()
   get_tree().paused = false
+
+
+func _on_MainMenuBTN_pressed():
+  get_tree().quit()

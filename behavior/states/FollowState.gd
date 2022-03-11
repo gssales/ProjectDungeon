@@ -27,6 +27,11 @@ func _execute(entity: Enemy, delta: float):
     steer_node.current_behavior = SeekSteering.new()
     
   # se estiver perto o sufiente vá pro modo ataque
+  if distance_to_foe <= 2:
+    var behavior = entity.get_node("Behavior")
+    var AttackState = load("res://behavior/states/AttackState.gd")
+    behavior.change_state(AttackState.new())
+  
   # se perder o inimigo de vista, continua indo até o ultimo ponto em que viu o inimigo e entra em modo lookout
   var seen = vision._look()
   if seen == null:

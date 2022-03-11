@@ -19,7 +19,7 @@ albedo_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
 [node name="TestScene" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.70291, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.344893, 1.73164, -0.372272 )
 GRAVITY = 400
 
 [node name="Ground" type="StaticBody" parent="."]

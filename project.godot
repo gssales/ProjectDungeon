@@ -15,7 +15,7 @@ _global_script_classes=[ {
 "path": "res://behavior/steering/ArriveSteering.gd"
 }, {
 "base": "BaseState",
-"class": "AttackBase",
+"class": "AttackState",
 "language": "GDScript",
 "path": "res://behavior/states/AttackState.gd"
 }, {
@@ -96,7 +96,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ArriveSteering": "",
-"AttackBase": "",
+"AttackState": "",
 "BaseState": "",
 "BaseSteeringBehavior": "",
 "Behavior": "",
