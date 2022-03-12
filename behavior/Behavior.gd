@@ -2,7 +2,7 @@ class_name Behavior extends Node
 
 onready var WanderState = preload("res://behavior/states/WanderState.gd")
 
-var current_state
+var current_state: BaseState
 
 func _ready():
   current_state = WanderState.new()
