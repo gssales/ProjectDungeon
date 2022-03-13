@@ -38,10 +38,11 @@ depth = 200.0
 material = SubResource( 6 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( -0.328586, 0.191606, 0.924834, 0.368019, -0.875836, 0.312209, 0.869824, 0.442944, 0.217273, 19.1155, 9.3181, -4.80515 )
+transform = Transform( 0.707107, -0.612372, 0.353553, 0.183013, 0.641457, 0.74501, -0.683013, -0.462097, 0.56565, 19.1155, 6.3181, 24.1949 )
 shadow_enabled = true
-spot_range = 123.068
-spot_angle = 21.8184
+spot_range = 114.026
+spot_attenuation = 0.108819
+spot_angle_attenuation = 90.5098
 
 [node name="Props" type="Node" parent="."]
 
@@ -142,9 +143,9 @@ params = {
 "attack_speed": 300,
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
-"icon_path": "res://assets/item1.png",
+"icon_path": "res://assets/Item1.png",
 "modelPath": "res://item/items/models/item.obj",
-"weapon_model": "res://item/items/weapon1/sword_model1.tscn"
+"weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
 }
 
 [node name="ItemModel3" parent="Items" instance=ExtResource( 2 )]
@@ -156,9 +157,9 @@ params = {
 "attack_speed": 300,
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
-"icon_path": "res://assets/item2.png",
+"icon_path": "res://assets/Item2.png",
 "modelPath": "res://item/items/models/item.obj",
-"weapon_model": "res://item/items/weapon1/sword_model1.tscn"
+"weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
 }
 
 [node name="ItemModel2" parent="Items" instance=ExtResource( 2 )]
@@ -170,7 +171,7 @@ params = {
 "attack_speed": 300,
 "damageRange": [ 5, 10 ],
 "hitbox": "",
-"icon_path": "res://assets/item3.png",
+"icon_path": "res://assets/Item3.png",
 "modelPath": "res://item/items/models/item.obj",
 "weapon_model": "res://item/items/weapon2/crossbow_model.tscn"
 }

@@ -24,12 +24,6 @@ func set_length(new_length : float) -> void:
     
 func set_height(new_height : float) -> void:
   height = new_height
-  if Engine.editor_hint:
-    $CSGBox.height = height
-    $CSGBox.transform.origin = Vector3.ZERO
-    $CSGBox.translate(Vector3(length/2.0, height/2.0, 0))
   
 func set_depth(new_depth : float) -> void:
   depth = new_depth
-  if Engine.editor_hint:
-    $CSGBox.depth = depth

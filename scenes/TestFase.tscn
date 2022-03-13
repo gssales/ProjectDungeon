@@ -181,9 +181,9 @@ params = {
 "attack_speed": 300,
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
-"icon_path": "res://assets/item1.png",
+"icon_path": "res://assets/Item1.png",
 "modelPath": "res://item/items/models/item.obj",
-"weapon_model": "res://item/items/weapon1/sword_model1.tscn"
+"weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
 }
 
 [node name="ItemModel3" parent="Items" instance=ExtResource( 5 )]
@@ -195,7 +195,7 @@ params = {
 "attack_speed": 300,
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/Attack_Hitbox1.tscn",
-"icon_path": "res://assets/icon1.png",
+"icon_path": "res://assets/Item1.png",
 "modelPath": "res://item/items/models/item.obj",
 "weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
 }
@@ -209,7 +209,7 @@ params = {
 "attack_speed": 300,
 "damageRange": [ 5, 10 ],
 "hitbox": "",
-"icon_path": "res://assets/item3.png",
+"icon_path": "res://assets/Item3.png",
 "modelPath": "res://item/items/models/item.obj",
 "weapon_model": "res://item/items/weapon2/crossbow_model.tscn"
 }
