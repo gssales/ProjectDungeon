@@ -5,14 +5,14 @@ var timer = 0
 var COOLDOWN = 1
 var vision : LineOfSight
 
-func _enter(entity: Enemy):
+func _enter(entity: Entity):
   vision = entity.get_node("LineOfSight")
   steer_node = entity.get_node("Steering")
   var SeekSteering = load("res://behavior/steering/SeekSteering.gd")
   steer_node.current_behavior = SeekSteering.new()
   entity.max_speed = 2
   
-func _execute(entity: Enemy, delta: float):
+func _execute(entity: Entity, delta: float):
   timer += delta
   
   var seen = vision._look()
@@ -40,6 +40,5 @@ func _execute(entity: Enemy, delta: float):
         body.get_node("Health").take_damage(10)
         timer = 0
         
- 
-func _exit(entity: Enemy):
+func _exit(entity: Entity):
   pass

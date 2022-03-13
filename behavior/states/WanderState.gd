@@ -5,7 +5,7 @@ var vision: LineOfSight
 var wandering_duration
 var time_elapsed = 0
 
-func _enter(entity: Enemy):
+func _enter(entity: Entity):
   vision = entity.get_node("LineOfSight")
   steer_node = entity.get_node("Steering")
   var WanderSteering = load("res://behavior/steering/WanderSteering.gd")
@@ -13,7 +13,7 @@ func _enter(entity: Enemy):
   entity.max_speed = 5
   wandering_duration = rand_range(3, 5)
 
-func _execute(entity: Enemy, delta: float):
+func _execute(entity: Entity, delta: float):
   # vaga aleatoriamente por X segundos
   time_elapsed += delta
   
@@ -32,5 +32,5 @@ func _execute(entity: Enemy, delta: float):
     var LookOutState = load("res://behavior/states/LookOutState.gd")
     behavior.change_state(LookOutState.new())
 
-func _exit(entity: Enemy):
+func _exit(_entity: Entity):
   pass

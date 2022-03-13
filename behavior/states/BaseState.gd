@@ -1,10 +1,10 @@
 class_name BaseState extends Object
 
-func _enter(entity: Enemy):
+func _enter(_entity: Entity):
   assert(false, "Method not implemented")
   
-func _execute(entity: Enemy, delta: float):
+func _execute(_entity: Entity, _delta: float):
   assert(false, "Method not implemented")
   
-func _exit(entity: Enemy):
+func _exit(_entity: Entity):
   assert(false, "Method not implemented")

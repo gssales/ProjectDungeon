@@ -16,7 +16,7 @@ func very_smal_random_float():
 func _behavior_type():
   return "wander"
 
-func _calculate(entity: Enemy, delta: float, _params):
+func _calculate(entity: Entity, delta: float, _params):
   var jitter_amount = wander_jitter * delta
 
   # first, add a small random vector to the target's position

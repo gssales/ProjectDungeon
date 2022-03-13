@@ -5,7 +5,7 @@ var vision: LineOfSight
 var lookout_duration
 var time_elapsed = 0
 
-func _enter(entity: Enemy):
+func _enter(entity: Entity):
   vision = entity.get_node("LineOfSight")
   steer_node = entity.get_node("Steering")
   var StoppingSteering = load("res://behavior/steering/StoppingSteering.gd")
@@ -13,7 +13,7 @@ func _enter(entity: Enemy):
   entity.max_speed = 20
   lookout_duration = rand_range(3, 5)
   
-func _execute(entity: Enemy, delta: float):
+func _execute(entity: Entity, delta: float):
   if entity._velocity.length() > 0.05:
     return
   entity._velocity = Vector3.ZERO
@@ -35,5 +35,5 @@ func _execute(entity: Enemy, delta: float):
     var WanderState = load("res://behavior/states/WanderState.gd")
     behavior.change_state(WanderState.new())
   
-func _exit(entity: Enemy):
+func _exit(_entity: Entity):
   pass

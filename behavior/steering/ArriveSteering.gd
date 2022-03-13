@@ -1,6 +1,6 @@
 class_name ArriveSteering extends BaseSteeringBehavior
 
-func _calculate(entity: Enemy, _delta: float, params):
+func _calculate(entity: Entity, _delta: float, params):
   var to_target = params.target - entity.transform.origin
   var distance = to_target.length()
   

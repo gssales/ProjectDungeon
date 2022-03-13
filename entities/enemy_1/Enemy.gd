@@ -1,19 +1,17 @@
-class_name Enemy extends KinematicBody
+class_name Enemy extends Entity
 
 export(float) var maxhealth = 35
 var health = 0
 
 var mass = 1
 
-var max_speed = 2
-var max_turn_rate = PI/3
-
-var _velocity = Vector3.ZERO
-var _heading = Vector3.FORWARD
-
 var target_foe = null
 
 func _ready():
+  max_speed = 2
+  max_turn_rate = PI/3
+  _velocity = Vector3.ZERO
+  _heading = Vector3.FORWARD
   $DetectGround.enabled = true
   health = maxhealth
 
@@ -41,7 +39,7 @@ func _physics_process(delta):
   if _velocity.length() > max_speed:
     _velocity = _velocity.normalized() * max_speed
     
-  if _velocity.length() > 0.000001:
+  if Vector2(_velocity.x, _velocity.z).length() > 0.000001:
     _heading = Vector3(_velocity.x, 0, _velocity.z).normalized() * 4
     look_at(transform.origin + _heading, Vector3.UP)
     

@@ -8,7 +8,7 @@ var steer_node: Steering
 var time_before_loosing_interest = 8
 var time_elapsed_interest = 0
 
-func _enter(entity: Enemy):
+func _enter(entity: Entity):
   SeekSteering = load("res://behavior/steering/SeekSteering.gd")
   ArriveSteering = load("res://behavior/steering/ArriveSteering.gd")
   
@@ -18,7 +18,7 @@ func _enter(entity: Enemy):
   entity.max_speed = 17
   steer_node.current_behavior = SeekSteering.new()
   
-func _execute(entity: Enemy, delta: float):
+func _execute(entity: Entity, delta: float):
   # vá na direção do inimigo
   var distance_to_foe = entity.transform.origin.distance_to(steer_node.target_position)
   if distance_to_foe < 5:
@@ -46,5 +46,5 @@ func _execute(entity: Enemy, delta: float):
     var LookOutState = load("res://behavior/states/LookOutState.gd")
     behavior.change_state(LookOutState.new())
   
-func _exit(entity: Enemy):
+func _exit(entity: Entity):
   pass
