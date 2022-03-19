@@ -19,6 +19,7 @@ radial_segments = 8
 albedo_color = Color( 0.741176, 0.741176, 0.741176, 1 )
 metallic = 1.0
 metallic_specular = 1.0
+roughness = 0.35
 
 [sub_resource type="CylinderMesh" id=14]
 material = SubResource( 13 )
