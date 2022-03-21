@@ -25,8 +25,8 @@ func _input(event):
     #add_member(ref_closest_ally.ally)
     add_member()
     var container = get_tree().get_nodes_in_group("Allies_idle_container")[0]
-    if container != null:
-      container.remove_child(ref_closest_ally)
+    #if container != null:
+      #container.remove_child(ref_closest_ally)
     ref_closest_ally = null
       
   if event.is_action_pressed("toggle_party_member"):
@@ -38,10 +38,13 @@ func _process(_delta):
 
 
 func toggle_allies():
-  # move aliado na segunda posicao para a primeira (aliado_0 para 1)
-  move_child(get_child(1), 0)
-  # move aliado na terceira posicao para a segunda (aliado_0 para 2)
-  move_child(get_child(2), 1)
+  var n_members = get_child_count()
+  if n_members > 1:
+    # move aliado na segunda posicao para a primeira (aliado_0 para 1)
+    move_child(get_child(1), 0)
+  if n_members > 2:
+    # move aliado na terceira posicao para a segunda (aliado_0 para 2)
+    move_child(get_child(2), 1)
   emit_signal("party_changed")
   #notify_party_changed()
 
