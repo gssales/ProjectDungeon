@@ -1,6 +1,7 @@
 class_name Behavior_Ally extends Node
 
 onready var WanderState = preload("res://allies/behavior_allies/states/WanderState.gd")
+#onready var IdleState = preload("res://allies/behavior_allies/states/IdleState.gd")
 
 var current_state
 

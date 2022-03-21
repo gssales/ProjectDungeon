@@ -13,9 +13,14 @@ var _heading = Vector3.FORWARD
 
 var target_foe = null
 
+export(PackedScene) var ally_idle: PackedScene
+
 func _ready():
   $DetectGround.enabled = true
   health = maxhealth
+  set_as_toplevel(true)
+  set_physics_process(false)
+  set_process(false)
 
 func _physics_process(delta):
   if health <= 0:

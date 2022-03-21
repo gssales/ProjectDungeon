@@ -28,7 +28,7 @@ bottom_radius = 0.1
 height = 0.35
 
 [sub_resource type="CapsuleShape" id=16]
-radius = 0.15
+radius = 0.213749
 height = 2.01
 
 [node name="Arrow" type="RigidBody" groups=["projectile"]]
