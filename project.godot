@@ -54,7 +54,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://item/ItemModel.gd"
 }, {
-"base": "Spatial",
+"base": "Sensor",
 "class": "LineOfSight",
 "language": "GDScript",
 "path": "res://behavior/sensor/LineOfSight.gd"
@@ -68,6 +68,11 @@ _global_script_classes=[ {
 "class": "SeekSteering",
 "language": "GDScript",
 "path": "res://behavior/steering/SeekSteering.gd"
+}, {
+"base": "Spatial",
+"class": "Sensor",
+"language": "GDScript",
+"path": "res://behavior/sensor/Sensor.gd"
 }, {
 "base": "Spatial",
 "class": "Steering",
@@ -102,6 +107,7 @@ _global_script_class_icons={
 "LineOfSight": "",
 "LookOutState": "",
 "SeekSteering": "",
+"Sensor": "",
 "Steering": "",
 "StoppingSteering": "",
 "WanderState": "",
