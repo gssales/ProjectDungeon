@@ -1,10 +1,10 @@
 class_name Sensor extends Spatial
 
-signal entity_entered(entity)
-signal entity_exited(entity)
-signal update_closest_entity(entity)
+func get_position() -> Vector3:
+  return global_transform.origin
 
-var seen_entities := []
-
+func intersect_ray(target: Vector3):
+  return get_world().direct_space_state.intersect_ray(get_position(), target)
+  
 func update(_delta: float) -> void:
   pass

@@ -1,12 +1,15 @@
 class_name LineOfSight extends Sensor
 
+signal entity_entered(entity)
+signal entity_exited(entity)
+signal update_closest_entity(entity)
+
+var seen_entities := []
+
 var hear_radius = 5
 var view_radius = 30
 var field_of_view = PI/3
 var looking_for_groups = []
-
-func get_position() -> Vector3:
-  return global_transform.origin
   
 func sort_by_proximity(node_a, node_b):
   return get_position().distance_squared_to(node_b.transform.origin) \
@@ -15,9 +18,6 @@ func sort_by_proximity(node_a, node_b):
 func is_on_field_of_view(heading: Vector3, vector: Vector3):
   var angle = heading.angle_to(vector)
   return angle < field_of_view
-  
-func intersect_ray(target: Vector3):
-  return get_world().direct_space_state.intersect_ray(get_position(), target)
 
 func update(_delta: float) -> void:
   var heading = to_global(Vector3.FORWARD) - get_position()
