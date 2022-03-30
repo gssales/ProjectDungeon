@@ -48,7 +48,8 @@ func _physics_process(delta):
     
   if _velocity.length() > 0.000001:
     _heading = Vector3(_velocity.x, 0, _velocity.z).normalized() * 4
-    look_at(transform.origin + _heading, Vector3.UP)
+    if(_heading.length() > 0):
+      look_at(transform.origin + _heading, Vector3.UP)
     
   _velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector3.DOWN)
 

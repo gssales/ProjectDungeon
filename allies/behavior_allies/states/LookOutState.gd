@@ -29,11 +29,11 @@ func _execute(entity: Ally, delta: float):
     var FollowState = load("res://allies/behavior_allies/states/FollowState.gd")
     behavior.change_state(FollowState.new())
   
-  # se não vai pro modo wander
+  # se não vai pro modo FollowPlayer
   if time_elapsed >= lookout_duration:
     var behavior = entity.get_node("Behavior")
-    var WanderState = load("res://allies/behavior_allies/states/WanderState.gd")
-    behavior.change_state(WanderState.new())
+    var FollowPlayerState = load("res://allies/behavior_allies/states/FollowPlayerState.gd")
+    behavior.change_state(FollowPlayerState.new())
   
 func _exit(entity: Ally):
   pass

@@ -1,12 +1,14 @@
 class_name Behavior_Ally extends Node
 
-onready var WanderState = preload("res://allies/behavior_allies/states/WanderState.gd")
+#onready var WanderState = preload("res://allies/behavior_allies/states/WanderState.gd")
 #onready var IdleState = preload("res://allies/behavior_allies/states/IdleState.gd")
+onready var FollowPlayerState = preload("res://allies/behavior_allies/states/FollowPlayerState.gd")
 
 var current_state
 
 func _ready():
-  current_state = WanderState.new()
+  #current_state = WanderState.new()
+  current_state = FollowPlayerState.new()
   current_state._enter(get_parent())
   
 func update(delta):
