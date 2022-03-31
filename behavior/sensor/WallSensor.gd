@@ -1,6 +1,6 @@
 class_name WallSensor extends Sensor
 
-signal wall_detected(wall_normal, contact_length)
+signal wall_detected(wall_detection)
 
 var whiskers = [
   Vector3.FORWARD + Vector3.RIGHT,
@@ -23,6 +23,10 @@ func update(_delta: float) -> void:
         contact_length = whisker.distance_to(contact) / whisker.length()
   
   if contact_length > 0:
-    emit_signal("wall_detected", wall_normal, contact_length)
-      
+    emit_signal("wall_detected", {
+      'normal': wall_normal, 
+      'length': contact_length
+      })
+  else:
+    emit_signal("wall_detected", null)
     
