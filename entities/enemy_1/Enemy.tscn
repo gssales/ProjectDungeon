@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://entities/enemy_1/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://behavior/Behavior.tscn" type="PackedScene" id=2]
 [ext_resource path="res://behavior/Steering.tscn" type="PackedScene" id=3]
 [ext_resource path="res://behavior/sensor/LineOfSight.tscn" type="PackedScene" id=4]
-
+[ext_resource path="res://behavior/sensor/WallSensor.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.653388
@@ -55,8 +55,4 @@ debug_shape_thickness = 5.0
 
 [node name="LineOfSight" parent="." instance=ExtResource( 4 )]
 
-[node name="RayCast" type="RayCast" parent="."]
-enabled = true
-cast_to = Vector3( 0, 0, -2 )
-debug_shape_custom_color = Color( 0.584314, 0.278431, 0.278431, 1 )
-debug_shape_thickness = 5.0
+[node name="WallSensor" parent="." instance=ExtResource( 5 )]

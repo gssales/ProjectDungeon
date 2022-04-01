@@ -3,8 +3,8 @@ class_name Steering extends Spatial
 var wall_avoidance := WallAvoidance.new()
 var current_behavior: BaseSteeringBehavior
 
-var wall_weight = 0.8
-var steer_weight = 0.2
+var wall_weight = 4
+var steer_weight = 2
 
 var entity: Entity
 
@@ -23,5 +23,5 @@ func calculate(delta, params):
     result = result.normalized() * entity.max_force
   return result
   
-func on_change_steering_behavior(behavior: BaseSteeringBehavior) -> void:
+func _on_BehaviorState_change_steering(behavior: BaseSteeringBehavior) -> void:
   current_behavior = behavior

@@ -36,5 +36,5 @@ func _calculate(entity: Entity, delta: float, _params):
   target = entity.to_global(target)
 
   #and steer towards it
-  return target - entity.transform.origin; 
+  return target - entity.get_position() 
   

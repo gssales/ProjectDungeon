@@ -9,7 +9,7 @@ var seen_entities := []
 var hear_radius = 5
 var view_radius = 30
 var field_of_view = PI/3
-var looking_for_groups = []
+var looking_for_groups = ["player"]
   
 func sort_by_proximity(node_a, node_b):
   return get_position().distance_squared_to(node_b.transform.origin) \
@@ -52,5 +52,9 @@ func update(_delta: float) -> void:
       emit_signal("entity_entered", seen)
       seen_entities.push_front(seen)
       
-  seen_entities.sort_custom(self, "sort_by_proximity")
-  emit_signal("update_closest_entity", seen_entities[0])
+  if seen_entities.size() > 0:
+    seen_entities.sort_custom(self, "sort_by_proximity")
+    var entity = seen_entities[0]
+    emit_signal("update_closest_entity", entity)
+  else:
+    emit_signal("update_closest_entity", null)

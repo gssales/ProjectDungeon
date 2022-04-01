@@ -4,7 +4,7 @@ signal wall_detected(wall_detection)
 
 var whiskers = [
   Vector3.FORWARD + Vector3.RIGHT,
-  Vector3.FORWARD *2,
+  Vector3.FORWARD * 6,
   Vector3.FORWARD + Vector3.LEFT
  ]
 

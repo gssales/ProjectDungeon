@@ -1,44 +1,24 @@
 class_name AttackState extends BaseState
 
-var steer_node : Steering
-var timer = 0 
-var COOLDOWN = 1
-var vision : LineOfSight
+signal entity_attack
 
-func _enter(entity: Entity):
-  vision = entity.get_node("LineOfSight")
-  steer_node = entity.get_node("Steering")
+const ATTACK_STATE = "attack_state"
+
+func _enter(_entity: Entity):
   var SeekSteering = load("res://behavior/steering/SeekSteering.gd")
-  steer_node.current_behavior = SeekSteering.new()
-  entity.max_speed = 2
-  
-func _execute(entity: Entity, delta: float):
-  timer += delta
-  
-  var seen = vision._look()
-  if seen == null:
-    entity.target_foe = null   
-  else:
-    entity.target_foe = seen
-  
-  if entity.target_foe == null:
-    var behavior = entity.get_node("Behavior")
+  emit_signal("change_steering", SeekSteering.new())
+  emit_signal("change_entity", { 'max_speed': 2 })
+    
+func _execute(entity: Entity, _delta: float):  
+  if not entity.target_on_sight:
     var LookOutState = load("res://behavior/states/LookOutState.gd")
-    behavior.change_state(LookOutState.new())
+    emit_signal("change_state", LookOutState.new())
+    return
   
-  var distance_to_foe = entity.transform.origin.distance_to(steer_node.target_position)
-  if distance_to_foe > 5:
-    var behavior = entity.get_node("Behavior")
+  if entity.distance_to_target > 5:
     var FollowState = load("res://behavior/states/FollowState.gd")
-    behavior.change_state(FollowState.new())      
+    emit_signal("change_state", FollowState.new())
+    return
   
-  var ray_cast = entity.get_node("RayCast")
-  if ray_cast.is_colliding():
-    var body = ray_cast.get_collider()
-    if body.is_in_group("player"):
-      if timer >= COOLDOWN:
-        body.get_node("Health").take_damage(10)
-        timer = 0
-        
-func _exit(entity: Entity):
-  pass
+  if entity.can_attack:
+    emit_signal("entity_attack")

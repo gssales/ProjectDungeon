@@ -1,50 +1,39 @@
 class_name FollowState extends BaseState
 
+const FOLLOW_STATE = "follow_state"
+
 var SeekSteering
 var ArriveSteering
 
-var vision: LineOfSight
-var steer_node: Steering
 var time_before_loosing_interest = 8
 var time_elapsed_interest = 0
 
-func _enter(entity: Entity):
+func _enter(_entity: Entity):
   SeekSteering = load("res://behavior/steering/SeekSteering.gd")
   ArriveSteering = load("res://behavior/steering/ArriveSteering.gd")
   
-  vision = entity.get_node("LineOfSight")
-  steer_node = entity.get_node("Steering")
-  
-  entity.max_speed = 17
-  steer_node.current_behavior = SeekSteering.new()
-  
+  emit_signal("change_steering", SeekSteering.new())
+  emit_signal("change_entity", { 'max_speed': 17 })
+    
 func _execute(entity: Entity, delta: float):
   # vá na direção do inimigo
-  var distance_to_foe = entity.transform.origin.distance_to(steer_node.target_position)
-  if distance_to_foe < 5:
-    steer_node.current_behavior = ArriveSteering.new()
+  if entity.distance_to_target < 5:
+    emit_signal("change_steering", ArriveSteering.new())
   else:
-    steer_node.current_behavior = SeekSteering.new()
+    emit_signal("change_steering", SeekSteering.new())
     
   # se estiver perto o sufiente vá pro modo ataque
-  if distance_to_foe <= 2:
-    var behavior = entity.get_node("Behavior")
+  if entity.distance_to_target <= 2:
     var AttackState = load("res://behavior/states/AttackState.gd")
-    behavior.change_state(AttackState.new())
+    emit_signal("change_state", AttackState.new())
   
   # se perder o inimigo de vista, continua indo até o ultimo ponto em que viu o inimigo e entra em modo lookout
-  var seen = vision._look()
-  if seen == null:
-    entity.target_foe = null
+  if not entity.target_on_sight:
     time_elapsed_interest += delta    
   else:
-    entity.target_foe = seen
     time_elapsed_interest = 0
     
   if time_elapsed_interest >= time_before_loosing_interest:
-    var behavior = entity.get_node("Behavior")
     var LookOutState = load("res://behavior/states/LookOutState.gd")
-    behavior.change_state(LookOutState.new())
+    emit_signal("change_state", LookOutState.new())
   
-func _exit(entity: Entity):
-  pass

@@ -1,17 +1,24 @@
 class_name LookOutState extends BaseState
 
-var steer_node: Steering
-var vision: LineOfSight
-var lookout_duration
-var time_elapsed = 0
+signal entity_rotate(radians)
 
-func _enter(entity: Entity):
-  vision = entity.get_node("LineOfSight")
-  steer_node = entity.get_node("Steering")
+const LOOKOUT_STATE = "lookout_state"
+
+var rng = RandomNumberGenerator.new()
+
+var lookout_duration
+var time_until_rotate
+var time_elapsed = 0
+var timer_rotate = 0
+
+func _enter(_entity: Entity):
+  rng.randomize()
   var StoppingSteering = load("res://behavior/steering/StoppingSteering.gd")
-  steer_node.current_behavior = StoppingSteering.new()
-  entity.max_speed = 20
-  lookout_duration = rand_range(3, 5)
+  
+  emit_signal("change_steering", StoppingSteering.new())
+  emit_signal("change_entity", { 'max_speed': 20 })
+  lookout_duration = rng.randf_range(6, 8)
+  time_until_rotate = rng.randf_range(2, 5)
   
 func _execute(entity: Entity, delta: float):
   if entity._velocity.length() > 0.05:
@@ -20,20 +27,22 @@ func _execute(entity: Entity, delta: float):
   
   # Olha ao redor por x segundos
   time_elapsed += delta
+  timer_rotate += delta
+  
+  if timer_rotate >= time_until_rotate:
+    timer_rotate = 0
+    var rot = rand_range(-PI/3, PI/3)
+    rot += PI/6 * rot/abs(rot)
+    emit_signal("entity_rotate", rot)
+    time_until_rotate = rng.randf_range(2, 5)
+  
   # Se ver o jogador entra no modo seek
-  var seen = vision._look()
-  if seen != null:
-    entity.target_foe = seen
-    
-    var behavior = entity.get_node("Behavior")
+  if entity.target_on_sight:
     var FollowState = load("res://behavior/states/FollowState.gd")
-    behavior.change_state(FollowState.new())
+    emit_signal("change_state", FollowState.new())
   
   # se não vai pro modo wander
   if time_elapsed >= lookout_duration:
-    var behavior = entity.get_node("Behavior")
     var WanderState = load("res://behavior/states/WanderState.gd")
-    behavior.change_state(WanderState.new())
-  
-func _exit(_entity: Entity):
-  pass
+    emit_signal("change_state", WanderState.new())
+
