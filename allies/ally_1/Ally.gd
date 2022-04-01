@@ -13,14 +13,15 @@ var _heading = Vector3.FORWARD
 
 var target_foe = null
 
-export(PackedScene) var ally_idle: PackedScene
+#export(PackedScene) var ally_idle: PackedScene
+var added_to_party = false
 
 func _ready():
   $DetectGround.enabled = true
   health = maxhealth
   set_as_toplevel(true)
-  set_physics_process(false)
-  set_process(false)
+  #set_physics_process(false)
+  #set_process(false)
 
 func _physics_process(delta):
   if health <= 0:
@@ -57,3 +58,14 @@ func take_damage(amount):
   health -= amount
   if health < 0:
     health = 0 
+
+func add_to_party():
+  added_to_party = true
+  
+func remove_from_party():
+  added_to_party = false
+  var IdleState = load("res://allies/behavior_allies/states/IdleState.gd").new()
+  $Behavior.change_state(IdleState)
+
+func is_in_party():
+  return added_to_party
