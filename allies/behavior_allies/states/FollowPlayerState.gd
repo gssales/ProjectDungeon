@@ -43,10 +43,11 @@ func _execute(entity: Ally, delta: float):
   # vá na direção do inimigo
   var distance_to_foe = entity.transform.origin.distance_to(steer_node.target_position)
   if distance_to_foe < 5:
-    steer_node.current_behavior = BaseSteeringBehavior_Ally.new()#ArriveSteering.new()
-    var behavior = entity.get_node("Behavior")
-    var LookOutState = load("res://allies/behavior_allies/states/LookOutState.gd")
-    behavior.change_state(LookOutState.new())
+    #steer_node.current_behavior = BaseSteeringBehavior_Ally.new()#ArriveSteering.new()
+    steer_node.current_behavior = StoppingSteering_Ally.new()
+#    var behavior = entity.get_node("Behavior")
+#    var LookOutState = load("res://allies/behavior_allies/states/LookOutState.gd")
+#    behavior.change_state(LookOutState.new())
   elif distance_to_foe < 10:
     steer_node.current_behavior = ArriveSteering.new()
   else:
