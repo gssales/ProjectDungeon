@@ -7,6 +7,8 @@ var timer = 0
 export var shot = false
 #signal enemy_hit(enemy)
 
+# original area collision shape radius -> 0.15 -> was changed for testing
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
   set_as_toplevel(true)

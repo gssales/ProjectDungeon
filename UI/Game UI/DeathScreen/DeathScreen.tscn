@@ -12,6 +12,17 @@ script = ExtResource( 1 )
 visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="NinePatchRect" parent="Popup"]
 anchor_left = 0.5
