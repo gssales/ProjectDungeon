@@ -9,7 +9,7 @@ var seen_entities := []
 var hear_radius = 5
 var view_radius = 30
 var field_of_view = PI/3
-var looking_for_groups = ["player"]
+var looking_for_groups = []
   
 func sort_by_proximity(node_a, node_b):
   return get_position().distance_squared_to(node_b.transform.origin) \

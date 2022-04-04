@@ -14,7 +14,7 @@ func _ready():
 func calculate(delta, params):
   var result = Vector3.ZERO
   
-  result += wall_avoidance._calculate(entity, delta, params) * wall_weight
+  result += wall_avoidance._calculate(entity, delta, params) *  entity._velocity.length()
     
   if current_behavior != null:
     result += current_behavior._calculate(entity, delta, params) * steer_weight

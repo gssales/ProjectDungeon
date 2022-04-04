@@ -1,7 +1,5 @@
 class_name WanderState extends BaseState
 
-const WANDER_STATE = "wander"
-
 var wandering_duration
 var time_elapsed = 0
 
@@ -17,10 +15,14 @@ func _execute(entity: Entity, delta: float):
   
   # se ver um inimigo, vai pro modo seguir
   if entity.target_on_sight:
-    var FollowState = load("res://behavior/states/FollowState.gd")
+    var FollowState = load("res://behavior/states/enemy_fsm/FollowState.gd")
     emit_signal("change_state", FollowState.new())
   
   # senao muda para o modo lookout
   if time_elapsed >= wandering_duration:
-    var LookOutState = load("res://behavior/states/LookOutState.gd")
+    var LookOutState = load("res://behavior/states/enemy_fsm/LookOutState.gd")
     emit_signal("change_state", LookOutState.new())
+
+
+func _exit(_entity: Entity):
+  pass
