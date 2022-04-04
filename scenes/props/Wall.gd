@@ -1,7 +1,7 @@
 tool extends StaticBody
-export(float, 5.0, 20, 1.0) var length = 5.0 setget set_length
-export(float, 1, 5, 0.5) var height = 3.0 setget set_height
-export(float, 0.6, 3, 0.6) var depth = 0.6 setget set_depth
+export(float, 4.0, 24, 1.0) var length = 5.0 setget set_length
+export(float, 1, 8, 0.5) var height = 3.0 setget set_height
+export(float, 0.6, 4, 0.2) var depth = 0.6 setget set_depth
   
 func _ready():
   $CSGBox.width = length

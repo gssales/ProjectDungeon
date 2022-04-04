@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://rooms/Room0.tscn" type="PackedScene" id=2]
+
+[sub_resource type="MeshLibrary" id=1]
+item/0/name = ""
+item/0/mesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/0/shapes = [  ]
+item/0/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Level" type="Spatial"]
+
+[node name="Rooms" type="Node" parent="."]
+
+[node name="Room0" parent="Rooms" instance=ExtResource( 2 )]
+
+[node name="Room1" parent="Rooms" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = SubResource( 1 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
