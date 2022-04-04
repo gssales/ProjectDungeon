@@ -12,7 +12,7 @@ func _on_Restart_pressed():
   #$Popup.popup()
   get_tree().paused = false
   print("Pressed")
-  get_tree().reload_current_scene()
+  var _reloaded = get_tree().reload_current_scene()
 
 
 func _on_MainMenuBTN_pressed():

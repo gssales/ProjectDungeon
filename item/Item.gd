@@ -11,15 +11,15 @@ export(PackedScene) var weapon_model
 export(PackedScene) var hitbox
 var attack_speed
   
-func init(params):
-  self._type = params._type
-  self._name = params._name
-  self._range = params._range
-  self.damageRange = params.damageRange
-  self.params = params
-  self.weapon_model = params.weapon_model
-  self.attack_speed = params.attack_speed
-  self.hitbox = params.hitbox
+func init(new_params):
+  self._type = new_params._type
+  self._name = new_params._name
+  self._range = new_params._range
+  self.damageRange = new_params.damageRange
+  self.params = new_params
+  self.weapon_model = new_params.weapon_model
+  self.attack_speed = new_params.attack_speed
+  self.hitbox = new_params.hitbox
 
 func damage(multiplier = 1):
   var damage = (randf() * (damageRange[1] - damageRange[0])) + damageRange[0]

@@ -9,6 +9,7 @@ size = Vector3( 0.25, 0.15, 0.1 )
 albedo_color = Color( 0.654902, 0.654902, 0.654902, 1 )
 metallic = 1.0
 metallic_specular = 1.0
+roughness = 0.2
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 0.1, 2, 0.25 )
@@ -17,6 +18,7 @@ size = Vector3( 0.1, 2, 0.25 )
 albedo_color = Color( 0.654902, 0.654902, 0.654902, 1 )
 metallic = 1.0
 metallic_specular = 1.0
+roughness = 0.2
 
 [sub_resource type="CubeMesh" id=5]
 size = Vector3( 0.15, 0.75, 0.15 )
@@ -24,6 +26,7 @@ size = Vector3( 0.15, 0.75, 0.15 )
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.647059, 0.647059, 0.647059, 1 )
 metallic = 0.5
+roughness = 0.35
 
 [sub_resource type="CubeMesh" id=7]
 size = Vector3( 0.1, 0.75, 0.15 )

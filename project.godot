@@ -9,15 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Entity",
+"class": "Ally",
+"language": "GDScript",
+"path": "res://entities/ally_1/Ally.gd"
+}, {
+"base": "BaseState",
+"class": "AllyAttackState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/AllyAttackState.gd"
+}, {
+"base": "BaseState",
+"class": "AllyLookOutState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/AllyLookOutState.gd"
+}, {
+"base": "BaseState",
+"class": "AllyWanderState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/AllyWanderState.gd"
+}, {
 "base": "BaseSteeringBehavior",
 "class": "ArriveSteering",
 "language": "GDScript",
 "path": "res://behavior/steering/ArriveSteering.gd"
-}, {
-"base": "BaseState",
-"class": "AttackState",
-"language": "GDScript",
-"path": "res://behavior/states/AttackState.gd"
 }, {
 "base": "Object",
 "class": "BaseState",
@@ -29,37 +44,67 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://behavior/steering/BaseSteeringBehavior.gd"
 }, {
+"base": "Sensor",
+"class": "BattleSensor",
+"language": "GDScript",
+"path": "res://behavior/sensor/BattleSensor.gd"
+}, {
 "base": "Node",
 "class": "Behavior",
 "language": "GDScript",
 "path": "res://behavior/Behavior.gd"
 }, {
 "base": "BaseState",
-"class": "BeserkState",
+"class": "DefenseState",
 "language": "GDScript",
-"path": "res://behavior/states/BeserkState.gd"
+"path": "res://behavior/states/ally_fsm/DefenseState.gd"
 }, {
-"base": "KinematicBody",
+"base": "Entity",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://enemies/enemy_1/Enemy.gd"
+"path": "res://entities/enemy_1/Enemy.gd"
 }, {
 "base": "BaseState",
-"class": "FleeState",
+"class": "EnemyAttackState",
 "language": "GDScript",
-"path": "res://behavior/states/FleeState.gd"
+"path": "res://behavior/states/enemy_fsm/EnemyAttackState.gd"
+}, {
+"base": "KinematicBody",
+"class": "Entity",
+"language": "GDScript",
+"path": "res://entities/Entity.gd"
+}, {
+"base": "BaseSteeringBehavior",
+"class": "FleeSteering",
+"language": "GDScript",
+"path": "res://behavior/steering/FleeSteering.gd"
+}, {
+"base": "BaseState",
+"class": "FollowLeaderState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/FollowLeaderState.gd"
 }, {
 "base": "BaseState",
 "class": "FollowState",
 "language": "GDScript",
-"path": "res://behavior/states/FollowState.gd"
+"path": "res://behavior/states/enemy_fsm/FollowState.gd"
+}, {
+"base": "BaseState",
+"class": "FollowTargetState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/FollowTargetState.gd"
+}, {
+"base": "BaseState",
+"class": "IdleState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/IdleState.gd"
 }, {
 "base": "KinematicBody",
 "class": "ItemModel",
 "language": "GDScript",
 "path": "res://item/ItemModel.gd"
 }, {
-"base": "Spatial",
+"base": "Sensor",
 "class": "LineOfSight",
 "language": "GDScript",
 "path": "res://behavior/sensor/LineOfSight.gd"
@@ -67,12 +112,22 @@ _global_script_classes=[ {
 "base": "BaseState",
 "class": "LookOutState",
 "language": "GDScript",
-"path": "res://behavior/states/LookOutState.gd"
+"path": "res://behavior/states/enemy_fsm/LookOutState.gd"
+}, {
+"base": "Sensor",
+"class": "PartyLeaderSensor",
+"language": "GDScript",
+"path": "res://behavior/sensor/LeaderSensor.gd"
 }, {
 "base": "BaseSteeringBehavior",
 "class": "SeekSteering",
 "language": "GDScript",
 "path": "res://behavior/steering/SeekSteering.gd"
+}, {
+"base": "Spatial",
+"class": "Sensor",
+"language": "GDScript",
+"path": "res://behavior/sensor/Sensor.gd"
 }, {
 "base": "Spatial",
 "class": "Steering",
@@ -84,10 +139,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://behavior/steering/StoppingSteering.gd"
 }, {
+"base": "BaseSteeringBehavior",
+"class": "WallAvoidance",
+"language": "GDScript",
+"path": "res://behavior/steering/WallAvoidance.gd"
+}, {
+"base": "Sensor",
+"class": "WallSensor",
+"language": "GDScript",
+"path": "res://behavior/sensor/WallSensor.gd"
+}, {
 "base": "BaseState",
 "class": "WanderState",
 "language": "GDScript",
-"path": "res://behavior/states/WanderState.gd"
+"path": "res://behavior/states/enemy_fsm/WanderState.gd"
 }, {
 "base": "BaseSteeringBehavior",
 "class": "WanderSteering",
@@ -95,21 +160,34 @@ _global_script_classes=[ {
 "path": "res://behavior/steering/WanderSteering.gd"
 } ]
 _global_script_class_icons={
+"Ally": "",
+"AllyAttackState": "",
+"AllyLookOutState": "",
+"AllyWanderState": "",
 "ArriveSteering": "",
-"AttackState": "",
 "BaseState": "",
 "BaseSteeringBehavior": "",
+"BattleSensor": "",
 "Behavior": "",
-"BeserkState": "",
+"DefenseState": "",
 "Enemy": "",
-"FleeState": "",
+"EnemyAttackState": "",
+"Entity": "",
+"FleeSteering": "",
+"FollowLeaderState": "",
 "FollowState": "",
+"FollowTargetState": "",
+"IdleState": "",
 "ItemModel": "",
 "LineOfSight": "",
 "LookOutState": "",
+"PartyLeaderSensor": "",
 "SeekSteering": "",
+"Sensor": "",
 "Steering": "",
 "StoppingSteering": "",
+"WallAvoidance": "",
+"WallSensor": "",
 "WanderState": "",
 "WanderSteering": ""
 }
@@ -177,6 +255,18 @@ attack={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+toggle_party_member={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Allies"
+3d_physics/layer_4="Enemies"
 
 [physics]
 
