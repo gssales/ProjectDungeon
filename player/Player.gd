@@ -1,12 +1,13 @@
 extends KinematicBody
 
-#signal camera_position(pos)
+signal position_changed(new_position, new_velocity)
 
 export var GRAVITY = 980
 export var max_speed = 15
 export var acceleration = 15
 
 var _velocity = Vector3.ZERO
+var _position = Vector3.ZERO
 var angle = 0
 var speed = 0
 
@@ -108,6 +109,9 @@ func _physics_process(delta):
 
   _velocity = move_vec
   _velocity = move_and_slide_with_snap(_velocity, Vector3.DOWN)
+  
+  _position = transform.origin
+  emit_signal("position_changed", _position, _velocity)
 
 
 func look_at_cursor():
