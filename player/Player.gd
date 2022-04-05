@@ -14,6 +14,7 @@ var speed = 0
 var ref_closest_item = null
 
 var cursor_pos = Vector3()
+var camera_rotation = 0
 
 onready var inventory = get_node("Inventory")
 onready var attack_hitbox : Area
@@ -42,7 +43,7 @@ func _physics_process(delta):
   if Input.is_action_pressed("move_right"):
     move_vec += Vector3.RIGHT
 
-  move_vec = move_vec.normalized()
+  move_vec = move_vec.normalized().rotated(Vector3.UP, camera_rotation)
   
   look_at_cursor()
   
@@ -157,8 +158,10 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
         $Model/MeleeHitbox.add_child(hitbox_node)
         attack_hitbox = hitbox_node.get_child(0) 
   
-  
-
 
 func _on_Health_you_died():
   print("You Died")
+  
+
+func _on_PlayerCamera_camera_rotation(current_rotation):
+  camera_rotation = current_rotation

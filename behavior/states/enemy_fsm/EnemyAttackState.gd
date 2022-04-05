@@ -5,6 +5,7 @@ signal entity_attack
 const ATTACK_STATE = "attack_state"
 
 func _enter(entity: Entity):
+  #warning-ignore-all:return_value_discarded
   connect("entity_attack", entity, "_on_AttackState_entity_attack")
   
   var SeekSteering = load("res://behavior/steering/SeekSteering.gd")

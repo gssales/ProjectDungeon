@@ -1,10 +1,12 @@
 extends Spatial
 
+signal camera_rotation(new_rotation)
 var distance = 10
 var veloc = Vector3.ZERO
 
 func _ready():
-  pass
+  move_camera()
+  emit_signal("camera_rotation", $Camera.rotation.y)
   
 func _process(delta):
   var update_camera = false
@@ -22,7 +24,7 @@ func _process(delta):
         
 func move_camera():
   $Camera.look_at_from_position(
-      translation + (1.5*Vector3.UP + Vector3.BACK).normalized() * distance + veloc * 1/64, 
+      translation + (1.5*Vector3.UP + Vector3.BACK + Vector3.LEFT).normalized() * distance + veloc * 1/64, 
       translation + veloc * 1/64, 
       Vector3.UP)
   

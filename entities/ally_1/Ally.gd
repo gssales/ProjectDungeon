@@ -26,7 +26,7 @@ func _ready():
   
   #warning-ignore-all:return_value_discarded
   $WallSensor.connect("wall_detected", self, "_on_WallSensor_wall_detected")
-  $LineOfSight.looking_for_groups.push_back("enemy")
+  $LineOfSight.looking_for_groups.push_back("Enemy")
   $LineOfSight.connect("update_closest_entity", self, "_on_LineOfSight_update_closest_entity")
   $LineOfSight.connect("update_closest_entity", $BattleSensor, "_on_LineOfSight_update_closest_entity")
   $BattleSensor.connect("battle_state", self, "_on_BattleSensor_battle_state")

@@ -1,10 +1,10 @@
 class_name DefenseState extends BaseState
 
 
-func _enter(entity: Entity):
+func _enter(_entity: Entity):
   var FleeSteering = load("res://behavior/steering/FleeSteering.gd")
   emit_signal("change_steering", FleeSteering.new())
-  emit_signal("change_entity", { 'max_speed': 2, 'offset_heading': PI })
+  emit_signal("change_entity", { 'max_speed': 4, 'offset_heading': PI })
 
 func _execute(entity: Entity, _delta: float):
   # se o inimigo estiver vulnerável
@@ -13,6 +13,6 @@ func _execute(entity: Entity, _delta: float):
     emit_signal("change_state", AttackState.new())
     return
 
-func _exit(entity: Entity):
+func _exit(_entity: Entity):
   emit_signal("change_entity", { 'offset_heading': 0 })
   

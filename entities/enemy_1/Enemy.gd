@@ -9,7 +9,7 @@ var steering_params = {}
 var target_on_sight = false
 var distance_to_target = 1e10
 
-var can_attack = false
+var can_attack = true
 
 func _ready():
   max_speed = 2
