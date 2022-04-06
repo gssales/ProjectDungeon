@@ -122,8 +122,8 @@ func look_at_cursor():
   # Faz um ray cast e verifica onde intersecta no plano 
   var ray_length = 1000
   var mouse_pos = get_viewport().get_mouse_position()
-  var ray_origin = $Camera.project_ray_origin(mouse_pos)
-  var ray_end = ray_origin + $Camera.project_ray_normal(mouse_pos) * ray_length
+  var ray_origin = get_viewport().get_camera().project_ray_origin(mouse_pos)
+  var ray_end = ray_origin + get_viewport().get_camera().project_ray_normal(mouse_pos) * ray_length
   cursor_pos = intersecPlane.intersects_ray(ray_origin, ray_end)
   
   if cursor_pos != null:

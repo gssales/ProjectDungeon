@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://rooms/building/FogOfWar.gd" type="Script" id=1]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 36, 36 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+flags_disable_ambient_light = true
+albedo_color = Color( 0, 0, 0, 1 )
+
+[node name="FogOfWar" type="CSGMesh" groups=["fog_of_war"]]
+mesh = SubResource( 1 )
+material = SubResource( 2 )
+script = ExtResource( 1 )
