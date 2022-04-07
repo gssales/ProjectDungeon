@@ -15,8 +15,8 @@ func add_wall(transl, rotat, length):
     wall.height = 5.5
     wall.depth = 2
     $Walls.add_child(wall)
-
-func _ready():
+    
+func _ready():  
   if portal_up:
     add_wall(Vector3(-16, 0, -17), 0, 13)
     add_wall(Vector3(3, 0, -17), 0, 13)

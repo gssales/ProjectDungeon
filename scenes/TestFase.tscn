@@ -27,7 +27,7 @@ albedo_color = Color( 0.278431, 0.286275, 0.305882, 1 )
 environment = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 29 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4 )
 
 [node name="Walls" type="Node" parent="."]
 
@@ -148,20 +148,6 @@ script = ExtResource( 4 )
 
 [node name="OmniLight5" type="OmniLight" parent="Lights"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2, 11 )
-light_color = Color( 0.972549, 0.909804, 0.505882, 1 )
-shadow_enabled = true
-omni_range = 12.0
-script = ExtResource( 4 )
-
-[node name="OmniLight6" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 2, -5 )
-light_color = Color( 0.972549, 0.909804, 0.505882, 1 )
-shadow_enabled = true
-omni_range = 12.0
-script = ExtResource( 4 )
-
-[node name="OmniLight7" type="OmniLight" parent="Lights"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -7 )
 light_color = Color( 0.972549, 0.909804, 0.505882, 1 )
 shadow_enabled = true
 omni_range = 12.0

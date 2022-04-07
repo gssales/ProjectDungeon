@@ -18,20 +18,33 @@ func _ready():
   randomize()
   matrix_size = max_depth_generation*2
   initial_position = Vector2(matrix_size/2, matrix_size/2)
+  
   generate_matrix()
   post_generation()
-  add_matrix_as_child()
+  var map_node = add_to_map_node()
+  var lights_node = $LightingGenerator.generate_lights(matrix)
+  add_child(map_node)
+  add_child(lights_node)
+  
   print(n_rooms)
   $Player.translate(Vector3(initial_position.x*36, 0 ,initial_position.y*36))
   
+  var fogs = get_tree().get_nodes_in_group("fog_of_war")
+  for fog in fogs:
+    $Player.connect("position_changed", fog, "_on_Player_position_changed")
+    
 func _input(event):
   if event.is_action_pressed("interact"):
     get_tree().reload_current_scene()
     
-func add_matrix_as_child():
+func add_to_map_node() -> Spatial:
+  var map = Spatial.new()
   for x in range(matrix_size):
     for y in range(matrix_size):
-      add_child(matrix[x][y])
+      var r = matrix[x][y]
+      if r != null:
+        map.add_child(matrix[x][y])
+  return map
     
 func clear_matrix():
   matrix = []
@@ -55,13 +68,13 @@ func post_generation():
     var room = matrix[position.x][position.y]
     
     var prob = []
-    if not room.portal_up and matrix[position.x][position.y-1] != null:
+    if position.y-1 >= 0 and not room.portal_up and matrix[position.x][position.y-1] != null:
       prob.push_back(Vector2.UP)
-    if not room.portal_left and matrix[position.x-1][position.y] != null:
+    if position.x-1 >= 0 and not room.portal_left and matrix[position.x-1][position.y] != null:
       prob.push_back(Vector2.LEFT)
-    if not room.portal_down and matrix[position.x][position.y+1] != null:
+    if position.y+1 < matrix_size and not room.portal_down and matrix[position.x][position.y+1] != null:
       prob.push_back(Vector2.DOWN)
-    if not room.portal_right and matrix[position.x+1][position.y] != null:
+    if position.x+1 < matrix_size and not room.portal_right and matrix[position.x+1][position.y] != null:
       prob.push_back(Vector2.RIGHT)
       
     prob.shuffle()
