@@ -2,7 +2,7 @@ extends Spatial
 
 signal camera_rotation(new_rotation)
 export var lerp_movement = false
-var distance = 10
+export var distance = 30
 var veloc = Vector3.ZERO
 
 func _ready():

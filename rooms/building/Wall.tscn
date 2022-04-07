@@ -6,19 +6,18 @@
 albedo_color = Color( 0.129412, 0.152941, 0.180392, 1 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 2, 1.5, 0.3 )
+extents = Vector3( 2.5, 1.5, 0.3 )
 
 [node name="Wall" type="StaticBody" groups=["wall"]]
 script = ExtResource( 1 )
-length = 4.0
 
 [node name="CSGBox" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 0 )
-width = 4.0
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 0 )
+width = 5.0
 height = 3.0
 depth = 0.6
 material = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 0 )
 shape = SubResource( 3 )

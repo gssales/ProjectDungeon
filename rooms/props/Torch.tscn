@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/props/OmniLight.gd" type="Script" id=1]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.1
+bottom_radius = 0.04
+height = 1.0
+radial_segments = 4
+rings = 2
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.27451, 0.211765, 0.0784314, 1 )
+
+[sub_resource type="PrismMesh" id=3]
+size = Vector3( 0.248, 0.2, 0.2 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+albedo_color = Color( 1, 0.996078, 0.698039, 1 )
+
+[node name="Torch" type="Spatial"]
+
+[node name="Model" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0.2 )
+mesh = SubResource( 1 )
+material = SubResource( 2 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.570161, 0.0053138 )
+mesh = SubResource( 3 )
+material = SubResource( 4 )
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74207, 1.2014 )
+light_color = Color( 0.976471, 0.85098, 0.482353, 1 )
+shadow_enabled = true
+omni_range = 12.0
+script = ExtResource( 1 )
