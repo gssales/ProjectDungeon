@@ -58,6 +58,7 @@ func add_item(params):
 #  equipped_weapon = item_node.get_weapon_model()
 #  emit_signal("new_weapon_equipped", load(equipped_weapon)) #ver se tem como fazer isso sem o load
   equipped_weapon = item_node
+  print(equipped_weapon)
   var weapon_model = load(equipped_weapon.get_weapon_model())
   var hitbox = null
   var hitbox_path = equipped_weapon.get_hitbox()

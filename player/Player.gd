@@ -120,7 +120,7 @@ func look_at_cursor():
   var intersecPlane = Plane(Vector3.UP, player_pos.y) # para ficar no mesmo plano y do jogador (quando subir em algo)
   
   # Faz um ray cast e verifica onde intersecta no plano 
-  var ray_length = 1000
+  var ray_length = 1000000
   var mouse_pos = get_viewport().get_mouse_position()
   var ray_origin = get_viewport().get_camera().project_ray_origin(mouse_pos)
   var ray_end = ray_origin + get_viewport().get_camera().project_ray_normal(mouse_pos) * ray_length
@@ -129,7 +129,9 @@ func look_at_cursor():
   if cursor_pos != null:
     # -z side/face of the model looks at position
     $Model.look_at(cursor_pos, Vector3.UP)
-    
+  
+  $cursor.global_transform.origin = cursor_pos
+  #print(cursor_pos)
   # se for usar cursor position para mirar com armas de longo alcance: 
   # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
   

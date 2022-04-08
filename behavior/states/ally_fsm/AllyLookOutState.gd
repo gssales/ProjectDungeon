@@ -42,7 +42,7 @@ func _execute(entity: Entity, delta: float):
     time_until_rotate = rng.randf_range(2, 5)
   
   # se estiver há mais de 8 de distance do jogador
-  if entity.distance_from_leader >= 8:
+  if entity.distance_from_leader >= 6: #24:
     var FollowLeaderState = load("res://behavior/states/ally_fsm/FollowLeaderState.gd")
     emit_signal("change_state", FollowLeaderState.new())
     return

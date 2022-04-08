@@ -8,7 +8,7 @@ func _enter(_entity: Entity):
   
 func _execute(entity: Entity, _delta: float):
   # se estiver há menos de 4 de distance do jogador
-  if entity.distance_from_leader <= 16:
+  if entity.distance_from_leader <= 4: #16:
     var AllyWanderState = load("res://behavior/states/ally_fsm/AllyWanderState.gd")
     emit_signal("change_state", AllyWanderState.new())
     return

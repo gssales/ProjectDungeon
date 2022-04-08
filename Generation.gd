@@ -7,6 +7,10 @@ export var n_rooms = 10
 
 var GenericRoom = preload("res://rooms/GenericRoom.tscn")
 var GenericCorridor = preload("res://rooms/GenericCorridor.tscn")
+var Enemy = preload("res://entities/enemy_1/Enemy.tscn")
+var Ally = preload("res://entities/ally_1/Ally.tscn")
+
+var should_spawn_item = true
 
 var matrix_size
 var matrix
@@ -26,6 +30,19 @@ func _ready():
   add_child(map_node)
   add_child(lights_node)
   
+  var item = $ItemSpawner.spawn_random_item(initial_position*36)
+  $Items.add_child(item)
+  
+  var enemy_inst = Enemy.instance() 
+  $Enemies.add_child(enemy_inst)
+  
+  enemy_inst.translate(Vector3(initial_position.x*36 + 8, 0 ,initial_position.y*36 + 8))
+  
+  var ally_inst = Ally.instance()
+  $Allies.add_child(ally_inst)
+  
+  ally_inst.translate(Vector3(initial_position.x*36 - 8, 0 ,initial_position.y*36 - 8))
+  
   print(n_rooms)
   $Player.translate(Vector3(initial_position.x*36, 0 ,initial_position.y*36))
   
@@ -34,7 +51,7 @@ func _ready():
     $Player.connect("position_changed", fog, "_on_Player_position_changed")
     
 func _input(event):
-  if event.is_action_pressed("interact"):
+  if event.is_action_pressed("take_damage"):
     get_tree().reload_current_scene()
     
 func add_to_map_node() -> Spatial:
@@ -180,6 +197,7 @@ func add_corridor(position, doors):
 func add_room(position, doors):
   print("New Room ", position, " ", doors)
   var room = GenericRoom.instance()
+  
   for d in doors:
     if d.is_equal_approx(Vector2.UP):
       room.portal_up = true
@@ -193,3 +211,4 @@ func add_room(position, doors):
 #  add_child(room)
   matrix[position.x][position.y] = room
   room_list.push_back(position)
+  

@@ -104,6 +104,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://item/ItemModel.gd"
 }, {
+"base": "Spatial",
+"class": "ItemSpawner",
+"language": "GDScript",
+"path": "res://rooms/ItemSpawner.gd"
+}, {
 "base": "Sensor",
 "class": "LineOfSight",
 "language": "GDScript",
@@ -179,6 +184,7 @@ _global_script_class_icons={
 "FollowTargetState": "",
 "IdleState": "",
 "ItemModel": "",
+"ItemSpawner": "",
 "LineOfSight": "",
 "LookOutState": "",
 "PartyLeaderSensor": "",
