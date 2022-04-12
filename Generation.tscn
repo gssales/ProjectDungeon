@@ -8,12 +8,13 @@
 
 [node name="MapGeneration" type="Spatial"]
 script = ExtResource( 1 )
+max_depth_generation = 20
+n_rooms = 100
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
 [node name="PlayerCamera" parent="." instance=ExtResource( 3 )]
-distance = 200
 
 [node name="LightingGenerator" parent="." instance=ExtResource( 4 )]
 

@@ -35,5 +35,5 @@ material = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74207, 1.2014 )
 light_color = Color( 0.976471, 0.85098, 0.482353, 1 )
 shadow_enabled = true
-omni_range = 12.0
+omni_range = 18.0
 script = ExtResource( 1 )

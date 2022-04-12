@@ -11,6 +11,7 @@ flags_disable_ambient_light = true
 albedo_color = Color( 0, 0, 0, 1 )
 
 [node name="FogOfWar" type="CSGMesh" groups=["fog_of_war"]]
+visible = false
 mesh = SubResource( 3 )
 material = SubResource( 2 )
 script = ExtResource( 1 )
