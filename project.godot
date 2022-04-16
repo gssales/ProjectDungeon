@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://behavior/steering/ArriveSteering.gd"
 }, {
+"base": "Spatial",
+"class": "BaseGenerator",
+"language": "GDScript",
+"path": "res://rooms/generators/BaseGenerator.gd"
+}, {
 "base": "Object",
 "class": "BaseState",
 "language": "GDScript",
@@ -53,6 +58,11 @@ _global_script_classes=[ {
 "class": "Behavior",
 "language": "GDScript",
 "path": "res://behavior/Behavior.gd"
+}, {
+"base": "AStar",
+"class": "CustomAStar",
+"language": "GDScript",
+"path": "res://behavior/steering/CustomAStar.gd"
 }, {
 "base": "BaseState",
 "class": "DefenseState",
@@ -170,10 +180,12 @@ _global_script_class_icons={
 "AllyLookOutState": "",
 "AllyWanderState": "",
 "ArriveSteering": "",
+"BaseGenerator": "",
 "BaseState": "",
 "BaseSteeringBehavior": "",
 "BattleSensor": "",
 "Behavior": "",
+"CustomAStar": "",
 "DefenseState": "",
 "Enemy": "",
 "EnemyAttackState": "",

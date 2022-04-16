@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Generation.gd" type="Script" id=1]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player/PlayerCamera.tscn" type="PackedScene" id=3]
-[ext_resource path="res://rooms/LightingGenerator.tscn" type="PackedScene" id=4]
-[ext_resource path="res://rooms/ItemSpawner.gd" type="Script" id=5]
+[ext_resource path="res://rooms/generators/LightingGenerator.tscn" type="PackedScene" id=4]
+[ext_resource path="res://rooms/generators/EnemySpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://rooms/generators/AStarGenerator.tscn" type="PackedScene" id=6]
+[ext_resource path="res://rooms/generators/MapGenerator.tscn" type="PackedScene" id=7]
 
-[node name="MapGeneration" type="Spatial"]
+[node name="LevelGeneration" type="Spatial"]
 script = ExtResource( 1 )
-max_depth_generation = 20
-n_rooms = 100
+max_depth_generation = 10
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
@@ -18,14 +19,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 
 [node name="LightingGenerator" parent="." instance=ExtResource( 4 )]
 
-[node name="ItemSpawner" type="Spatial" parent="."]
-script = ExtResource( 5 )
+[node name="AStarGenerator" parent="." instance=ExtResource( 6 )]
 
-[node name="Items" type="Spatial" parent="." groups=["item_model_container"]]
+[node name="MapGenerator" parent="." instance=ExtResource( 7 )]
 
-[node name="Enemies" type="Spatial" parent="."]
-
-[node name="Allies" type="Spatial" parent="." groups=["Allies_idle_container"]]
+[node name="EnemySpawner" parent="." instance=ExtResource( 5 )]
 
 [connection signal="position_changed" from="Player" to="PlayerCamera" method="_on_Player_position_changed"]
 [connection signal="camera_rotation" from="PlayerCamera" to="Player" method="_on_PlayerCamera_camera_rotation"]
