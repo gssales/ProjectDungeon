@@ -15,12 +15,15 @@ func _enter(entity: Entity):
     
     
 func _execute(entity: Entity, _delta: float):  
-  if not entity.target_on_sight:
+  if entity.line_of_sight_state.foe_on_sight:
+    emit_signal("change_entity", { 'steering_params_target': entity.line_of_sight_state.foe_position})
+    
+  if not entity.line_of_sight_state.foe_on_sight:
     var LookOutState = load("res://behavior/states/enemy_fsm/LookOutState.gd")
     emit_signal("change_state", LookOutState.new())
     return
   
-  if entity.distance_to_target > 5:
+  if entity.line_of_sight_state.distance_to_foe > 5:
     var FollowState = load("res://behavior/states/enemy_fsm/FollowState.gd")
     emit_signal("change_state", FollowState.new())
     return

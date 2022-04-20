@@ -13,7 +13,8 @@ var rotated_rad = 0
 
 var offset_heading = 0
 
-var go_to_leader = false
+var astar = null
+var steering_params = {}
 
 func get_position() -> Vector3:
   return global_transform.origin
@@ -25,8 +26,8 @@ func _on_BehaviorState_change_entity(params):
     max_force = params.max_force
   if params.has("offset_heading"):
     offset_heading = params.offset_heading
-  if params.has("go_to_leader"):
-    go_to_leader = params.go_to_leader
+  if params.has("steering_params_target"):
+    steering_params["target"] = params.steering_params_target
     
 func _on_LookOutState_entity_rotate(radians):
   rotation_rad = radians

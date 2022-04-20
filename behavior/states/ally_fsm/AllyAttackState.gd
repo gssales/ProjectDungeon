@@ -12,24 +12,20 @@ func _enter(entity: Entity):
   emit_signal("change_steering", SeekSteering.new())
   emit_signal("change_entity", { 'max_speed': 2 })
     
-func _execute(entity: Entity, _delta: float):  
+func _execute(entity: Entity, _delta: float):
+  if entity.line_of_sight_state.foe_on_sight:
+    emit_signal("change_entity", { 'steering_params_target': entity.line_of_sight_state.foe_position})
   
-  # se estiver há mais de 8 de distance do jogador
-  if entity.distance_from_leader >= 8:
+  # se estiver há mais de 42 de distance do jogador
+  if entity.leader_state.distance_from_leader >= 42 or not entity.line_of_sight_state.foe_on_sight:
     var FollowLeaderState = load("res://behavior/states/ally_fsm/FollowLeaderState.gd")
     emit_signal("change_state", FollowLeaderState.new())
     return
     
   # se estiver há mais de 5 de distance do inimigo
-  if entity.distance_to_target > 5:
+  if entity.line_of_sight_state.distance_to_foe > 5:
     var FollowTargetState = load("res://behavior/states/ally_fsm/FollowTargetState.gd")
     emit_signal("change_state", FollowTargetState.new())
-    return
-    
-  # se perder o inimigo de vista, look out
-  if not entity.target_on_sight:
-    var AllyLookOutState = load("res://behavior/states/ally_fsm/AllyLookOutState.gd")
-    emit_signal("change_state", AllyLookOutState.new())
     return
     
   # se o inimigo for atacar, evade

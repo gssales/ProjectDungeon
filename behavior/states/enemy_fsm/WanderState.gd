@@ -14,7 +14,7 @@ func _execute(entity: Entity, delta: float):
   time_elapsed += delta
   
   # se ver um inimigo, vai pro modo seguir
-  if entity.target_on_sight:
+  if entity.line_of_sight_state.foe_on_sight:
     var FollowState = load("res://behavior/states/enemy_fsm/FollowState.gd")
     emit_signal("change_state", FollowState.new())
   

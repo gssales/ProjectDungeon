@@ -30,14 +30,17 @@ func _ready():
   var lights_node = $LightingGenerator.generate(m, room_size)
   var astar = $AStarGenerator.generate(m, room_size)
   var enemies = $EnemySpawner.generate(m, room_list, room_size)
+  var allies = $AllySpawner.generate(m, room_list, room_size)
   
   var level_node = Spatial.new()
   level_node.name = "Level"
   add_child(map_node)
   add_child(lights_node)
   add_child(enemies)
+  add_child(allies)
   
   $Player.translate(Vector3(initial_position.x*36, 0 ,initial_position.y*36))
+  $Player/Party.astar = astar
   return
 #
 #  var item = $ItemSpawner.spawn_random_item(initial_position*36)

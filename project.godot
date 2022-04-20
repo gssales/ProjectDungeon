@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entities/Entity.gd"
 }, {
+"base": "BaseState",
+"class": "FindPathState",
+"language": "GDScript",
+"path": "res://behavior/states/ally_fsm/FindPathState.gd"
+}, {
 "base": "BaseSteeringBehavior",
 "class": "FleeSteering",
 "language": "GDScript",
@@ -190,6 +195,7 @@ _global_script_class_icons={
 "Enemy": "",
 "EnemyAttackState": "",
 "Entity": "",
+"FindPathState": "",
 "FleeSteering": "",
 "FollowLeaderState": "",
 "FollowState": "",

@@ -46,10 +46,13 @@ func next_in_path_toward(origin: Vector3, target: Vector3) -> Vector3:
   var target_id = get_closest_point(target)
   var path_sequence = get_point_path(origin_id, target_id)
   
-  if path_sequence[0]:
-    result = path_sequence[0]
-  
-  if path_sequence[1] and origin.distance_to(result) <= 1:
+  if path_sequence.size() >= 2:
     result = path_sequence[1]
+    
+#  if path_sequence.size() >= 1:
+#    result = path_sequence[0]
+#
+#  if path_sequence.size() >= 2 and origin.distance_to(result) <= 15:
+#    result = path_sequence[1]
   
   return result

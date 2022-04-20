@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Generation.gd" type="Script" id=1]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://rooms/generators/EnemySpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://rooms/generators/AStarGenerator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://rooms/generators/MapGenerator.tscn" type="PackedScene" id=7]
+[ext_resource path="res://rooms/generators/AllySpawner.tscn" type="PackedScene" id=8]
 
 [node name="LevelGeneration" type="Spatial"]
 script = ExtResource( 1 )
@@ -24,6 +25,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
 [node name="MapGenerator" parent="." instance=ExtResource( 7 )]
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 5 )]
+
+[node name="AllySpawner" parent="." instance=ExtResource( 8 )]
 
 [connection signal="position_changed" from="Player" to="PlayerCamera" method="_on_Player_position_changed"]
 [connection signal="camera_rotation" from="PlayerCamera" to="Player" method="_on_PlayerCamera_camera_rotation"]

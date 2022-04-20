@@ -4,10 +4,12 @@ export(float) var maxhealth = 35
 var health = 0
 
 var mass = 1
-var steering_params = {}
 
-var target_on_sight = false
-var distance_to_target = 1e10
+var line_of_sight_state = {
+  "foe_on_sight": false,
+  "distance_to_foe": 1e10,
+  "foe_position": Vector3.ZERO
+ }
 
 var can_attack = true
 
@@ -74,12 +76,12 @@ func take_damage(amount):
 
 func _on_LineOfSight_update_closest_entity(entity):
   if entity != null:
-    target_on_sight = true
-    distance_to_target = get_position().distance_to(entity.global_transform.origin)
-    steering_params["target"] = entity.global_transform.origin
+    line_of_sight_state.foe_on_sight = true
+    line_of_sight_state.distance_to_foe = get_position().distance_to(entity.global_transform.origin)
+    line_of_sight_state.foe_position = entity.global_transform.origin
   else:
-    target_on_sight = false
-    distance_to_target = 1e10
+    line_of_sight_state.foe_on_sight = false
+    line_of_sight_state.distance_to_foe = 1e10
 
 func _on_WallSensor_wall_detected(wall_detected):
   steering_params["wall_detected"] = wall_detected

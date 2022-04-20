@@ -4,13 +4,17 @@ export(float) var maxhealth = 100
 var health = 0
 
 var mass = 1
-var steering_params = {}
 
-var target_on_sight = false
-var distance_to_target = 1e10
-
-var distance_from_leader = 1e10
-
+var line_of_sight_state = {
+  "foe_on_sight": false,
+  "distance_to_foe": 1e10,
+  "foe_position": Vector3.ZERO
+ }
+var leader_state = {
+  "leader_on_sight": false,
+  "distance_from_leader": 1e10,
+  "leader_position": Vector3.ZERO
+}
 var battle_state = null
 
 var can_attack = false
@@ -74,15 +78,12 @@ func take_damage(amount):
     
 func _on_LineOfSight_update_closest_entity(entity):
   if entity != null:
-    target_on_sight = true
-    distance_to_target = get_position().distance_to(entity.global_transform.origin)
-    if not go_to_leader:
-      steering_params["target"] = entity.global_transform.origin
+    line_of_sight_state.foe_on_sight = true
+    line_of_sight_state.distance_to_foe = get_position().distance_to(entity.global_transform.origin)
+    line_of_sight_state.foe_position = entity.global_transform.origin
   else:
-    target_on_sight = false
-    distance_to_target = 1e10
-    if not go_to_leader:
-      steering_params["target"] = null
+    line_of_sight_state.foe_on_sight = false
+    line_of_sight_state.distance_to_foe = 1e10
 
 func _on_WallSensor_wall_detected(wall_detected):
   steering_params["wall_detected"] = wall_detected
@@ -90,13 +91,15 @@ func _on_WallSensor_wall_detected(wall_detected):
 func _on_BattleSensor_battle_state(new_battle_state):
   self.battle_state = new_battle_state
   
-func _on_LeaderSensor_leader_position_changed(new_position):
-  if new_position != null:
-    distance_from_leader = global_transform.origin.distance_to(new_position)
+func _on_LeaderSensor_leader_position_changed(state):
+  if state.leader_on_sight:
+    leader_state.leader_on_sight = true
+    leader_state.distance_from_leader = global_transform.origin.distance_to(state.leader_position)
+    leader_state.leader_position = state.leader_position
   else:
-    distance_from_leader = 1e10
-  if go_to_leader:
-    steering_params["target"] = new_position
+    leader_state.leader_on_sight = false
+    leader_state.distance_from_leader = 1e10
+    leader_state.leader_position = state.leader_position
   
 func _on_PartyManager_tick_sensor(delta):
   $LineOfSight.update(delta)

@@ -22,6 +22,8 @@ signal party_changed(ally_icons)
 
 var ref_closest_ally = null #Ally_Idle = null
 
+var astar = null
+
 var timer_tick = 0
 const TICK = 1/24
 
@@ -64,6 +66,8 @@ func add_member():
     ref_closest_ally.added_to_party = true
     ref_closest_ally.remove_from_group("free_ally")
     ref_closest_ally.add_to_group("ally")
+    if astar != null:
+      ref_closest_ally.astar = astar
     #warning-ignore-all:return_value_discarded
     connect("leader_position", ref_closest_ally.get_node("LeaderSensor"), "_on_PartyManager_leader_position")
     connect("tick_sensor", ref_closest_ally, "_on_PartyManager_tick_sensor")
