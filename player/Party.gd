@@ -106,6 +106,7 @@ func select_closest_ally():
 #func kick_from_party(ally_to_be_kicked: Ally):
 #  #ally_to_be_kicked.set_process(false)
 #  #ally_to_be_kicked.set_physics_process(false)
+#  ally_to_be_kicked.remove_from_group("ally")
 #  ally_to_be_kicked.remove_from_party()
 #  var container = get_tree().get_nodes_in_group("Allies_idle_container")[0]
 #  if container != null:

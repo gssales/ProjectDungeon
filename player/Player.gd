@@ -50,7 +50,8 @@ func _physics_process(delta):
   # Combat controls: 
   if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
     #print("attack")
-    equipped_weapon = inventory.get_child(0)
+    if inventory.get_child_count() != 0:
+      equipped_weapon = inventory.get_child(0)
     # If its a sword / melee type weapon -> use hitbox
     if equipped_weapon != null:
       weapon_damage = equipped_weapon.damage() # get weapon damage

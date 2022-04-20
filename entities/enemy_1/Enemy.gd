@@ -12,6 +12,12 @@ var line_of_sight_state = {
  }
 
 var can_attack = true
+var may_attack = false
+var attk_timer
+var attk_delay = 1
+onready var attack_hitbox = $AttackHitbox/Area
+export(float) var damage = 5
+
 
 func _ready():
   max_speed = 2
@@ -19,6 +25,11 @@ func _ready():
   _heading = Vector3.FORWARD
   $DetectGround.enabled = true
   health = maxhealth
+  
+  attk_timer = Timer.new() #attack timer
+  add_child(attk_timer)
+  attk_timer.one_shot = true
+  attk_timer.wait_time = attk_delay
   
   #warning-ignore-all:return_value_discarded
   $WallSensor.connect("wall_detected", self, "_on_WallSensor_wall_detected")
@@ -68,6 +79,19 @@ func _physics_process(delta):
     look_at(transform.origin + _heading, Vector3.UP)
     
   _velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector3.DOWN)
+  
+  # Enemy attack
+  if may_attack and attk_timer.is_stopped():
+    for body in attack_hitbox.get_overlapping_bodies():
+      if body.is_in_group("player"):
+        print("attaking player")
+        body.get_node("Health").take_damage(damage)
+      
+      elif body.is_in_group("ally"):
+        body.take_damage(damage)
+      
+      attk_timer.start(attk_delay)
+
 
 func take_damage(amount):
   health -= amount
@@ -86,5 +110,15 @@ func _on_LineOfSight_update_closest_entity(entity):
 func _on_WallSensor_wall_detected(wall_detected):
   steering_params["wall_detected"] = wall_detected
 
-func _on_AttackState_entity_attack():
-  pass  
+
+func _on_AttackState_entity_attack(entity):
+  if entity == self:
+    may_attack = true
+    print(self, "can_attack")
+    attk_timer.start(attk_delay) 
+
+func _on_AttackState_entity_cannot_attack(entity):
+  if entity == self:
+    may_attack = false
+    print(self, "cannot_attack")
+    attk_timer.start(attk_delay)
