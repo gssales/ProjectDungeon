@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/lw_polly_char_v3.5.glb-f7cb784a4b554f4c9edc861dd5cca48f.scn"
+path="res://.import/lw_polly_char_CW_v3.glb-afdae4141ee1ddc973e1230e1d20afb3.scn"
 
 [deps]
 
-source_file="res://player/lw_polly_char_v3.5.glb"
-dest_files=[ "res://.import/lw_polly_char_v3.5.glb-f7cb784a4b554f4c9edc861dd5cca48f.scn" ]
+source_file="res://player/lw_polly_char_CW_v3.glb"
+dest_files=[ "res://.import/lw_polly_char_CW_v3.glb-afdae4141ee1ddc973e1230e1d20afb3.scn" ]
 
 [params]
 
