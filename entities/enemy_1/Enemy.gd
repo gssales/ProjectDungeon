@@ -114,11 +114,11 @@ func _on_WallSensor_wall_detected(wall_detected):
 func _on_AttackState_entity_attack(entity):
   if entity == self:
     may_attack = true
-    print(self, "can_attack")
+    #print(self, "can_attack")
     attk_timer.start(attk_delay) 
 
 func _on_AttackState_entity_cannot_attack(entity):
   if entity == self:
     may_attack = false
-    print(self, "cannot_attack")
+    #print(self, "cannot_attack")
     attk_timer.start(attk_delay)

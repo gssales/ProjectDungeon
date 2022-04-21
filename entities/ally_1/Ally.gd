@@ -18,6 +18,12 @@ var leader_state = {
 var battle_state = null
 
 var can_attack = false
+var may_attack = false
+var attk_timer
+var attk_delay = 0.8
+onready var attack_hitbox = $AttackHitbox/Area
+export(float) var damage = 7
+
 var added_to_party = false
 
 func _ready():
@@ -27,6 +33,11 @@ func _ready():
   _heading = Vector3.FORWARD
   $DetectGround.enabled = true
   health = maxhealth
+  
+  attk_timer = Timer.new() #attack timer
+  add_child(attk_timer)
+  attk_timer.one_shot = true
+  attk_timer.wait_time = attk_delay
   
   #warning-ignore-all:return_value_discarded
   $WallSensor.connect("wall_detected", self, "_on_WallSensor_wall_detected")
@@ -70,6 +81,15 @@ func _physics_process(delta):
     look_at(transform.origin + _heading, Vector3.UP)
     
   _velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector3.DOWN)
+  
+  # Ally attack
+  if may_attack and attk_timer.is_stopped():
+    for body in attack_hitbox.get_overlapping_bodies():
+      if body.is_in_group("Enemy"):
+        print("ally attaking enemy")
+        body.take_damage(damage)
+      
+      attk_timer.start(attk_delay)
 
 func take_damage(amount):
   health -= amount
@@ -107,14 +127,28 @@ func _on_PartyManager_tick_sensor(delta):
   $BattleSensor.update(delta)
   $LeaderSensor.update(delta)
   
-func _on_AttackState_entity_attack():
-  pass
+  
+func _on_AttackState_entity_attack(entity):
+  if entity == self:
+    may_attack = true
+    print(self, "can_attack")
+    attk_timer.start(attk_delay) 
+
+func _on_AttackState_entity_cannot_attack(entity):
+  if entity == self:
+    may_attack = false
+    print(self, "cannot_attack")
+    attk_timer.start(attk_delay)
 
 func add_to_party():
   added_to_party = true
+  #remove_from_group("free_ally")
+  #add_to_group("ally")
   
 func remove_from_party():
   added_to_party = false
+  #remove_from_group("ally")
+  #add_to_group("free_ally")
   var IdleState = load("res://allies/behavior_allies/states/IdleState.gd").new()
   $Behavior.change_state(IdleState)
 

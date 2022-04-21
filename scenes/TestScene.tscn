@@ -165,7 +165,7 @@ params = {
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
 "icon_path": "res://assets/Item2.png",
 "modelPath": "res://item/items/models/item.obj",
-"weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
+"weapon_model": "res://item/items/sword/simple_sword.tscn"
 }
 
 [node name="ItemModel2" parent="Items" instance=ExtResource( 2 )]
