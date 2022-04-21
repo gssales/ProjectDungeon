@@ -4,16 +4,26 @@ export(float) var maxhealth = 100
 var health = 0
 
 var mass = 1
-var steering_params = {}
 
-var target_on_sight = false
-var distance_to_target = 1e10
-
-var distance_from_leader = 1e10
-
+var line_of_sight_state = {
+  "foe_on_sight": false,
+  "distance_to_foe": 1e10,
+  "foe_position": Vector3.ZERO
+ }
+var leader_state = {
+  "leader_on_sight": false,
+  "distance_from_leader": 1e10,
+  "leader_position": Vector3.ZERO
+}
 var battle_state = null
 
 var can_attack = false
+var may_attack = false
+var attk_timer
+var attk_delay = 0.8
+onready var attack_hitbox = $AttackHitbox/Area
+export(float) var damage = 7
+
 var added_to_party = false
 
 func _ready():
@@ -24,9 +34,14 @@ func _ready():
   $DetectGround.enabled = true
   health = maxhealth
   
+  attk_timer = Timer.new() #attack timer
+  add_child(attk_timer)
+  attk_timer.one_shot = true
+  attk_timer.wait_time = attk_delay
+  
   #warning-ignore-all:return_value_discarded
   $WallSensor.connect("wall_detected", self, "_on_WallSensor_wall_detected")
-  $LineOfSight.looking_for_groups.push_back("enemy")
+  $LineOfSight.looking_for_groups.push_back("Enemy")
   $LineOfSight.connect("update_closest_entity", self, "_on_LineOfSight_update_closest_entity")
   $LineOfSight.connect("update_closest_entity", $BattleSensor, "_on_LineOfSight_update_closest_entity")
   $BattleSensor.connect("battle_state", self, "_on_BattleSensor_battle_state")
@@ -66,6 +81,15 @@ func _physics_process(delta):
     look_at(transform.origin + _heading, Vector3.UP)
     
   _velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector3.DOWN)
+  
+  # Ally attack
+  if may_attack and attk_timer.is_stopped():
+    for body in attack_hitbox.get_overlapping_bodies():
+      if body.is_in_group("Enemy"):
+        print("ally attaking enemy")
+        body.take_damage(damage)
+      
+      attk_timer.start(attk_delay)
 
 func take_damage(amount):
   health -= amount
@@ -74,15 +98,12 @@ func take_damage(amount):
     
 func _on_LineOfSight_update_closest_entity(entity):
   if entity != null:
-    target_on_sight = true
-    distance_to_target = get_position().distance_to(entity.global_transform.origin)
-    if not go_to_leader:
-      steering_params["target"] = entity.global_transform.origin
+    line_of_sight_state.foe_on_sight = true
+    line_of_sight_state.distance_to_foe = get_position().distance_to(entity.global_transform.origin)
+    line_of_sight_state.foe_position = entity.global_transform.origin
   else:
-    target_on_sight = false
-    distance_to_target = 1e10
-    if not go_to_leader:
-      steering_params["target"] = null
+    line_of_sight_state.foe_on_sight = false
+    line_of_sight_state.distance_to_foe = 1e10
 
 func _on_WallSensor_wall_detected(wall_detected):
   steering_params["wall_detected"] = wall_detected
@@ -90,13 +111,15 @@ func _on_WallSensor_wall_detected(wall_detected):
 func _on_BattleSensor_battle_state(new_battle_state):
   self.battle_state = new_battle_state
   
-func _on_LeaderSensor_leader_position_changed(new_position):
-  if new_position != null:
-    distance_from_leader = global_transform.origin.distance_to(new_position)
+func _on_LeaderSensor_leader_position_changed(state):
+  if state.leader_on_sight:
+    leader_state.leader_on_sight = true
+    leader_state.distance_from_leader = global_transform.origin.distance_to(state.leader_position)
+    leader_state.leader_position = state.leader_position
   else:
-    distance_from_leader = 1e10
-  if go_to_leader:
-    steering_params["target"] = new_position
+    leader_state.leader_on_sight = false
+    leader_state.distance_from_leader = 1e10
+    leader_state.leader_position = state.leader_position
   
 func _on_PartyManager_tick_sensor(delta):
   $LineOfSight.update(delta)
@@ -104,14 +127,28 @@ func _on_PartyManager_tick_sensor(delta):
   $BattleSensor.update(delta)
   $LeaderSensor.update(delta)
   
-func _on_AttackState_entity_attack():
-  pass
+  
+func _on_AttackState_entity_attack(entity):
+  if entity == self:
+    may_attack = true
+    print(self, "can_attack")
+    attk_timer.start(attk_delay) 
+
+func _on_AttackState_entity_cannot_attack(entity):
+  if entity == self:
+    may_attack = false
+    print(self, "cannot_attack")
+    attk_timer.start(attk_delay)
 
 func add_to_party():
   added_to_party = true
+  #remove_from_group("free_ally")
+  #add_to_group("ally")
   
 func remove_from_party():
   added_to_party = false
+  #remove_from_group("ally")
+  #add_to_group("free_ally")
   var IdleState = load("res://allies/behavior_allies/states/IdleState.gd").new()
   $Behavior.change_state(IdleState)
 

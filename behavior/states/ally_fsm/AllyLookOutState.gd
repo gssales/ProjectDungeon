@@ -41,14 +41,14 @@ func _execute(entity: Entity, delta: float):
     emit_signal("entity_rotate", rot)
     time_until_rotate = rng.randf_range(2, 5)
   
-  # se estiver há mais de 8 de distance do jogador
-  if entity.distance_from_leader >= 8:
+  # se estiver há mais de 24 de distance do jogador
+  if entity.leader_state.distance_from_leader >= 24:
     var FollowLeaderState = load("res://behavior/states/ally_fsm/FollowLeaderState.gd")
     emit_signal("change_state", FollowLeaderState.new())
     return
   
   # se ver um inimigo
-  if entity.target_on_sight:
+  if entity.line_of_sight_state.foe_on_sight:
     var FollowTargetState = load("res://behavior/states/ally_fsm/FollowTargetState.gd")
     emit_signal("change_state", FollowTargetState.new())
     return

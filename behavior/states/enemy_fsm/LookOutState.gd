@@ -42,7 +42,7 @@ func _execute(entity: Entity, delta: float):
     time_until_rotate = rng.randf_range(2, 5)
   
   # Se ver o jogador entra no modo seek
-  if entity.target_on_sight:
+  if entity.line_of_sight_state.foe_on_sight:
     var FollowState = load("res://behavior/states/enemy_fsm/FollowState.gd")
     emit_signal("change_state", FollowState.new())
   

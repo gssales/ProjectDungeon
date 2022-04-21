@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://rooms/building/Floor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://rooms/building/FogOfWar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://rooms/GenericRoom.gd" type="Script" id=4]
+
+[node name="GenericRoom" type="Spatial" groups=["room"]]
+script = ExtResource( 4 )
+
+[node name="Walls" type="Spatial" parent="."]
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+length = 36.0
+depth = 36.0
+
+[node name="FogOfWar" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0 )

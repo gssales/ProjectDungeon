@@ -1,18 +1,20 @@
 extends KinematicBody
 
-#signal camera_position(pos)
+signal position_changed(new_position, new_velocity)
 
 export var GRAVITY = 980
 export var max_speed = 15
 export var acceleration = 15
 
 var _velocity = Vector3.ZERO
+var _position = Vector3.ZERO
 var angle = 0
 var speed = 0
 
 var ref_closest_item = null
 
 var cursor_pos = Vector3()
+var camera_rotation = 0
 
 onready var inventory = get_node("Inventory")
 onready var attack_hitbox : Area
@@ -41,14 +43,15 @@ func _physics_process(delta):
   if Input.is_action_pressed("move_right"):
     move_vec += Vector3.RIGHT
 
-  move_vec = move_vec.normalized()
+  move_vec = move_vec.normalized().rotated(Vector3.UP, camera_rotation)
   
   look_at_cursor()
   
   # Combat controls: 
   if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
     #print("attack")
-    equipped_weapon = inventory.get_child(0)
+    if inventory.get_child_count() != 0:
+      equipped_weapon = inventory.get_child(0)
     # If its a sword / melee type weapon -> use hitbox
     if equipped_weapon != null:
       weapon_damage = equipped_weapon.damage() # get weapon damage
@@ -108,6 +111,9 @@ func _physics_process(delta):
 
   _velocity = move_vec
   _velocity = move_and_slide_with_snap(_velocity, Vector3.DOWN)
+  
+  _position = transform.origin
+  emit_signal("position_changed", _position, _velocity)
 
 
 func look_at_cursor():
@@ -115,16 +121,18 @@ func look_at_cursor():
   var intersecPlane = Plane(Vector3.UP, player_pos.y) # para ficar no mesmo plano y do jogador (quando subir em algo)
   
   # Faz um ray cast e verifica onde intersecta no plano 
-  var ray_length = 1000
+  var ray_length = 1000000
   var mouse_pos = get_viewport().get_mouse_position()
-  var ray_origin = $Camera.project_ray_origin(mouse_pos)
-  var ray_end = ray_origin + $Camera.project_ray_normal(mouse_pos) * ray_length
+  var ray_origin = get_viewport().get_camera().project_ray_origin(mouse_pos)
+  var ray_end = ray_origin + get_viewport().get_camera().project_ray_normal(mouse_pos) * ray_length
   cursor_pos = intersecPlane.intersects_ray(ray_origin, ray_end)
   
   if cursor_pos != null:
     # -z side/face of the model looks at position
     $Model.look_at(cursor_pos, Vector3.UP)
-    
+  
+  $cursor.global_transform.origin = cursor_pos
+  #print(cursor_pos)
   # se for usar cursor position para mirar com armas de longo alcance: 
   # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
   
@@ -153,8 +161,10 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
         $Model/MeleeHitbox.add_child(hitbox_node)
         attack_hitbox = hitbox_node.get_child(0) 
   
-  
-
 
 func _on_Health_you_died():
   print("You Died")
+  
+
+func _on_PlayerCamera_camera_rotation(current_rotation):
+  camera_rotation = current_rotation

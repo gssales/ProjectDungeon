@@ -22,6 +22,8 @@ signal party_changed(ally_icons)
 
 var ref_closest_ally = null #Ally_Idle = null
 
+var astar = null
+
 var timer_tick = 0
 const TICK = 1/24
 
@@ -64,6 +66,8 @@ func add_member():
     ref_closest_ally.added_to_party = true
     ref_closest_ally.remove_from_group("free_ally")
     ref_closest_ally.add_to_group("ally")
+    if astar != null:
+      ref_closest_ally.astar = astar
     #warning-ignore-all:return_value_discarded
     connect("leader_position", ref_closest_ally.get_node("LeaderSensor"), "_on_PartyManager_leader_position")
     connect("tick_sensor", ref_closest_ally, "_on_PartyManager_tick_sensor")
@@ -102,6 +106,8 @@ func select_closest_ally():
 #func kick_from_party(ally_to_be_kicked: Ally):
 #  #ally_to_be_kicked.set_process(false)
 #  #ally_to_be_kicked.set_physics_process(false)
+#  ally_to_be_kicked.remove_from_group("ally")
+#  ally_to_be_kicked.add_to_group("free_ally")
 #  ally_to_be_kicked.remove_from_party()
 #  var container = get_tree().get_nodes_in_group("Allies_idle_container")[0]
 #  if container != null:
