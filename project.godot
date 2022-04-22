@@ -219,7 +219,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Project Dungeon"
-run/main_scene="res://Generation.tscn"
+run/main_scene="res://UI/MainMenu/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

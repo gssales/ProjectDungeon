@@ -9,8 +9,8 @@ func generate(matrix, room_list, room_size):
     var prob = randf()
     
     var amount = 0
-    if prob > 0.9:
-      amount = 2
+    if prob > 0.5:
+      amount = 4
 
     if amount > 0:
       used_rooms.push_back(room)
