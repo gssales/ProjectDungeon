@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://UI/Game UI/DeathScreen/DeathScreen.tscn" type="PackedScene" id=6]
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 [ext_resource path="res://player/Party.gd" type="Script" id=8]
+[ext_resource path="res://sfx/damage_taken.wav" type="AudioStream" id=9]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -48,7 +49,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 10 )
 
 [node name="DetectGround" type="RayCast" parent="."]
 cast_to = Vector3( 0, -1.1, 0 )
-debug_shape_thickness = 5.0
+debug_shape_thickness = 5
 
 [node name="Model" type="Spatial" parent="."]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0 )
@@ -80,6 +81,10 @@ visible = false
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="DamageSFX" type="AudioStreamPlayer3D" parent="Health"]
+stream = ExtResource( 9 )
+unit_db = 4.0
 
 [node name="Stamina" type="Node" parent="."]
 script = ExtResource( 4 )

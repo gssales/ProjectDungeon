@@ -92,6 +92,8 @@ func _physics_process(delta):
       attk_timer.start(attk_delay)
 
 func take_damage(amount):
+  if !$DamageSFX.is_playing():
+    $DamageSFX.play()
   health -= amount
   if health < 0:
     health = 0 
