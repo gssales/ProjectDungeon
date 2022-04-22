@@ -1,14 +1,16 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://entities/enemy_1/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://behavior/Behavior.tscn" type="PackedScene" id=2]
 [ext_resource path="res://behavior/Steering.tscn" type="PackedScene" id=3]
 [ext_resource path="res://behavior/sensor/LineOfSight.tscn" type="PackedScene" id=4]
 [ext_resource path="res://behavior/sensor/WallSensor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=6]
+[ext_resource path="res://sfx/damage_dealt.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.653388
-height = 1.65
+radius = 0.642351
+height = 3.07176
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 1, 0, 0, 1 )
@@ -25,6 +27,9 @@ albedo_color = Color( 0.137255, 0.137255, 0.137255, 1 )
 material = SubResource( 7 )
 size = Vector3( 1, 0.5, 0.5 )
 
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 1, 0, 0, 1 )
+
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 1.5, 1, 2 )
 
@@ -37,18 +42,26 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="CSGMesh" type="CSGMesh" parent="."]
+[node name="CSGMesh" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="CSGMesh"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+visible = false
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Eyes" type="MeshInstance" parent="CSGMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843472, -0.596589 )
+visible = false
 mesh = SubResource( 5 )
 material/0 = null
+
+[node name="lw_polly_char" parent="CSGMesh" instance=ExtResource( 6 )]
+transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+
+[node name="Character" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="0"]
+material/0 = SubResource( 9 )
 
 [node name="AttackHitbox" type="Spatial" parent="."]
 
@@ -59,7 +72,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 shape = SubResource( 8 )
 
 [node name="DetectGround" type="RayCast" parent="."]
-cast_to = Vector3( 0, -2, 0 )
+cast_to = Vector3( 0, -2.25, 0 )
 debug_shape_thickness = 5.0
 
 [node name="Steering" parent="." instance=ExtResource( 3 )]
@@ -69,3 +82,9 @@ debug_shape_thickness = 5.0
 [node name="LineOfSight" parent="." instance=ExtResource( 4 )]
 
 [node name="WallSensor" parent="." instance=ExtResource( 5 )]
+
+[node name="DamageSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 7 )
+unit_db = 4.0
+
+[editable path="CSGMesh/lw_polly_char"]

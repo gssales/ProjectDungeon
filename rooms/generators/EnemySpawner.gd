@@ -7,11 +7,11 @@ func generate(matrix, room_list, room_size):
   for room in room_list:
     var prob = randf()
     
-    var amount = 2
-    if prob < 0.5:
-      amount = 4
+    var amount = 0
+    if prob < 0.7:
+      amount = 2
     elif prob > 0.95:
-      amount = 8
+      amount = 6
       
     for i in range(amount):
       var e = Enemy.instance()

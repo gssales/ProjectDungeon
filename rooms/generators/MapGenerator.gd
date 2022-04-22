@@ -3,6 +3,8 @@ extends Node
 var GenericRoom = preload("res://rooms/GenericRoom.tscn")
 var GenericCorridor = preload("res://rooms/GenericCorridor.tscn")
 
+var last_room = Vector2(0,0)
+
 func generate(matrix, room_size: Vector2) -> Spatial:
   var size = matrix.size()
   var map = Spatial.new()
@@ -19,6 +21,7 @@ func add_cell(room_params, position, room_size):
   var cell 
   if room_params.type == "room":
     cell = GenericRoom.instance()
+    cell.has_hole = room_params.has_hole
   elif room_params.type == "corridor":
     cell = GenericCorridor.instance()
   

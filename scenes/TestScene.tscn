@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://item/ItemModel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemy_1/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/ally_1/Ally.tscn" type="PackedScene" id=4]
 [ext_resource path="res://player/PlayerCamera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://rooms/props/LevelExit.tscn" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 100, 0.5, 100 )
@@ -56,6 +57,7 @@ spot_angle_attenuation = 90.5098
 transform = Transform( -1.31134e-07, 0, -0.6, 0, 1, 0, 3, 0, -2.62268e-08, 13, 2, -4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Props/Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0, 0 )
 shape = SubResource( 5 )
 
 [node name="CSGBox" type="CSGBox" parent="Props/Box"]
@@ -150,7 +152,7 @@ params = {
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
 "icon_path": "res://assets/Item1.png",
-"modelPath": "res://item/items/models/item.obj",
+"modelPath": "res://item/items/sword/simple_sword.tscn",
 "weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
 }
 
@@ -164,7 +166,7 @@ params = {
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
 "icon_path": "res://assets/Item2.png",
-"modelPath": "res://item/items/models/item.obj",
+"modelPath": "res://item/items/sword/simple_sword.tscn",
 "weapon_model": "res://item/items/sword/simple_sword.tscn"
 }
 
@@ -178,7 +180,7 @@ params = {
 "damageRange": [ 5, 10 ],
 "hitbox": "",
 "icon_path": "res://assets/Item3.png",
-"modelPath": "res://item/items/models/item.obj",
+"modelPath": "res://item/items/sword/simple_sword.tscn",
 "weapon_model": "res://item/items/weapon2/crossbow_model.tscn"
 }
 
@@ -211,6 +213,9 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.1746
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
 navmesh = SubResource( 8 )
+
+[node name="Spatial" parent="." instance=ExtResource( 6 )]
+transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 5, 0, -9 )
 
 [connection signal="position_changed" from="Player" to="PlayerCamera" method="_on_Player_position_changed"]
 [connection signal="camera_rotation" from="PlayerCamera" to="Player" method="_on_PlayerCamera_camera_rotation"]

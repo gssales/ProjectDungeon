@@ -92,12 +92,14 @@ func _physics_process(delta):
       attk_timer.start(attk_delay)
 
 func take_damage(amount):
+  if !$DamageSFX.is_playing():
+    $DamageSFX.play()
   health -= amount
   if health < 0:
     health = 0 
     
 func _on_LineOfSight_update_closest_entity(entity):
-  if entity != null:
+  if entity != null and is_instance_valid(entity):
     line_of_sight_state.foe_on_sight = true
     line_of_sight_state.distance_to_foe = get_position().distance_to(entity.global_transform.origin)
     line_of_sight_state.foe_position = entity.global_transform.origin

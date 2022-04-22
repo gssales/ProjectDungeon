@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Dark-Things.mp3-a93a47b54119689c207656b6b20fc4f6.mp3str"
+
+[deps]
+
+source_file="res://music/Dark-Things.mp3"
+dest_files=[ "res://.import/Dark-Things.mp3-a93a47b54119689c207656b6b20fc4f6.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

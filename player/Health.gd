@@ -16,6 +16,8 @@ func get_health():
   return health
 
 func take_damage(amount):
+  if !$DamageSFX.is_playing():
+    $DamageSFX.play()
   health -= amount
   if health < 0:
     health = 0 
