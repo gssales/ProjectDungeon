@@ -63,6 +63,12 @@ func _ready():
 #  for fog in fogs:
 #	$Player.connect("position_changed", fog, "_on_Player_position_changed")
 
+# process para a execução do audio stream com a musica ambiente
+func _process(delta):
+  if $AmbientMusic.playing == false:
+    $AmbientMusic.play()
+  pass
+
 func _input(event):
   if event.is_action_pressed("take_damage"):
     get_tree().reload_current_scene()
