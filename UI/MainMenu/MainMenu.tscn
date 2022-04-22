@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UI/MainMenu/UI_Panel_background.png" type="Texture" id=1]
+[ext_resource path="res://UI/ButtonTheme.theme" type="Theme" id=2]
+[ext_resource path="res://UI/MenuTheme.theme" type="Theme" id=3]
+[ext_resource path="res://fonts/Lobster-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://UI/MainMenu/MainMenu.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+outline_size = 4
+outline_color = Color( 0.0588235, 0.0588235, 0.0588235, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0156863, 0.0666667, 0.196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="panel" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -184.5
+margin_top = -267.5
+margin_right = 184.5
+margin_bottom = 267.5
+texture = ExtResource( 1 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -116.0
+margin_top = 38.0
+margin_right = 116.0
+margin_bottom = 83.0
+theme = ExtResource( 3 )
+custom_fonts/font = SubResource( 1 )
+text = "Project Dungeon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonContainer" type="VBoxContainer" parent="panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -118.5
+margin_top = -415.0
+margin_right = 118.5
+margin_bottom = -317.0
+custom_constants/separation = 12
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="New_game" type="Button" parent="panel/ButtonContainer"]
+margin_top = 15.0
+margin_right = 237.0
+margin_bottom = 43.0
+theme = ExtResource( 2 )
+text = "New Game"
+
+[node name="Quit" type="Button" parent="panel/ButtonContainer"]
+margin_top = 55.0
+margin_right = 237.0
+margin_bottom = 83.0
+theme = ExtResource( 2 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="panel/ButtonContainer/New_game" to="." method="_on_New_game_pressed"]
+[connection signal="pressed" from="panel/ButtonContainer/Quit" to="." method="_on_Quit_pressed"]
