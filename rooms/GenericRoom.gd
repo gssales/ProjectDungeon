@@ -5,6 +5,8 @@ export var portal_left = false
 export var portal_down = false
 export var portal_right = false
 
+export var has_hole = false
+
 var Wall = preload("res://rooms/building/Wall.tscn")
 
 func add_wall(transl, rotat, length):
@@ -40,3 +42,5 @@ func _ready():
     add_wall(Vector3(-17, 0, 18), 90, 15)
   else:
     add_wall(Vector3(-17, 0, 18), 90, 36)
+    
+  $Floor.show_hole(has_hole)

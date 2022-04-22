@@ -1,23 +1,17 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Generation.gd" type="Script" id=1]
-[ext_resource path="res://player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://player/PlayerCamera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://rooms/generators/LightingGenerator.tscn" type="PackedScene" id=4]
 [ext_resource path="res://rooms/generators/EnemySpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://rooms/generators/AStarGenerator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://rooms/generators/MapGenerator.tscn" type="PackedScene" id=7]
 [ext_resource path="res://rooms/generators/AllySpawner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://music/Dark-Things.mp3" type="AudioStream" id=9]
+[ext_resource path="res://rooms/generators/ItemSpawner.tscn" type="PackedScene" id=9]
 
 [node name="LevelGeneration" type="Spatial"]
 script = ExtResource( 1 )
 max_depth_generation = 10
-
-[node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0 )
-
-[node name="PlayerCamera" parent="." instance=ExtResource( 3 )]
 
 [node name="LightingGenerator" parent="." instance=ExtResource( 4 )]
 
@@ -35,3 +29,4 @@ volume_db = -2.0
 
 [connection signal="position_changed" from="Player" to="PlayerCamera" method="_on_Player_position_changed"]
 [connection signal="camera_rotation" from="PlayerCamera" to="Player" method="_on_PlayerCamera_camera_rotation"]
+[node name="ItemSpawner" parent="." instance=ExtResource( 9 )]

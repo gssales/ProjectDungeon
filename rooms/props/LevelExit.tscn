@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://rooms/props/Ladder.tscn" type="PackedScene" id=1]
+[ext_resource path="res://rooms/props/LevelExit.gd" type="Script" id=2]
+[ext_resource path="res://assets/icons/up.png" type="Texture" id=3]
+
+[node name="LevelExit" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="ladder" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, -2.26267e-08, -8.44439e-08, 0, 0.965926, -0.258819, 8.74228e-08, -0.258819, -0.965926, 0, 2.8, 0 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.0516911, 0.998663, 0, -0.998663, -0.0516911, 0, 9.49314, -0.3 )
+light_color = Color( 0.921569, 0.92549, 0.556863, 1 )
+shadow_enabled = true
+spot_range = 13.2034
+spot_attenuation = 1e-05
+spot_angle = 13.1033
+
+[node name="Tooltip" type="Sprite3D" parent="."]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 1, 0, 4.47002, 0.774854 )
+billboard = 1
+texture = ExtResource( 3 )

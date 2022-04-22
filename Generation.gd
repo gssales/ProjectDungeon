@@ -5,63 +5,80 @@ export var max_corridor_streak = 3
 export var room_size := Vector2(36, 36)
 export var n_rooms = 10
 
-var GenericRoom = preload("res://rooms/GenericRoom.tscn")
-var GenericCorridor = preload("res://rooms/GenericCorridor.tscn")
-var Enemy = preload("res://entities/enemy_1/Enemy.tscn")
-var Ally = preload("res://entities/ally_1/Ally.tscn")
+var Exit = preload("res://rooms/props/LevelExit.tscn")
+var Player = preload("res://player/Player.tscn")
+var PlayerCamera = preload("res://player/PlayerCamera.tscn")
 
 var matrix_size
 var room_list = []
 var corridor_list = []
 
-var initial_position
+var initial_room
+var found_last_room = false
+var last_room
 
 var room_amount = 0
 
 func _ready():
   randomize()
   matrix_size = max_depth_generation*2
-  initial_position = Vector2(matrix_size/2, matrix_size/2)
+  initial_room = Vector2(matrix_size/2, matrix_size/2)
+  last_room = Vector2(matrix_size/2, matrix_size/2)
   
   var m = generate_matrix(matrix_size)
   m = post_generation(m)
   
+  if Global.current_level > 0:
+    m[initial_room.x][initial_room.y].has_hole = true
+  
   var map_node = $MapGenerator.generate(m, room_size)
   var lights_node = $LightingGenerator.generate(m, room_size)
   var astar = $AStarGenerator.generate(m, room_size)
-  var enemies = $EnemySpawner.generate(m, room_list, room_size)
-  var allies = $AllySpawner.generate(m, room_list, room_size)
+  var _room_list = room_list.duplicate()
+  _room_list.erase(initial_room)
+  var items = $ItemSpawner.generate(m, _room_list, room_size, initial_room)
+  var allies = $AllySpawner.generate(m, _room_list, room_size)
+  var enemies = $EnemySpawner.generate(m, _room_list, room_size)
   
   var level_node = Spatial.new()
-  level_node.name = "Level"
-  add_child(map_node)
-  add_child(lights_node)
-  add_child(enemies)
-  add_child(allies)
+  level_node.name = "Generated"
   
-  $Player.translate(Vector3(initial_position.x*36, 0 ,initial_position.y*36))
-  $Player/Party.astar = astar
-  return
-#
-#  var item = $ItemSpawner.spawn_random_item(initial_position*36)
-#  $Items.add_child(item)
-#
-#  for r in room_list:
-#	var enemy_inst = Enemy.instance() 
-#	$Enemies.add_child(enemy_inst)
-#	enemy_inst.translate(Vector3(r.x*36 + 8, 0 ,r.y*36 + 8))
-#
-#  var ally_inst = Ally.instance()
-#  $Allies.add_child(ally_inst)
-#
-#  ally_inst.translate(Vector3(initial_position.x*36 - 8, 0 ,initial_position.y*36 - 8))
-#
-#  print(n_rooms)
-#  $Player.translate(Vector3(initial_position.x*36, 0 ,initial_position.y*36))
-#
-#  var fogs = get_tree().get_nodes_in_group("fog_of_war")
-#  for fog in fogs:
-#	$Player.connect("position_changed", fog, "_on_Player_position_changed")
+  var camera = PlayerCamera.instance()
+  
+  var player
+  if Global.load_player and false:
+    player = Global.player
+    for a in Global.allies:
+      allies.add_child(a)
+  else:
+    player = Player.instance()
+    
+  player.connect("position_changed", camera, "_on_Player_position_changed")
+  camera.connect("camera_rotation", player, "_on_PlayerCamera_camera_rotation")
+  level_node.add_child(player)
+  level_node.add_child(camera)
+    
+  level_node.add_child(map_node)
+  level_node.add_child(lights_node)
+  level_node.add_child(enemies)
+  level_node.add_child(allies)
+  level_node.add_child(items)
+  
+  var exit = Exit.instance()
+  exit.translate(Vector3(last_room.x*36, 0 ,last_room.y*36))
+  level_node.add_child(exit)
+
+  player.translate(Vector3(initial_room.x*36, 0 ,initial_room.y*36))
+  player.get_node("Party").astar = astar
+  
+  add_child(level_node)
+  
+  var fogs = get_tree().get_nodes_in_group("fog_of_war")
+  for fog in fogs:
+    player.connect("position_changed", fog, "_on_Player_position_changed")
+    
+  
+
 
 # process para a execução do audio stream com a musica ambiente
 func _process(delta):
@@ -76,6 +93,7 @@ func _input(event):
 func generate_matrix(matrix_size):
   var matrix = empty_matrix(matrix_size)
   var initial_position = Vector2(matrix_size/2, matrix_size/2)
+  found_last_room = false
   room_amount = 0
   room_list = []
   corridor_list = []
@@ -119,7 +137,8 @@ func branch(matrix, position: Vector2, doors = [], corridor_streak = max_corrido
     "door_up": false,
     "door_right": false,
     "door_down": false,
-    "door_left": false
+    "door_left": false,
+    "has_hole": false
   }
 
   for neighbor in neighbors:
@@ -130,6 +149,10 @@ func branch(matrix, position: Vector2, doors = [], corridor_streak = max_corrido
       var created = branch(matrix, position + neighbor, [next_], corridor_streak, depth + 1)
       if created:
         doors.push_back(neighbor)
+        
+  if not generate_corridor and not found_last_room:
+    last_room = position
+    found_last_room = true
 
   for door in doors:
     set_door(matrix, position, door)
@@ -195,28 +218,3 @@ func post_generation(matrix):
 
   return matrix
   
-func add_to_map_node(matrix) -> Spatial:
-  var size = matrix.size()
-  var map = Spatial.new()
-  for x in range(size):
-    for y in range(size):
-      var params = matrix[x][y]
-      if params != null:
-        map.add_child(add_cell(params, Vector2(x, y)))
-  return map
-
-func add_cell(room_params, position):
-  print("New cell ", position, " ", room_params)
-  var cell 
-  if room_params.type == "room":
-    cell = GenericRoom.instance()
-  elif room_params.type == "corridor":
-    cell = GenericCorridor.instance()
-  
-  cell.portal_up = room_params.door_up
-  cell.portal_left = room_params.door_left
-  cell.portal_down = room_params.door_down
-  cell.portal_right = room_params.door_right
-  
-  cell.translate(Vector3(position.x * room_size.x, 0, position.y * room_size.y))
-  return cell
