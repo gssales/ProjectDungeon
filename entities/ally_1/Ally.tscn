@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://behavior/sensor/WallSensor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://behavior/sensor/LineOfSight.tscn" type="PackedScene" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://behavior/sensor/BattleSensor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://behavior/sensor/LeaderSensor.tscn" type="PackedScene" id=7]
 [ext_resource path="res://sfx/damage_dealt.wav" type="AudioStream" id=8]
-[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=8]
+[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.65
@@ -59,7 +59,7 @@ visible = false
 mesh = SubResource( 5 )
 material/0 = null
 
-[node name="lw_polly_char" parent="CSGMesh" instance=ExtResource( 8 )]
+[node name="lw_polly_char" parent="CSGMesh" instance=ExtResource( 9 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 
 [node name="Character" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="0"]
@@ -92,4 +92,5 @@ debug_shape_thickness = 5.0
 [node name="DamageSFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 8 )
 unit_db = 4.0
+
 [editable path="CSGMesh/lw_polly_char"]

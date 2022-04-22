@@ -152,7 +152,7 @@ params = {
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
 "icon_path": "res://assets/Item1.png",
-"modelPath": "res://item/items/models/item.obj",
+"modelPath": "res://item/items/sword/simple_sword.tscn",
 "weapon_model": "res://item/items/weapon1/Sword_model1.tscn"
 }
 
@@ -166,7 +166,7 @@ params = {
 "damageRange": [ 5, 10 ],
 "hitbox": "res://item/items/weapon1/attack_hitbox1.tscn",
 "icon_path": "res://assets/Item2.png",
-"modelPath": "res://item/items/models/item.obj",
+"modelPath": "res://item/items/sword/simple_sword.tscn",
 "weapon_model": "res://item/items/sword/simple_sword.tscn"
 }
 
@@ -180,7 +180,7 @@ params = {
 "damageRange": [ 5, 10 ],
 "hitbox": "",
 "icon_path": "res://assets/Item3.png",
-"modelPath": "res://item/items/models/item.obj",
+"modelPath": "res://item/items/sword/simple_sword.tscn",
 "weapon_model": "res://item/items/weapon2/crossbow_model.tscn"
 }
 

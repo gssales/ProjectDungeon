@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 [ext_resource path="res://player/Party.gd" type="Script" id=8]
 [ext_resource path="res://sfx/damage_taken.wav" type="AudioStream" id=9]
-[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=9]
+[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.870171
@@ -70,7 +70,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76932, -0.258314, -0.207132 
 [node name="MeleeHitbox" type="Position3D" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 
-[node name="lw_polly_char" parent="Model" instance=ExtResource( 9 )]
+[node name="lw_polly_char" parent="Model" instance=ExtResource( 10 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
@@ -89,9 +89,8 @@ visible = false
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="DamageSFX" type="AudioStreamPlayer3D" parent="Health"]
+[node name="DamageSFX" type="AudioStreamPlayer" parent="Health"]
 stream = ExtResource( 9 )
-unit_db = 4.0
 
 [node name="Stamina" type="Node" parent="."]
 script = ExtResource( 4 )
