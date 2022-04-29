@@ -29,6 +29,7 @@ onready var anim_tree = $Model/lw_polly_char_4_Dir_Mov/AnimationTree
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
+  anim_tree.active = true
 
 #func _input(event):
 #  if event is InputEventKey: 
@@ -61,7 +62,7 @@ func _physics_process(delta):
   anim_tree.set("parameters/idle_walk/blend_position", Vector2(-direction.x, direction.z))
   
   # Combat controls: 
-  if Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
+  if not (anim_tree.get("parameters/run_blend/blend_amount") == 1) and Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
     
     if inventory.get_child_count() != 0:
       equipped_weapon = inventory.get_child(0)
@@ -121,11 +122,11 @@ func _physics_process(delta):
       $Stamina.use_stamina(10*delta)
       $Stamina/StaminaRegenTimer.start(1) # cooldown até começar a regenerar (se parar de correr)
       #print("is sprinting")
-      anim_tree.set("parameters/blend/blend_amount", 1) # esta correndo
+      anim_tree.set("parameters/run_blend/blend_amount", 1) # esta correndo
   else:
     # se nao esta correndo player olha para a posicao do mouse
     look_at_cursor()
-    anim_tree.set("parameters/blend/blend_amount", 0) # nao esta correndo
+    anim_tree.set("parameters/run_blend/blend_amount", 0) # nao esta correndo
     move_vec *= speed # e velocidade normal
 
   if not $DetectGround.is_colliding():
