@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://player/Party.gd" type="Script" id=8]
 [ext_resource path="res://sfx/damage_taken.wav" type="AudioStream" id=9]
 [ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=10]
+[ext_resource path="res://player/lw_polly_char2.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.870171
@@ -70,8 +71,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76932, -0.258314, -0.207132 
 [node name="MeleeHitbox" type="Position3D" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 
+[node name="lw_polly_char_4_Dir_Mov" parent="Model" instance=ExtResource( 11 )]
+transform = Transform( -2, 0, 1.74846e-07, 0, 2, 0, -1.74846e-07, 0, -2, 0, 0, 0 )
+
 [node name="lw_polly_char" parent="Model" instance=ExtResource( 10 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+visible = false
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
 layer = 99
@@ -128,3 +133,5 @@ material/0 = null
 [connection signal="stamina_changed" from="Stamina" to="GameUILayer/GameUI" method="_on_Stamina_stamina_changed"]
 [connection signal="inventory_changed" from="Inventory" to="GameUILayer/GameUI/Inventory" method="_on_Inventory_inventory_changed"]
 [connection signal="new_weapon_equipped" from="Inventory" to="." method="_on_Inventory_new_weapon_equipped"]
+
+[editable path="Model/lw_polly_char_4_Dir_Mov"]
