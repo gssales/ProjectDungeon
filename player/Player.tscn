@@ -9,8 +9,8 @@
 [ext_resource path="res://player/Inventory.gd" type="Script" id=7]
 [ext_resource path="res://player/Party.gd" type="Script" id=8]
 [ext_resource path="res://sfx/damage_taken.wav" type="AudioStream" id=9]
-[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=10]
 [ext_resource path="res://player/lw_polly_char2.tscn" type="PackedScene" id=11]
+[ext_resource path="res://player/lw_polly_char_v4.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.870171
@@ -71,11 +71,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76932, -0.258314, -0.207132 
 [node name="MeleeHitbox" type="Position3D" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 
+[node name="lw_polly_char" parent="Model" instance=ExtResource( 12 )]
+transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+
+[node name="AnimationTree" parent="Model/lw_polly_char" index="2"]
+parameters/run_blend/blend_amount = 1.0
+parameters/run_crossbow/blend_amount = 0.0
+parameters/run_sword/blend_amount = 0.0
+parameters/walk_crossbow/blend_amount = 0.0
+parameters/walk_sword/blend_amount = 1.0
+
 [node name="lw_polly_char_4_Dir_Mov" parent="Model" instance=ExtResource( 11 )]
 transform = Transform( -2, 0, 1.74846e-07, 0, 2, 0, -1.74846e-07, 0, -2, 0, 0, 0 )
-
-[node name="lw_polly_char" parent="Model" instance=ExtResource( 10 )]
-transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 visible = false
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
@@ -134,4 +141,5 @@ material/0 = null
 [connection signal="inventory_changed" from="Inventory" to="GameUILayer/GameUI/Inventory" method="_on_Inventory_inventory_changed"]
 [connection signal="new_weapon_equipped" from="Inventory" to="." method="_on_Inventory_new_weapon_equipped"]
 
+[editable path="Model/lw_polly_char"]
 [editable path="Model/lw_polly_char_4_Dir_Mov"]

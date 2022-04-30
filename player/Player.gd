@@ -25,7 +25,7 @@ var equipped_weapon : Node
 var attack_speed = 0.3
 var has_weapon = false
 
-onready var anim_tree = $Model/lw_polly_char_4_Dir_Mov/AnimationTree
+onready var anim_tree = $Model/lw_polly_char/AnimationTree #$Model/lw_polly_char_4_Dir_Mov/AnimationTree
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
