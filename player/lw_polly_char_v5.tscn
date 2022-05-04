@@ -2246,7 +2246,7 @@ filters = [ "game_rig/Skeleton:BaseThumb.L", "game_rig/Skeleton:BaseThumb.R", "g
 
 [sub_resource type="AnimationNodeOneShot" id=31]
 filter_enabled = true
-filters = [ "game_rig/Skeleton:BaseThumb.L", "game_rig/Skeleton:BaseThumb.R", "game_rig/Skeleton:Fingers.L", "game_rig/Skeleton:Fingers.R", "game_rig/Skeleton:Hand.L", "game_rig/Skeleton:Hand.R", "game_rig/Skeleton:LowerArm.L", "game_rig/Skeleton:LowerArm.R", "game_rig/Skeleton:Shoulder.L", "game_rig/Skeleton:Shoulder.R", "game_rig/Skeleton:TipFingers.L", "game_rig/Skeleton:TipFingers.R", "game_rig/Skeleton:TipThumb.L", "game_rig/Skeleton:TipThumb.R", "game_rig/Skeleton:UpperArm.L", "game_rig/Skeleton:UpperArm.R" ]
+filters = [ "game_rig/Skeleton:BaseThumb.L", "game_rig/Skeleton:BaseThumb.R", "game_rig/Skeleton:Chest", "game_rig/Skeleton:Fingers.L", "game_rig/Skeleton:Fingers.R", "game_rig/Skeleton:Hand.L", "game_rig/Skeleton:Hand.R", "game_rig/Skeleton:LowerArm.L", "game_rig/Skeleton:LowerArm.R", "game_rig/Skeleton:Shoulder.L", "game_rig/Skeleton:Shoulder.R", "game_rig/Skeleton:Spine", "game_rig/Skeleton:TipFingers.L", "game_rig/Skeleton:TipFingers.R", "game_rig/Skeleton:TipThumb.L", "game_rig/Skeleton:TipThumb.R", "game_rig/Skeleton:UpperArm.L", "game_rig/Skeleton:UpperArm.R" ]
 
 [sub_resource type="AnimationNodeBlend2" id=27]
 filter_enabled = true
@@ -2257,7 +2257,7 @@ filter_enabled = true
 filters = [ "game_rig/Skeleton:BaseThumb.L", "game_rig/Skeleton:BaseThumb.R", "game_rig/Skeleton:Fingers.L", "game_rig/Skeleton:Fingers.R", "game_rig/Skeleton:Hand.L", "game_rig/Skeleton:Hand.R", "game_rig/Skeleton:LowerArm.L", "game_rig/Skeleton:LowerArm.R", "game_rig/Skeleton:Shoulder.L", "game_rig/Skeleton:Shoulder.R", "game_rig/Skeleton:TipFingers.L", "game_rig/Skeleton:TipFingers.R", "game_rig/Skeleton:TipThumb.L", "game_rig/Skeleton:TipThumb.R", "game_rig/Skeleton:UpperArm.L", "game_rig/Skeleton:UpperArm.R" ]
 
 [sub_resource type="AnimationNodeBlendTree" id=29]
-graph_offset = Vector2( -97.6945, -46.5435 )
+graph_offset = Vector2( 16.2481, -65.5 )
 nodes/Animation/node = SubResource( 16 )
 nodes/Animation/position = Vector2( 60, 40 )
 "nodes/Animation 2/node" = SubResource( 13 )
@@ -2287,7 +2287,7 @@ nodes/walk_hcrossbow/node = SubResource( 27 )
 nodes/walk_hcrossbow/position = Vector2( 660, -40 )
 nodes/walk_hsword/node = SubResource( 28 )
 nodes/walk_hsword/position = Vector2( 360, -100 )
-node_connections = [ "output", 0, "run_blend", "run_blend", 0, "sword_slash", "run_blend", 1, "run_hcrossbow", "run_hcrossbow", 0, "run_hsword", "run_hcrossbow", 1, "Animation 5", "walk_hsword", 0, "idle_walk", "walk_hsword", 1, "Animation", "slash_speed", 0, "Animation 3", "walk_hcrossbow", 0, "walk_hsword", "walk_hcrossbow", 1, "Animation 2", "sword_slash", 0, "walk_hcrossbow", "sword_slash", 1, "slash_speed", "run_hsword", 0, "run", "run_hsword", 1, "Animation 4" ]
+node_connections = [ "output", 0, "run_blend", "slash_speed", 0, "Animation 3", "run_hsword", 0, "run", "run_hsword", 1, "Animation 4", "walk_hcrossbow", 0, "walk_hsword", "walk_hcrossbow", 1, "Animation 2", "walk_hsword", 0, "idle_walk", "walk_hsword", 1, "Animation", "run_blend", 0, "sword_slash", "run_blend", 1, "run_hcrossbow", "run_hcrossbow", 0, "run_hsword", "run_hcrossbow", 1, "Animation 5", "sword_slash", 0, "walk_hcrossbow", "sword_slash", 1, "slash_speed" ]
 
 [node name="lw_polly_char_v5" type="Spatial"]
 

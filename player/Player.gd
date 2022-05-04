@@ -31,7 +31,7 @@ onready var anim_tree = $Model/lw_polly_char_v5/AnimationTree #$Model/lw_polly_c
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
   anim_tree.active = true
-
+  
 #func _input(event):
 #  if event is InputEventKey: 
 #    if event.is_action_pressed("take_damage"):
@@ -181,13 +181,46 @@ func set_weapon_anim():
     anim_tree.set("parameters/run_hsword/blend_amount", 0)
     anim_tree.set("parameters/walk_hcrossbow/blend_amount", 1)
     anim_tree.set("parameters/run_hcrossbow/blend_amount", 1)
-  
+
+# set weapon position in relation to hand and adjust size (if needed)
+func set_weapon_pos(weapon:Spatial, weapon_params):
+  if weapon != null:
+    var type = equipped_weapon.get_type()
+    if type == "espada":
+      weapon.transform = Transform(Vector3(0.866, -2.294, -0.488), 
+                                  Vector3(-0.913, 0.149, -2.322),
+                                  Vector3(2.16, 0.983, -0.786),
+                                  Vector3(0.038, 0.411, -0.22)
+                          )
+      print(weapon.transform)
+      weapon.translation = Vector3(0.038, 0.411, -0.22)
+      weapon.rotation_degrees = Vector3(-23.144, 109.998, -86.272)
+      weapon.scale = Vector3(2.5, 2.5, 2.5)
+      
+    elif type == "crossbow":
+      weapon.transform = Transform(Vector3(-0.882, -0.329, 0.337), 
+                                  Vector3(-0.385, 0.092, -0.918),
+                                  Vector3(0.271, -0.94, -0.208),
+                                  Vector3(-0.308, 1.277, -0.348)
+                          )
+      print(weapon.transform)
+      weapon.translation = Vector3(-0.308, 1.277, -0.348)
+      weapon.rotation_degrees = Vector3(70.004, 127.459, -74.369)
+      weapon.scale = Vector3(1, 1, 1)
 
 # instance new weapon and attack hitbox
 func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
   if new_weapon != null:
     weapon_model = new_weapon.instance()
-    if weapon_model != null: # and weapon.type == "melee"
+    
+    if weapon_model != null: 
+      # get weapon ready to be equipped
+      if inventory.get_child_count() != 0:
+        equipped_weapon = inventory.get_child(0)
+        set_weapon_pos(weapon_model, equipped_weapon)
+        set_weapon_anim()
+        print("weapon set")
+        
       # Find and remove the old weapon model
       var old_model = get_tree().get_nodes_in_group("weapon_model")
       if not old_model.empty():
@@ -197,10 +230,13 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
       # Insert the new weapon model
       #$Model/Hand.add_child(weapon_model)
       hand.add_child(weapon_model)
-      if inventory.get_child_count() != 0:
-        equipped_weapon = inventory.get_child(0)
-        set_weapon_anim()
-      
+#      if inventory.get_child_count() != 0:
+#        equipped_weapon = inventory.get_child(0)
+#        var weap = hand.get_child(0)
+#        set_weapon_pos(weap, equipped_weapon)
+#        set_weapon_anim()
+#        print("weapon set")
+
       var old_hitbox = get_tree().get_nodes_in_group("weapon_hitbox")
       if not old_hitbox.empty():
         old_hitbox[0].queue_free()
