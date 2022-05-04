@@ -25,7 +25,8 @@ var equipped_weapon : Node
 var attack_speed = 0.3
 var has_weapon = false
 
-onready var anim_tree = $Model/lw_polly_char/AnimationTree #$Model/lw_polly_char_4_Dir_Mov/AnimationTree
+onready var hand = $Model/lw_polly_char_v5/game_rig/Skeleton/Hand
+onready var anim_tree = $Model/lw_polly_char_v5/AnimationTree #$Model/lw_polly_char_4_Dir_Mov/AnimationTree
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
@@ -60,22 +61,23 @@ func _physics_process(delta):
   
   # Seleciona a animacao baseado no vetor direction
   anim_tree.set("parameters/idle_walk/blend_position", Vector2(-direction.x, direction.z))
+#  if equipped_weapon != null:
+#    set_weapon_anim()
   
   # Combat controls: 
   if not (anim_tree.get("parameters/run_blend/blend_amount") == 1) and Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
     
-    if inventory.get_child_count() != 0:
-      equipped_weapon = inventory.get_child(0)
+    #if inventory.get_child_count() != 0:
+      #equipped_weapon = inventory.get_child(0)
     # If its a sword / melee type weapon -> use hitbox
     if equipped_weapon != null:
       weapon_damage = equipped_weapon.damage() # get weapon damage
       attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
       if equipped_weapon.get_type() == "espada":
         if attack_hitbox != null: # depois fazer a hitbox ficar ativa somente por um periodo de tempo
+          play_slash_anim(attack_speed)
           for body in attack_hitbox.get_overlapping_bodies(): # search for entities in attack hittbox
             if body.is_in_group("Enemy"): #if it is an enemy 
-#              weapon_damage = equipped_weapon.damage() # get weapon damage
-#              attack_speed = equipped_weapon.get_attack_speed() / 1000.0 # get attack speed (milisecs)
               print(weapon_damage)
               body.take_damage(weapon_damage)
               print("hit enemy")
@@ -85,9 +87,7 @@ func _physics_process(delta):
         if equipped_weapon.get_type() == "crossbow":
           weapon_model.bolt_damage = weapon_damage
           weapon_model.shoot()
-          #attack_speed = equipped_weapon.get_attack_speed() / 1000.0
           attack_cooldown.start(attack_speed)
-        #pass
   
   
   if move_vec.length() > 0 :
@@ -160,6 +160,29 @@ func look_at_cursor():
   # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
   
 
+func play_slash_anim(attack_speed):
+  # 0.708 == duração da animação
+  var scale = 0.708 / attack_speed
+  
+  anim_tree.set("parameters/slash_speed/scale", scale)
+  anim_tree.set("parameters/sword_slash/active", true)
+
+func set_weapon_anim():
+  var weapon_type = equipped_weapon.get_type()
+  
+  if weapon_type == "espada":
+    anim_tree.set("parameters/walk_hsword/blend_amount", 1)
+    anim_tree.set("parameters/run_hsword/blend_amount", 1)
+    anim_tree.set("parameters/walk_hcrossbow/blend_amount", 0)
+    anim_tree.set("parameters/run_hcrossbow/blend_amount", 0)
+    
+  elif weapon_type == "crossbow":
+    anim_tree.set("parameters/walk_hsword/blend_amount", 0)
+    anim_tree.set("parameters/run_hsword/blend_amount", 0)
+    anim_tree.set("parameters/walk_hcrossbow/blend_amount", 1)
+    anim_tree.set("parameters/run_hcrossbow/blend_amount", 1)
+  
+
 # instance new weapon and attack hitbox
 func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
   if new_weapon != null:
@@ -172,9 +195,11 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
         old_model[0].queue_free()
       
       # Insert the new weapon model
-      $Model/Hand.add_child(weapon_model)
-      #attack_hitbox = equipped_weapon.find_node("hitbox_pos").get_child(0) #get the hitbox of the weapon
-      has_weapon = true
+      #$Model/Hand.add_child(weapon_model)
+      hand.add_child(weapon_model)
+      if inventory.get_child_count() != 0:
+        equipped_weapon = inventory.get_child(0)
+        set_weapon_anim()
       
       var old_hitbox = get_tree().get_nodes_in_group("weapon_hitbox")
       if not old_hitbox.empty():
