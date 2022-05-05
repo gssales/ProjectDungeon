@@ -19,6 +19,13 @@ var last_room
 
 var room_amount = 0
 
+# to save player progress we can store the player instance / obj in a global variable here
+# and then when we need to create a new level, 
+# we just remove the player from the level with remove_child instead of queue_free
+# then we simply add the player as a child of the new created map
+# +
+# save file(s) for when a player decides to exit the game and return from where he was
+
 func _ready():
   randomize()
   matrix_size = max_depth_generation*2

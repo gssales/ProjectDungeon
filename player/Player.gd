@@ -167,6 +167,7 @@ func play_slash_anim(attack_speed):
   anim_tree.set("parameters/slash_speed/scale", scale)
   anim_tree.set("parameters/sword_slash/active", true)
 
+
 func set_weapon_anim():
   var weapon_type = equipped_weapon.get_type()
   
@@ -181,6 +182,7 @@ func set_weapon_anim():
     anim_tree.set("parameters/run_hsword/blend_amount", 0)
     anim_tree.set("parameters/walk_hcrossbow/blend_amount", 1)
     anim_tree.set("parameters/run_hcrossbow/blend_amount", 1)
+
 
 # set weapon position in relation to hand and adjust size (if needed)
 func set_weapon_pos(weapon:Spatial, weapon_params):
@@ -208,6 +210,7 @@ func set_weapon_pos(weapon:Spatial, weapon_params):
       weapon.rotation_degrees = Vector3(70.004, 127.459, -74.369)
       weapon.scale = Vector3(1, 1, 1)
 
+
 # instance new weapon and attack hitbox
 func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
   if new_weapon != null:
@@ -219,6 +222,7 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
         equipped_weapon = inventory.get_child(0)
         set_weapon_pos(weapon_model, equipped_weapon)
         set_weapon_anim()
+        #attack_cooldown.start(0.3) # cooldown between switching weapons
         print("weapon set")
         
       # Find and remove the old weapon model

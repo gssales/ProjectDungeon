@@ -16,7 +16,7 @@ func _input(event):
         container.remove_child(ref_closest_item)
       ref_closest_item = null
       
-    if event.is_action_pressed("toggle_item"):
+    if event.is_action_pressed("toggle_item") and get_child_count() > 1:
       toggle_item()
 
 
