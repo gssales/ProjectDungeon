@@ -74,15 +74,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 [node name="lw_polly_char_v5" parent="Model" instance=ExtResource( 10 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 
-[node name="Skeleton" parent="Model/lw_polly_char_v5/game_rig" index="0"]
-bones/16/bound_children = [ NodePath("Hand") ]
-
 [node name="Hand" type="BoneAttachment" parent="Model/lw_polly_char_v5/game_rig/Skeleton" index="1"]
-transform = Transform( 0.892519, -0.153056, -0.424249, -0.20644, -0.974971, -0.0825601, -0.400993, 0.161268, -0.901775, -1.65211, -0.330761, 0.17351 )
+transform = Transform( 0.940655, -0.112975, -0.320015, -0.0633173, -0.984831, 0.161561, -0.33341, -0.131711, -0.933537, -1.42866, -0.466557, -1.17327 )
 bone_name = "Hand.R"
 
 [node name="AnimationTree" parent="Model/lw_polly_char_v5" index="2"]
 active = true
+parameters/idle_walk/blend_position = Vector2( 0, 1 )
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
 layer = 99
