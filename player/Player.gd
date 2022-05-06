@@ -61,14 +61,10 @@ func _physics_process(delta):
   
   # Seleciona a animacao baseado no vetor direction
   anim_tree.set("parameters/idle_walk/blend_position", Vector2(-direction.x, direction.z))
-#  if equipped_weapon != null:
-#    set_weapon_anim()
   
   # Combat controls: 
   if not (anim_tree.get("parameters/run_blend/blend_amount") == 1) and Input.is_action_pressed("attack") and attack_cooldown.is_stopped():
     
-    #if inventory.get_child_count() != 0:
-      #equipped_weapon = inventory.get_child(0)
     # If its a sword / melee type weapon -> use hitbox
     if equipped_weapon != null:
       weapon_damage = equipped_weapon.damage() # get weapon damage
@@ -194,7 +190,7 @@ func set_weapon_pos(weapon:Spatial, weapon_params):
                                   Vector3(2.16, 0.983, -0.786),
                                   Vector3(0.038, 0.411, -0.22)
                           )
-      print(weapon.transform)
+      #print(weapon.transform)
       weapon.translation = Vector3(0.038, 0.411, -0.22)
       weapon.rotation_degrees = Vector3(-23.144, 109.998, -86.272)
       weapon.scale = Vector3(2.5, 2.5, 2.5)
@@ -205,7 +201,7 @@ func set_weapon_pos(weapon:Spatial, weapon_params):
                                   Vector3(0.271, -0.94, -0.208),
                                   Vector3(-0.308, 1.277, -0.348)
                           )
-      print(weapon.transform)
+      #print(weapon.transform)
       weapon.translation = Vector3(-0.308, 1.277, -0.348)
       weapon.rotation_degrees = Vector3(70.004, 127.459, -74.369)
       weapon.scale = Vector3(1, 1, 1)
@@ -223,7 +219,7 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
         set_weapon_pos(weapon_model, equipped_weapon)
         set_weapon_anim()
         #attack_cooldown.start(0.3) # cooldown between switching weapons
-        print("weapon set")
+        #print("weapon set")
         
       # Find and remove the old weapon model
       var old_model = get_tree().get_nodes_in_group("weapon_model")
@@ -252,7 +248,8 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
   
 
 func _on_Health_you_died():
-  print("You Died")
+  #print("You Died")
+  pass
   
 
 func _on_PlayerCamera_camera_rotation(current_rotation):

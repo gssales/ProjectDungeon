@@ -74,11 +74,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 [node name="lw_polly_char_v5" parent="Model" instance=ExtResource( 10 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 
-[node name="Skeleton" parent="Model/lw_polly_char_v5/game_rig" index="0"]
-bones/16/bound_children = [ NodePath("Hand") ]
-
 [node name="Hand" type="BoneAttachment" parent="Model/lw_polly_char_v5/game_rig/Skeleton" index="1"]
-transform = Transform( 0.893237, -0.149636, -0.423957, -0.203308, -0.975502, -0.0840468, -0.400993, 0.161267, -0.901775, -1.63918, -0.316717, 0.173508 )
+transform = Transform( 0.89137, -0.158417, -0.424697, -0.211347, -0.974114, -0.0802248, -0.400993, 0.161268, -0.901775, -1.67239, -0.349053, 0.17351 )
 bone_name = "Hand.R"
 
 [node name="AnimationTree" parent="Model/lw_polly_char_v5" index="2"]

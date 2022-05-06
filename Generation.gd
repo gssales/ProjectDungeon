@@ -21,10 +21,12 @@ var room_amount = 0
 
 # to save player progress we can store the player instance / obj in a global variable here
 # and then when we need to create a new level, 
-# we just remove the player from the level with remove_child instead of queue_free
+# we just remove the player from the level with remove_child 
 # then we simply add the player as a child of the new created map
 # +
 # save file(s) for when a player decides to exit the game and return from where he was
+# problem is to generate new levels we reload this scene so that would have to be changed 
+# create a new function that removes the old map and creates a new map to put the player in
 
 func _ready():
   randomize()
@@ -75,6 +77,8 @@ func _ready():
   exit.translate(Vector3(last_room.x*36, 0 ,last_room.y*36))
   level_node.add_child(exit)
 
+  # ver se não dá problema caso player (x,y,z) != origin (0,0,0)
+  # talvez player.translation(Vector3(initial_room.x*36, 0 ,initial_room.y*36))
   player.translate(Vector3(initial_room.x*36, 0 ,initial_room.y*36))
   player.get_node("Party").astar = astar
   
@@ -82,9 +86,8 @@ func _ready():
   
   var fogs = get_tree().get_nodes_in_group("fog_of_war")
   for fog in fogs:
-    player.connect("position_changed", fog, "_on_Player_position_changed")
-    
-  
+    player.connect("position_changed", fog, "_on_Player_position_changed")    
+
 
 
 # process para a execução do audio stream com a musica ambiente
@@ -225,3 +228,95 @@ func post_generation(matrix):
 
   return matrix
   
+func on_LevelExit_go_to_next_level(player):
+  #save_player_progress()
+  generate_level(false)
+
+
+# to do:
+#   get player camera and disconnect its signals before connecting the new camera signals
+#   change LevelExit to send a signal to this node (LevelGeneration)
+#     to inform it that it needs to go to the next level
+#   connect the LevelExit signal to this node so that it can receive it and process 
+
+# call this to generate a level 
+func generate_level(is_first_level:bool):
+  randomize()
+  matrix_size = max_depth_generation*2
+  initial_room = Vector2(matrix_size/2, matrix_size/2)
+  last_room = Vector2(matrix_size/2, matrix_size/2)
+  
+  var m = generate_matrix(matrix_size)
+  m = post_generation(m)
+  
+  if Global.current_level > 0:
+    m[initial_room.x][initial_room.y].has_hole = true
+    
+  # generate structures, items and characters/entities
+  var map_node = $MapGenerator.generate(m, room_size)
+  var lights_node = $LightingGenerator.generate(m, room_size)
+  var astar = $AStarGenerator.generate(m, room_size)
+  var _room_list = room_list.duplicate()
+  _room_list.erase(initial_room)
+  var items = $ItemSpawner.generate(m, _room_list, room_size, initial_room)
+  var allies = $AllySpawner.generate(m, _room_list, room_size)
+  var enemies = $EnemySpawner.generate(m, _room_list, room_size)
+  
+  var current_level
+  var player
+  
+  if not is_first_level:
+    #current_level = get_tree().get_root().find_node("Generated")
+    current_level = get_children().pop_back()
+    var player_group = get_tree().get_nodes_in_group("player")
+    if not player_group.empty():
+      player = player_group[0]
+      var party_members = get_tree().get_nodes_in_group("ally")
+      var allies_in_level = current_level.get_node("Allies")
+      for ally in party_members:
+        allies_in_level.remove_child(ally)
+        add_child(ally)
+      current_level.remove_child(player)
+    
+    current_level.queue_free()
+    
+    
+  var level_node
+  level_node = Spatial.new()
+  level_node.name = "Generated"
+  
+  var camera = PlayerCamera.instance()
+  
+  if is_first_level:
+    player = Player.instance()
+    
+  player.connect("position_changed", camera, "_on_Player_position_changed")
+  camera.connect("camera_rotation", player, "_on_PlayerCamera_camera_rotation")
+  level_node.add_child(player)
+  level_node.add_child(camera)
+    
+  level_node.add_child(map_node)
+  level_node.add_child(lights_node)
+  level_node.add_child(enemies)
+  level_node.add_child(allies)
+  level_node.add_child(items)
+  
+  var exit = Exit.instance()
+  exit.translate(Vector3(last_room.x*36, 0 ,last_room.y*36))
+  level_node.add_child(exit)
+
+  # translation ao invés de translate() pq player (x,y,z) != origin (0,0,0)
+  player.translation = Vector3(initial_room.x*36, 0 ,initial_room.y*36)
+  player.get_node("Party").astar = astar
+  
+  var party_members = get_tree().get_nodes_in_group("ally")
+  for ally in party_members:
+    remove_child(ally)
+    level_node.add_child(ally)
+    ally.translation = Vector3(initial_room.x*36 + rand_range(2, 6), 0 ,initial_room.y*36 + + rand_range(2, 6))
+    
+  add_child(level_node)
+  
+  var fogs = get_tree().get_nodes_in_group("fog_of_war")
+  for fog in fogs:
+    player.connect("position_changed", fog, "_on_Player_position_changed")    
