@@ -324,7 +324,7 @@ func generate_level(is_first_level:bool):
   for ally in party_members:
     remove_child(ally)
     level_node.add_child(ally)
-    ally.translation = Vector3(initial_room.x*36 + rand_range(2, 6), 0 ,initial_room.y*36 + + rand_range(2, 6))
+    ally.translation = Vector3(initial_room.x*36 + rand_range(-6, 6), 0 ,initial_room.y*36 + + rand_range(-6, 6))
     
   add_child(level_node)
   
