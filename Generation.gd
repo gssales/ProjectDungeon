@@ -264,10 +264,17 @@ func generate_level(is_first_level:bool):
   
   var current_level
   var player
+  var camera
   
+  # salva o player e aliados da equipe para serem inseridos no novo mapa
   if not is_first_level:
-    #current_level = get_tree().get_root().find_node("Generated")
+    # Encontra o nodo Generated que contém o mapa atual
     current_level = get_children().pop_back()
+    
+    camera = current_level.get_node("PlayerCamera")
+    if camera != null:
+      current_level.remove_child(camera)
+    
     var player_group = get_tree().get_nodes_in_group("player")
     if not player_group.empty():
       player = player_group[0]
@@ -278,20 +285,24 @@ func generate_level(is_first_level:bool):
         add_child(ally)
       current_level.remove_child(player)
     
+    # deleta o mapa antigo 
     current_level.queue_free()
     
-    
+  
+  # Gera o novo mapa
   var level_node
   level_node = Spatial.new()
   level_node.name = "Generated"
   
-  var camera = PlayerCamera.instance()
-  
+  #var camera = PlayerCamera.instance()
   if is_first_level:
     player = Player.instance()
+    camera = PlayerCamera.instance()
+    player.connect("position_changed", camera, "_on_Player_position_changed")
+    camera.connect("camera_rotation", player, "_on_PlayerCamera_camera_rotation")
     
-  player.connect("position_changed", camera, "_on_Player_position_changed")
-  camera.connect("camera_rotation", player, "_on_PlayerCamera_camera_rotation")
+#  player.connect("position_changed", camera, "_on_Player_position_changed")
+#  camera.connect("camera_rotation", player, "_on_PlayerCamera_camera_rotation")
   level_node.add_child(player)
   level_node.add_child(camera)
     
@@ -317,6 +328,7 @@ func generate_level(is_first_level:bool):
     
   add_child(level_node)
   
+  # deconectar fogs do mapa antigo antes de conectar novamente
   var fogs = get_tree().get_nodes_in_group("fog_of_war")
   for fog in fogs:
     player.connect("position_changed", fog, "_on_Player_position_changed")    

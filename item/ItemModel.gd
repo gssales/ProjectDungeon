@@ -13,7 +13,7 @@ export var params = {
   model_transform=Transform(Vector3(0, 0.1,-1), Vector3(-1, 0, 0), Vector3(0, 1, 0.1), Vector3(0,0.05,0)),
   icon_path = "res://assets/Icon1.png",
   weapon_model = "res://item/items/weapon1/Sword_model1.tscn",
-  hitbox = "res://item/items/weapon1/Attack_Hitbox1.tscn"
+  hitbox = "res://item/items/weapon1/Attack_Hitbox1.tscn",
 }
 
 var _shader_sheen_level = -1.25

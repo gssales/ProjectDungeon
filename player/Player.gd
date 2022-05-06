@@ -26,7 +26,7 @@ var attack_speed = 0.3
 var has_weapon = false
 
 onready var hand = $Model/lw_polly_char_v5/game_rig/Skeleton/Hand
-onready var anim_tree = $Model/lw_polly_char_v5/AnimationTree #$Model/lw_polly_char_4_Dir_Mov/AnimationTree
+onready var anim_tree = $Model/lw_polly_char_v5/AnimationTree
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
@@ -236,7 +236,11 @@ func _on_Inventory_new_weapon_equipped(new_weapon, new_hitbox):
 #        set_weapon_pos(weap, equipped_weapon)
 #        set_weapon_anim()
 #        print("weapon set")
-
+      
+      # set timer to be used for weapon attack speed
+      attack_cooldown = weapon_model.get_node("AttkTimer") as Timer
+      attack_cooldown.one_shot = true
+      
       var old_hitbox = get_tree().get_nodes_in_group("weapon_hitbox")
       if not old_hitbox.empty():
         old_hitbox[0].queue_free()

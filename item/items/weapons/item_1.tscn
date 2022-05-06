@@ -10,3 +10,6 @@ script = ExtResource( 1 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.11022e-16, 0.838534, -0.0149081 )
 
 [node name="Sword" parent="." instance=ExtResource( 2 )]
+
+[node name="AttkTimer" type="Timer" parent="."]
+process_mode = 0

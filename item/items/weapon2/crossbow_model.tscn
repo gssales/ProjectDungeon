@@ -117,3 +117,6 @@ material/0 = null
 
 [node name="FirePoint" type="Spatial" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.297, -1.54 )
+
+[node name="AttkTimer" type="Timer" parent="."]
+process_mode = 0
