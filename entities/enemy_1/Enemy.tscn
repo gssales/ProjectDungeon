@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://entities/enemy_1/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://behavior/Behavior.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://behavior/sensor/WallSensor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=6]
 [ext_resource path="res://sfx/damage_dealt.wav" type="AudioStream" id=7]
+[ext_resource path="res://entities/bug/bug.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.642351
@@ -59,9 +60,13 @@ material/0 = null
 
 [node name="lw_polly_char" parent="CSGMesh" instance=ExtResource( 6 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+visible = false
 
 [node name="Character" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="0"]
 material/0 = SubResource( 9 )
+
+[node name="bug" parent="CSGMesh" instance=ExtResource( 8 )]
+transform = Transform( -3, 0, -2.62268e-07, 0, 3, 0, 2.62268e-07, 0, -3, 0, -2.2, 0 )
 
 [node name="AttackHitbox" type="Spatial" parent="."]
 
@@ -73,7 +78,7 @@ shape = SubResource( 8 )
 
 [node name="DetectGround" type="RayCast" parent="."]
 cast_to = Vector3( 0, -2.25, 0 )
-debug_shape_thickness = 5.0
+debug_shape_thickness = 5
 
 [node name="Steering" parent="." instance=ExtResource( 3 )]
 
@@ -88,3 +93,4 @@ stream = ExtResource( 7 )
 unit_db = 4.0
 
 [editable path="CSGMesh/lw_polly_char"]
+[editable path="CSGMesh/bug"]
