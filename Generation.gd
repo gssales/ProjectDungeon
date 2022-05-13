@@ -41,6 +41,7 @@ func _ready():
     m[initial_room.x][initial_room.y].has_hole = true
   
   var map_node = $MapGenerator.generate(m, room_size)
+  var props_node = $PropGenerator.generate(m, room_list, room_size)
   var lights_node = $LightingGenerator.generate(m, room_size)
   var astar = $AStarGenerator.generate(m, room_size)
   var _room_list = room_list.duplicate()
@@ -62,6 +63,7 @@ func _ready():
   level_node.add_child(camera)
     
   level_node.add_child(map_node)
+  level_node.add_child(props_node)
   level_node.add_child(lights_node)
   level_node.add_child(enemies)
   level_node.add_child(allies)
@@ -79,6 +81,7 @@ func _ready():
   add_child(level_node)
   
   exit.connect("go_to_next_level", player.get_node("GameUILayer/GameUI"), "on_LevelExit_go_to_next_level")
+  player.get_node("DetectDarkness").connect("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed")
   
   var fogs = get_tree().get_nodes_in_group("fog_of_war")
   for fog in fogs:
@@ -253,6 +256,7 @@ func generate_level(level_number:int):
     
   # generate structures, items and characters/entities
   var map_node = $MapGenerator.generate(m, room_size)
+  var props_node = $PropGenerator.generate(m, room_list, room_size)
   var lights_node = $LightingGenerator.generate(m, room_size)
   var astar = $AStarGenerator.generate(m, room_size)
   var _room_list = room_list.duplicate()
@@ -306,6 +310,7 @@ func generate_level(level_number:int):
   level_node.add_child(camera)
     
   level_node.add_child(map_node)
+  level_node.add_child(props_node)
   level_node.add_child(lights_node)
   level_node.add_child(enemies)
   level_node.add_child(allies)
@@ -329,6 +334,7 @@ func generate_level(level_number:int):
   add_child(level_node)
   
   exit.connect("go_to_next_level", player.get_node("GameUILayer/GameUI"), "on_LevelExit_go_to_next_level")
+  player.get_node("DetectDarkness").connect("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed")
   
   # deconectar fogs do mapa antigo antes de conectar novamente
   var fogs = get_tree().get_nodes_in_group("fog_of_war")

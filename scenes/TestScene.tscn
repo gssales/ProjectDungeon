@@ -217,5 +217,7 @@ navmesh = SubResource( 8 )
 [node name="Spatial" parent="." instance=ExtResource( 6 )]
 transform = Transform( -0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 5, 0, -9 )
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
 [connection signal="position_changed" from="Player" to="PlayerCamera" method="_on_Player_position_changed"]
 [connection signal="camera_rotation" from="PlayerCamera" to="Player" method="_on_PlayerCamera_camera_rotation"]

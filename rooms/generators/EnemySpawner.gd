@@ -12,7 +12,7 @@ func generate(matrix, room_list, room_size):
     
     var e = Enemy.instance()
     e.damage = [min(Global.current_level/2, 15), min(Global.current_level +10, 40)]
-    e.max_force = 50 + Global.current_level / 2
+    e.max_force = 10 + Global.current_level / 2
     e.translate(Vector3(room.x * room_size.x + rand_range(-10, 10), 4 ,room.y * room_size.y + rand_range(-10, 10)))
     enemy_node.add_child(e)
         
