@@ -54,7 +54,7 @@ func _ready():
 
 func _physics_process(delta):
   if health <= 0:
-    queue_free()
+    die()
   
   $Behavior.update(delta)
   
@@ -91,6 +91,15 @@ func _physics_process(delta):
       
       attk_timer.start(attk_delay)
 
+func die():
+  var c = load("res://player/lw_polly_char.tscn")
+  var body = c.instance()
+  get_parent().add_child(body)
+  body.transform = body.transform.scaled(Vector3(2,2,2)).rotated(Vector3.UP, PI +rotation.y)
+  body.transform.origin = transform.origin
+  body.body_sim()
+  queue_free()
+  
 func take_damage(amount):
   if !$DamageSFX.is_playing():
     $DamageSFX.play()

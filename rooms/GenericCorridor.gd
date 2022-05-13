@@ -27,28 +27,28 @@ func add_floor(transl, length, depth):
     
 func _ready():
   if portal_up:
-    add_floor(Vector3(0, 0, -11), 6, 14)
+    add_floor(Vector3(0, 0, -11), 8, 14)
     add_wall(Vector3(-4, 0, -18), -90, 15)
     add_wall(Vector3(4, 0, -18), -90, 15)
   else:
     add_wall(Vector3(-5, 0, -4), 0, 10)
     
   if portal_down:
-    add_floor(Vector3(0, 0, 11), 6, 14)
+    add_floor(Vector3(0, 0, 11), 8, 14)
     add_wall(Vector3(-4, 0, 18), 90, 15)
     add_wall(Vector3(4, 0, 18), 90, 15)
   else:
     add_wall(Vector3(-5, 0, 4), 0, 10)
     
   if portal_right:
-    add_floor(Vector3(11, 0, 0), 14, 6)
+    add_floor(Vector3(11, 0, 0), 14, 8)
     add_wall(Vector3(18, 0, -4), 180, 13)
     add_wall(Vector3(18, 0, 4), 180, 13)
   else:
     add_wall(Vector3(4, 0, -3), -90, 6)
     
   if portal_left:
-    add_floor(Vector3(-11, 0, 0), 14, 6)
+    add_floor(Vector3(-11, 0, 0), 14, 8)
     add_wall(Vector3(-18, 0, -4), 0, 13)
     add_wall(Vector3(-18, 0, 4), 0, 13)
   else:

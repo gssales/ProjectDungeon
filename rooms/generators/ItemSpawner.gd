@@ -50,7 +50,7 @@ func generate(matrix, room_list, room_size, initial_room):
     var prob = randf()
     
     var amount = 0
-    if prob > 0.8:
+    if prob > 0.9:
       amount = 1
             
     for i in range(amount):

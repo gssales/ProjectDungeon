@@ -16,7 +16,7 @@ var may_attack = false
 var attk_timer
 var attk_delay = 1
 onready var attack_hitbox = $AttackHitbox/Area
-export(float) var damage = 5
+var damage = [0,5]
 
 onready var anim_tree = $CSGMesh/bug/AnimationTree
 
@@ -49,6 +49,7 @@ func _physics_process(delta):
     var time_in_seconds = 1
     yield(get_tree().create_timer(time_in_seconds), "timeout")
     queue_free()
+    #die()
     
   if do_rotate:
     var rot = (rotation_rad + rotated_rad) * delta * -1
@@ -93,15 +94,24 @@ func _physics_process(delta):
   if may_attack and attk_timer.is_stopped():
     anim_tree.set("parameters/attack/active", true)
     for body in attack_hitbox.get_overlapping_bodies():
+      var d = rand_range(damage[0], damage[1])
       if body.is_in_group("player"):
         print("attaking player")
-        body.get_node("Health").take_damage(damage)
+        body.get_node("Health").take_damage(d)
       
       elif body.is_in_group("ally"):
-        body.take_damage(damage)
+        body.take_damage(d)
       
       attk_timer.start(attk_delay)
 
+func die():
+  var c = load("res://player/lw_polly_char.tscn")
+  var body = c.instance()
+  get_parent().add_child(body)
+  body.transform = body.transform.scaled(Vector3(2,2,2)).rotated(Vector3.UP, PI +rotation.y)
+  body.transform.origin = transform.origin
+  body.body_sim()
+  queue_free()
 
 func take_damage(amount):
   if !$DamageSFX.is_playing():

@@ -3,7 +3,7 @@ extends Spatial
 export var max_depth_generation = 5
 export var max_corridor_streak = 3
 export var room_size := Vector2(36, 36)
-export var n_rooms = 10
+export var n_rooms = 5
 
 var Exit = preload("res://rooms/props/LevelExit.tscn")
 var Player = preload("res://player/Player.tscn")
@@ -41,12 +41,13 @@ func _ready():
     m[initial_room.x][initial_room.y].has_hole = true
   
   var map_node = $MapGenerator.generate(m, room_size)
+  var props_node = $PropGenerator.generate(m, room_list, room_size)
   var lights_node = $LightingGenerator.generate(m, room_size)
   var astar = $AStarGenerator.generate(m, room_size)
   var _room_list = room_list.duplicate()
   _room_list.erase(initial_room)
   var items = $ItemSpawner.generate(m, _room_list, room_size, initial_room)
-  var allies = $AllySpawner.generate(m, _room_list, room_size)
+  var allies = $AllySpawner.generate(m, _room_list, room_size, 0)
   var enemies = $EnemySpawner.generate(m, _room_list, room_size)
   
   var level_node = Spatial.new()
@@ -54,13 +55,7 @@ func _ready():
   
   var camera = PlayerCamera.instance()
   
-  var player
-  if Global.load_player and false:
-    player = Global.player
-    for a in Global.allies:
-      allies.add_child(a)
-  else:
-    player = Player.instance()
+  var player = Player.instance()
     
   player.connect("position_changed", camera, "_on_Player_position_changed")
   camera.connect("camera_rotation", player, "_on_PlayerCamera_camera_rotation")
@@ -68,6 +63,7 @@ func _ready():
   level_node.add_child(camera)
     
   level_node.add_child(map_node)
+  level_node.add_child(props_node)
   level_node.add_child(lights_node)
   level_node.add_child(enemies)
   level_node.add_child(allies)
@@ -83,6 +79,9 @@ func _ready():
   player.get_node("Party").astar = astar
   
   add_child(level_node)
+  
+  exit.connect("go_to_next_level", player.get_node("GameUILayer/GameUI"), "on_LevelExit_go_to_next_level")
+  player.get_node("DetectDarkness").connect("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed")
   
   var fogs = get_tree().get_nodes_in_group("fog_of_war")
   for fog in fogs:
@@ -230,7 +229,7 @@ func post_generation(matrix):
   
 func on_LevelExit_go_to_next_level(player):
   #save_player_progress()
-  generate_level(false)
+  generate_level(Global.current_level)
 
 
 # to do:
@@ -240,11 +239,14 @@ func on_LevelExit_go_to_next_level(player):
 #   connect the LevelExit signal to this node so that it can receive it and process 
 
 # call this to generate a level 
-func generate_level(is_first_level:bool):
+func generate_level(level_number:int):
   randomize()
   matrix_size = max_depth_generation*2
   initial_room = Vector2(matrix_size/2, matrix_size/2)
   last_room = Vector2(matrix_size/2, matrix_size/2)
+  
+  # number of rooms increases in 5 every 5 levels: 5, 10, 15...
+  n_rooms = ((level_number / 5) + 1) * 5
   
   var m = generate_matrix(matrix_size)
   m = post_generation(m)
@@ -254,12 +256,13 @@ func generate_level(is_first_level:bool):
     
   # generate structures, items and characters/entities
   var map_node = $MapGenerator.generate(m, room_size)
+  var props_node = $PropGenerator.generate(m, room_list, room_size)
   var lights_node = $LightingGenerator.generate(m, room_size)
   var astar = $AStarGenerator.generate(m, room_size)
   var _room_list = room_list.duplicate()
   _room_list.erase(initial_room)
   var items = $ItemSpawner.generate(m, _room_list, room_size, initial_room)
-  var allies = $AllySpawner.generate(m, _room_list, room_size)
+  var allies = $AllySpawner.generate(m, _room_list, room_size, get_tree().get_nodes_in_group("ally").size())
   var enemies = $EnemySpawner.generate(m, _room_list, room_size)
   
   var current_level
@@ -267,7 +270,7 @@ func generate_level(is_first_level:bool):
   var camera
   
   # salva o player e aliados da equipe para serem inseridos no novo mapa
-  if not is_first_level:
+  if level_number > 0:
     # Encontra o nodo Generated que contém o mapa atual
     current_level = get_children().pop_back()
     
@@ -295,7 +298,7 @@ func generate_level(is_first_level:bool):
   level_node.name = "Generated"
   
   #var camera = PlayerCamera.instance()
-  if is_first_level:
+  if level_number == 0:
     player = Player.instance()
     camera = PlayerCamera.instance()
     player.connect("position_changed", camera, "_on_Player_position_changed")
@@ -307,6 +310,7 @@ func generate_level(is_first_level:bool):
   level_node.add_child(camera)
     
   level_node.add_child(map_node)
+  level_node.add_child(props_node)
   level_node.add_child(lights_node)
   level_node.add_child(enemies)
   level_node.add_child(allies)
@@ -323,10 +327,14 @@ func generate_level(is_first_level:bool):
   var party_members = get_tree().get_nodes_in_group("ally")
   for ally in party_members:
     remove_child(ally)
+    ally.astar = astar
     allies.add_child(ally)
     ally.translation = Vector3(initial_room.x*36 + rand_range(-6, 6), 0 ,initial_room.y*36 + + rand_range(-6, 6))
     
   add_child(level_node)
+  
+  exit.connect("go_to_next_level", player.get_node("GameUILayer/GameUI"), "on_LevelExit_go_to_next_level")
+  player.get_node("DetectDarkness").connect("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed")
   
   # deconectar fogs do mapa antigo antes de conectar novamente
   var fogs = get_tree().get_nodes_in_group("fog_of_war")

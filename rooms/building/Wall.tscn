@@ -1,23 +1,45 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://rooms/building/Wall.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/stone_wall02 - normal_map.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/stone_wall02 - height_map.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/stone_wall02 - diffuse_map.png" type="Texture" id=4]
+[ext_resource path="res://assets/textures/stone_wall02 - specularity_map.png" type="Texture" id=5]
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.129412, 0.152941, 0.180392, 1 )
+albedo_color = Color( 0.494118, 0.486275, 0.470588, 1 )
+albedo_texture = ExtResource( 4 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 2 )
+clearcoat_enabled = true
+clearcoat = 1.0
+clearcoat_gloss = 0.5
+clearcoat_texture = ExtResource( 5 )
+depth_enabled = true
+depth_scale = -1.0
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+depth_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.2, 0.2, 0.2 )
+uv1_offset = Vector3( 0.5, 0.5, 0.5 )
+uv1_triplanar = true
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 2.5, 1.5, 0.3 )
+extents = Vector3( 2.5, 2.5, 1 )
 
 [node name="Wall" type="StaticBody" groups=["wall"]]
 script = ExtResource( 1 )
+height = 5.0
+depth = 2.0
 
 [node name="CSGBox" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.5, 0 )
 width = 5.0
-height = 3.0
-depth = 0.6
+height = 5.0
 material = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.5, 0 )
 shape = SubResource( 3 )

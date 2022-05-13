@@ -7,6 +7,7 @@ func _ready():
 
 # Start the game
 func _on_New_game_pressed():
+  Global.current_level = 0
   get_tree().change_scene("res://Generation.tscn")
 
 # Exit game
