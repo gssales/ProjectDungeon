@@ -6,7 +6,7 @@ signal update_closest_entity(entity)
 
 var seen_entities := []
 
-var hear_radius = 5
+var hear_radius = 15
 var view_radius = 30
 var field_of_view = PI/3
 var looking_for_groups = []

@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://player/lw_polly_char.gd" type="Script" id=1]
 
 [sub_resource type="SpatialMaterial" id=1]
 vertex_color_use_as_albedo = true
@@ -109,7 +111,64 @@ bind/28/name = "Toes.L"
 bind/28/bone = -1
 bind/28/pose = Transform( 6.82346, -7.92667e-05, -8.44515e-06, -1.33361e-05, -0.714237, 6.786, -7.81383e-05, -6.786, -0.714234, -1.00226, -0.934925, -6.05607 )
 
+[sub_resource type="CapsuleShape" id=4]
+radius = 0.336641
+height = 1.34131
+
+[sub_resource type="CapsuleShape" id=5]
+radius = 0.576389
+height = 0.988797
+
+[sub_resource type="CapsuleShape" id=6]
+radius = 1.06831
+height = 0.603697
+
+[sub_resource type="CapsuleShape" id=7]
+radius = 0.363392
+height = 0.449974
+
+[sub_resource type="CapsuleShape" id=8]
+radius = 0.133806
+height = 0.451641
+
+[sub_resource type="CapsuleShape" id=9]
+radius = 0.309669
+height = 1.61687
+
+[sub_resource type="CapsuleShape" id=10]
+radius = 0.300907
+height = 1.36878
+
+[sub_resource type="CapsuleShape" id=14]
+radius = 0.15082
+height = 0.389014
+
+[sub_resource type="CapsuleShape" id=15]
+radius = 0.288814
+height = 1.61687
+
+[sub_resource type="CapsuleShape" id=16]
+radius = 0.218507
+height = 1.36878
+
+[sub_resource type="CapsuleShape" id=20]
+radius = 0.5062
+height = 1.45589
+
+[sub_resource type="CapsuleShape" id=21]
+radius = 0.303547
+height = 2.42838
+
+[sub_resource type="CapsuleShape" id=23]
+radius = 0.489766
+height = 1.3548
+
+[sub_resource type="CapsuleShape" id=24]
+radius = 0.303547
+height = 2.42838
+
 [node name="lw_polly_char" type="Spatial"]
+script = ExtResource( 1 )
 
 [node name="game_rig" type="Spatial" parent="."]
 transform = Transform( 0.175, 0, 0, 0, 0.175, 0, 0, 0, 0.175, 0, 0, 0 )
@@ -265,3 +324,227 @@ bones/28/bound_children = [  ]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = null
+
+[node name="Physical Bone Hips" type="PhysicalBone" parent="game_rig/Skeleton"]
+collision_layer = 0
+bone_name = "Hips"
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone Hips"]
+transform = Transform( 0.0228444, 0, -0.999739, 0.999739, 0, 0.0228444, 0, -1, 0, 0, 0.176361, 0 )
+shape = SubResource( 4 )
+
+[node name="Physical Bone Spine" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( 1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, 1, 0, 1.03835, 0 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, 0, -2.20268e-13, 0, 1, 0, 2.20268e-13, 0, 1, 0, 0, 0 )
+bone_name = "Spine"
+joint_constraints/swing_span = 30.0
+joint_constraints/twist_span = 30.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone Spine"]
+transform = Transform( -4.37114e-08, 1.19209e-07, -1, 1, -1.19209e-07, -4.37114e-08, -1.19209e-07, -1, -1.19209e-07, 0, 0.0699742, 0 )
+shape = SubResource( 5 )
+
+[node name="Physical Bone Chest" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( 1, 5.24025e-14, 6.1439e-08, -8.01069e-09, 0.991464, 0.130384, -6.09143e-08, -0.130384, 0.991464, -1.77636e-15, 2.56982, 1.08206e-22 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, -8.88178e-16, 1.56319e-13, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+bone_name = "Chest"
+joint_constraints/swing_span = 20.0
+joint_constraints/twist_span = 15.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone Chest"]
+transform = Transform( 1, 0, 0, 0, 0, 1, 7.10543e-15, -1, 0, -4.15543e-09, 0.514307, 0.0676348 )
+shape = SubResource( 6 )
+
+[node name="Physical Bone Neck" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( 1, -3.73035e-14, -2.94875e-13, 5.88572e-14, 0.997726, -0.0674089, 3.50687e-13, 0.0674085, 0.997725, 1.62204e-13, 5.03907, -0.310081 )
+collision_layer = 0
+joint_type = 2
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74587e-14, -0.904791, 0.166925 )
+body_offset = Transform( 1, -6.19216e-14, 1.32899e-15, 6.99026e-14, 0.978288, 0.207245, -2.45797e-14, -0.207246, 0.978289, 1.12107e-14, 0.850553, -0.350815 )
+bone_name = "Neck"
+joint_constraints/swing_span = 45.0
+joint_constraints/twist_span = 45.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 1.2
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone Neck"]
+transform = Transform( 1, 0, 2.71051e-20, -2.71051e-20, 0, 1, 0, -1, -5.96046e-08, 7.55698e-14, 0.0701313, 0.247405 )
+shape = SubResource( 7 )
+
+[node name="Physical Bone ShoulderR" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.496092, -0.868249, 0.00600649, 0.868271, -0.49608, 0.0034311, 5.70022e-07, 0.00691755, 0.999976, -0.480413, 3.92903, -0.212563 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, 6.41292e-08, -1.60276e-09, -5.56604e-08, 1, 0, -3.28816e-09, -9.31323e-10, 1, 0, 0, 0 )
+bone_name = "Shoulder.R"
+joint_constraints/swing_span = 15.0
+joint_constraints/twist_span = 5.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone ShoulderR"]
+transform = Transform( 1, -2.87798e-10, -2.52679e-08, 3.37423e-08, 4.65661e-10, 1, -8.70671e-10, -0.999999, -9.31323e-10, 0.427821, 0.416158, -0.0028791 )
+shape = SubResource( 8 )
+
+[node name="Physical Bone UpperArmR" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.932652, -0.360195, 0.0206005, 0.360784, -0.931129, 0.0532526, 3.91785e-07, 0.0570984, 0.998371, -1.32303, 3.44759, -0.205849 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, -8.96563e-09, -1.9373e-08, -6.69442e-08, 1, 1.86265e-08, -3.00568e-08, 7.45058e-09, 1, 0, 0, 0 )
+bone_name = "UpperArm.R"
+joint_constraints/swing_span = 45.0
+joint_constraints/twist_span = 45.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone UpperArmR"]
+transform = Transform( 1, 2.60994e-09, -8.96563e-09, -6.5498e-08, -3.72529e-09, 1, -4.7701e-09, -1, 7.45058e-09, 0.0415969, 0.676685, -0.0387008 )
+shape = SubResource( 9 )
+
+[node name="Physical Bone LowerArmR" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.387404, -0.347849, -0.853768, -0.0918601, -0.906914, 0.411183, -0.917322, 0.237721, 0.319388, -2.05102, 1.5657, -0.0904485 )
+collision_layer = 0
+joint_type = 3
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.56533e-08, 5.28058e-08, 2.57467e-09 )
+body_offset = Transform( -0.107968, -0.0859453, -0.990433, -0.113866, 0.990769, -0.0735609, 0.987612, 0.104836, -0.116757, 0, -5.96046e-08, 5.96046e-08 )
+bone_name = "LowerArm.R"
+joint_constraints/angular_limit_enabled = true
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = 0.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone LowerArmR"]
+transform = Transform( 1, 1.93715e-07, -1.3411e-07, 8.9407e-08, 0, 1, 1.19209e-07, -1, -2.98023e-08, -0.0240746, 1.0882, 0.0427842 )
+shape = SubResource( 10 )
+
+[node name="Physical Bone ShoulderL" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.496092, 0.868249, -0.0060065, -0.868271, -0.49608, 0.0034311, -5.10386e-07, 0.00691755, 0.999976, 0.480413, 3.92903, -0.212563 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, -6.41538e-08, 6.0021e-10, 5.60729e-08, 1, 1.86265e-09, 3.31625e-09, -9.31323e-10, 1, 0, 0, 0 )
+bone_name = "Shoulder.L"
+joint_constraints/swing_span = 15.0
+joint_constraints/twist_span = 5.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone ShoulderL"]
+transform = Transform( 0.995454, 0.00065868, 0.0952177, -0.0952179, -3.13814e-05, 0.995455, 0.000658691, -0.999999, 3.14806e-05, -0.412935, 0.427434, -0.00295706 )
+shape = SubResource( 14 )
+
+[node name="Physical Bone UpperArmL" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.932652, 0.360195, -0.0206005, -0.360784, -0.931129, 0.0532527, -3.67284e-07, 0.0570984, 0.998371, 1.32303, 3.44759, -0.205849 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, 8.53152e-09, 1.5508e-08, 6.83908e-08, 1, -3.72529e-08, -4.2541e-09, 7.45058e-09, 1, 0, 0, 0 )
+bone_name = "UpperArm.L"
+joint_constraints/swing_span = 45.0
+joint_constraints/twist_span = 45.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone UpperArmL"]
+transform = Transform( 1, -6.07656e-10, 8.53152e-09, 6.87053e-08, 7.45058e-09, 1, 1.24496e-09, -1, 7.45058e-09, -0.0195258, 0.749285, -0.0428529 )
+shape = SubResource( 15 )
+
+[node name="Physical Bone LowerArmL" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.393936, 0.425568, 0.814682, 0.0577462, -0.873145, 0.484029, 0.917322, 0.237721, 0.319388, 2.05102, 1.5657, -0.0904483 )
+collision_layer = 0
+joint_type = 3
+body_offset = Transform( -0.124855, 0.168024, 0.977844, 0.143641, 0.978235, -0.149749, -0.981722, 0.121763, -0.146272, 0, 0, 0 )
+bone_name = "LowerArm.L"
+joint_constraints/angular_limit_enabled = true
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = 0.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone LowerArmL"]
+transform = Transform( 1, 0, 1.2666e-07, -1.49012e-08, 0, 1, -2.98023e-08, -1, 0, -0.0320351, 0.846676, -0.015558 )
+shape = SubResource( 16 )
+
+[node name="Physical Bone UpperLegR2" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.998704, -0.0509078, -0.00334576, 0.0509756, -0.99839, -0.0247301, -0.00208144, -0.0248684, 0.999688, -0.615755, 0.236121, -0.0133287 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, 1.06422e-07, 5.58794e-09, -5.60249e-10, 0.999997, -3.72529e-08, 2.32831e-10, -1.86265e-09, 0.999998, 0, 0, 0 )
+bone_name = "UpperLeg.R"
+joint_constraints/swing_span = 45.0
+joint_constraints/twist_span = 90.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone UpperLegR2"]
+transform = Transform( 1, -1.39698e-09, 2.08747e-08, -5.78439e-10, 1.11759e-08, 1, 9.31323e-10, -1, 1.86265e-09, -0.0830881, 1.62736, 0.0403096 )
+shape = SubResource( 20 )
+
+[node name="Physical Bone LowerLegR2" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.00167068, -0.066198, 0.997807, 0.0489423, -0.996617, -0.0660371, 0.998807, 0.0487243, 0.00490486, -0.763686, -2.75636, -0.0855929 )
+collision_layer = 0
+joint_type = 3
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446862, -0.090995, -0.00602944 )
+body_offset = Transform( 0.00239528, 0.0172607, -0.999843, -0.114814, 0.993245, 0.0168716, 0.993389, 0.114756, 0.00436083, -0.00446856, 0.0909951, 0.0060294 )
+bone_name = "LowerLeg.R"
+joint_constraints/angular_limit_enabled = true
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = -30.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone LowerLegR2"]
+transform = Transform( 1, 6.98492e-10, -2.47383e-10, -1.94996e-09, 0, 1, -2.32831e-10, -1, 7.45058e-09, -0.0718382, 1.46287, 0.0969315 )
+shape = SubResource( 21 )
+
+[node name="Physical Bone UpperLegL2" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.998772, 0.0495373, 0.00436581, -0.0496743, -0.997942, -0.0405498, 0.00234811, -0.0407164, 0.999169, 0.615755, 0.236121, -0.0133287 )
+collision_layer = 0
+joint_type = 2
+body_offset = Transform( 1, -6.9922e-09, 0, 8.09232e-08, 1, 0, 1.16415e-09, 0, 1, 0, 0, 0 )
+bone_name = "UpperLeg.L"
+joint_constraints/swing_span = 45.0
+joint_constraints/twist_span = 90.0
+joint_constraints/bias = 0.3
+joint_constraints/softness = 0.8
+joint_constraints/relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone UpperLegL2"]
+transform = Transform( 1, 0, -6.9922e-09, 3.63507e-08, 0, 1, 0, -1, 0, -0.0614678, 1.62845, 0.0665041 )
+shape = SubResource( 23 )
+
+[node name="Physical Bone LowerLegL2" type="PhysicalBone" parent="game_rig/Skeleton"]
+transform = Transform( -0.00185651, 0.0459649, -0.998941, -0.0493969, -0.997724, -0.0458174, -0.998783, 0.0492595, 0.0041228, 0.759703, -4.2092, -0.131644 )
+collision_layer = 0
+joint_type = 3
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0763405, -1.54195, -0.0708087 )
+body_offset = Transform( 0.00244, 0.0034671, 0.999986, 0.0951024, 0.995457, -0.00368342, -0.995469, 0.0951099, 0.00209919, 0.07634, 1.54194, 0.0708085 )
+bone_name = "LowerLeg.L"
+joint_constraints/angular_limit_enabled = true
+joint_constraints/angular_limit_upper = 90.0
+joint_constraints/angular_limit_lower = -30.0
+joint_constraints/angular_limit_bias = 0.3
+joint_constraints/angular_limit_softness = 0.9
+joint_constraints/angular_limit_relaxation = 1.0
+
+[node name="CollisionShape" type="CollisionShape" parent="game_rig/Skeleton/Physical Bone LowerLegL2"]
+transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
+shape = SubResource( 24 )

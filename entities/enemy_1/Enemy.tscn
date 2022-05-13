@@ -58,10 +58,80 @@ mesh = SubResource( 5 )
 material/0 = null
 
 [node name="lw_polly_char" parent="CSGMesh" instance=ExtResource( 6 )]
-transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0.157381, 0 )
 
 [node name="Character" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="0"]
 material/0 = SubResource( 9 )
+
+[node name="Physical Bone Hips" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.59348e-13, 0, -0.519175 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52243e-13, 0, 0.519175 )
+body_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52243e-13, 0, -0.519175 )
+
+[node name="Physical Bone Spine" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="2"]
+transform = Transform( 1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, 1, -9.12832e-08, 1.03835, -0.765735 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6618e-13, 0, 0.765735 )
+body_offset = Transform( 1, 0, 4.68958e-13, 0, 1, 0, -4.68958e-13, 0, 1, -6.25278e-13, 0, -0.765735 )
+
+[node name="Physical Bone Chest" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="3"]
+transform = Transform( 1, 5.24025e-14, 6.14392e-08, -8.0106e-09, 0.991464, 0.130384, -6.09142e-08, -0.130384, 0.991464, -4.81882e-08, 2.46756, -0.77763 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.00414e-14, -4.76837e-07, 0.784325 )
+body_offset = Transform( 1, -1.77636e-15, 3.97904e-13, 7.4607e-14, 1, 0, 8.52651e-14, 0, 1, -2.22045e-13, 4.76837e-07, -0.784325 )
+
+[node name="Physical Bone Neck" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="4"]
+transform = Transform( 1, 8.88178e-14, -7.10543e-15, 8.2621e-15, 0.962094, -0.27272, 3.2685e-13, 0.27272, 0.962094, 0, 4.20178, -0.4751 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.1495e-14, -1.15811e-27, 0.281234 )
+body_offset = Transform( 1, 1.24345e-13, 2.91323e-13, 1.42109e-14, 1, 0, -3.55271e-14, 5.96046e-08, 1, -1.63425e-13, 0, -0.281234 )
+
+[node name="Physical Bone ShoulderR" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="5"]
+transform = Transform( -0.496092, -0.868249, 0.00600649, 0.868271, -0.49608, 0.00343109, 5.70435e-07, 0.00691755, 0.999976, -0.483331, 3.92736, -0.697792 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38247e-06, -2.62464e-06, 0.485241 )
+body_offset = Transform( 1, 6.44283e-08, -3.53293e-09, -5.5358e-08, 1, 4.19095e-09, -2.87656e-09, -9.31323e-10, 1, 2.38419e-06, 2.6226e-06, -0.485241 )
+
+[node name="Physical Bone UpperArmR" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="6"]
+transform = Transform( -0.932653, -0.360195, 0.0206005, 0.360785, -0.931129, 0.0532527, 4.48537e-07, 0.0570984, 0.998372, -1.34385, 3.39378, -1.21475 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.81758e-08, -4.9566e-07, 1.01054 )
+body_offset = Transform( 1, -4.29906e-09, -4.76734e-08, -5.92443e-08, 1, 1.86265e-08, 2.63465e-08, 1.11759e-08, 1, 0, 4.76837e-07, -1.01055 )
+
+[node name="Physical Bone LowerArmR" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="7"]
+transform = Transform( 0.917322, -0.237721, -0.319388, -0.319387, -0.918329, -0.233807, -0.237722, 0.316485, -0.918328, -1.77778, 1.76572, 0.695172 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40927e-07, -1.61932e-07, 0.85549 )
+body_offset = Transform( 1, -7.45058e-08, 1.49012e-08, -9.68575e-08, 1, -8.9407e-08, 3.12924e-07, 2.98023e-08, 1, -9.53674e-07, 2.38419e-07, -0.85549 )
+
+[node name="Physical Bone ShoulderL" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="8"]
+transform = Transform( -0.496092, 0.868249, -0.0060065, -0.868271, -0.49608, 0.00343109, -5.19881e-07, 0.00691755, 0.999976, 0.483326, 3.92736, -0.697791 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66455e-09, 1.54678e-06, 0.48524 )
+body_offset = Transform( 1, -6.38547e-08, 9.61307e-09, 5.63101e-08, 1, 6.0536e-09, -6.18067e-09, -4.65661e-10, 1, 0, -1.54972e-06, -0.48524 )
+
+[node name="Physical Bone UpperArmL" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="9"]
+transform = Transform( -0.93265, 0.360195, -0.0206005, -0.360784, -0.931129, 0.0532528, -3.85883e-07, 0.0570984, 0.998372, 1.34385, 3.39378, -1.21475 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67056e-06, -6.62552e-07, 1.01054 )
+body_offset = Transform( 1, 1.31981e-08, -1.61731e-09, -7.69497e-08, 1, -5.21541e-08, -1.45713e-08, 3.72529e-09, 1, -1.66893e-06, 7.15256e-07, -1.01055 )
+
+[node name="Physical Bone LowerArmL" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="10"]
+transform = Transform( 0.917322, 0.237721, 0.319388, 0.319387, -0.918329, -0.233807, 0.237722, 0.316485, -0.918328, 1.77778, 1.76572, 0.695173 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.89935e-07, 2.38418e-07, 0.855491 )
+body_offset = Transform( 1, 2.98023e-08, 7.45058e-08, -3.72529e-08, 1, 0, -1.49012e-08, -1.49012e-07, 1, -9.53674e-07, -2.38419e-07, -0.855491 )
+
+[node name="Physical Bone UpperLegR2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="11"]
+transform = Transform( -0.998704, -0.0509076, -0.00334574, 0.0509756, -0.998389, -0.02473, -0.00208144, -0.0248684, 0.999688, -0.610895, 0.272052, -1.4658 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42747e-06, 2.73469e-07, 1.45293 )
+body_offset = Transform( 1, -7.46368e-08, -2.09548e-09, -6.46469e-09, 0.999996, -1.06171e-07, -2.32831e-10, 1.49012e-08, 0.999998, 1.43051e-06, -1.19209e-07, -1.45292 )
+
+[node name="Physical Bone LowerLegR2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="12"]
+transform = Transform( -0.998807, -0.048724, -0.00490489, 0.0489423, -0.996616, -0.0660371, -0.00167071, -0.066198, 0.997807, -0.756241, -2.56484, -1.6 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.97188e-07, -6.19888e-06, 1.51774 )
+body_offset = Transform( 1, -1.88571e-07, -1.21072e-08, -1.20999e-08, 1, 0, 9.19681e-09, 7.45058e-09, 1, -1.78814e-07, 6.19888e-06, -1.51774 )
+
+[node name="Physical Bone UpperLegL2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="13"]
+transform = Transform( -0.998772, 0.0495373, 0.00436581, -0.0496743, -0.997942, -0.0405499, 0.0023481, -0.0407164, 0.999169, 0.609412, 0.295037, -1.46505 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.40022e-08, -3.14128e-07, 1.45293 )
+body_offset = Transform( 1, -3.12866e-09, 3.0268e-09, 1.82481e-08, 1, 9.31323e-08, -1.5134e-08, 0, 1, 5.96046e-08, 1.78814e-07, -1.45293 )
+
+[node name="Physical Bone LowerLegL2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="14"]
+transform = Transform( -0.998783, 0.0492594, 0.00412283, -0.0493968, -0.997727, -0.0458173, 0.00185656, -0.045965, 0.99894, 0.753444, -2.59421, -1.64777 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26212e-06, -1.14686e-06, 1.51773 )
+body_offset = Transform( 1, 7.13771e-09, 6.8685e-09, -2.32882e-07, 1, -2.98023e-08, -3.60887e-09, -1.49012e-08, 0.999998, 1.2517e-06, 1.19209e-06, -1.51773 )
 
 [node name="AttackHitbox" type="Spatial" parent="."]
 
