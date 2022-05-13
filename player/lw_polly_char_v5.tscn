@@ -2202,31 +2202,31 @@ animation = "Idle_Hold_Crossbow"
 [sub_resource type="AnimationNodeAnimation" id=16]
 animation = "Idle_Hold_Sword"
 
-[sub_resource type="AnimationNodeAnimation" id=17]
+[sub_resource type="AnimationNodeAnimation" id=33]
 animation = "Walk_Forwards"
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=34]
 animation = "Walk_Backwards"
 
-[sub_resource type="AnimationNodeAnimation" id=19]
+[sub_resource type="AnimationNodeAnimation" id=35]
 animation = "Walk_Right"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=36]
 animation = "Walk_Left"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=37]
 animation = "Idle_anim"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=22]
-blend_point_0/node = SubResource( 17 )
+blend_point_0/node = SubResource( 33 )
 blend_point_0/pos = Vector2( 0, 1 )
-blend_point_1/node = SubResource( 18 )
+blend_point_1/node = SubResource( 34 )
 blend_point_1/pos = Vector2( 0, -1 )
-blend_point_2/node = SubResource( 19 )
+blend_point_2/node = SubResource( 35 )
 blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 20 )
+blend_point_3/node = SubResource( 36 )
 blend_point_3/pos = Vector2( -1, 0 )
-blend_point_4/node = SubResource( 21 )
+blend_point_4/node = SubResource( 37 )
 blend_point_4/pos = Vector2( 0, 0 )
 
 [sub_resource type="AnimationNodeAnimation" id=23]
@@ -2257,7 +2257,7 @@ filter_enabled = true
 filters = [ "game_rig/Skeleton:BaseThumb.L", "game_rig/Skeleton:BaseThumb.R", "game_rig/Skeleton:Fingers.L", "game_rig/Skeleton:Fingers.R", "game_rig/Skeleton:Hand.L", "game_rig/Skeleton:Hand.R", "game_rig/Skeleton:LowerArm.L", "game_rig/Skeleton:LowerArm.R", "game_rig/Skeleton:Shoulder.L", "game_rig/Skeleton:Shoulder.R", "game_rig/Skeleton:TipFingers.L", "game_rig/Skeleton:TipFingers.R", "game_rig/Skeleton:TipThumb.L", "game_rig/Skeleton:TipThumb.R", "game_rig/Skeleton:UpperArm.L", "game_rig/Skeleton:UpperArm.R" ]
 
 [sub_resource type="AnimationNodeBlendTree" id=29]
-graph_offset = Vector2( 16.2481, -65.5 )
+graph_offset = Vector2( -205.326, -116.25 )
 nodes/Animation/node = SubResource( 16 )
 nodes/Animation/position = Vector2( 60, 40 )
 "nodes/Animation 2/node" = SubResource( 13 )
@@ -2287,7 +2287,7 @@ nodes/walk_hcrossbow/node = SubResource( 27 )
 nodes/walk_hcrossbow/position = Vector2( 660, -40 )
 nodes/walk_hsword/node = SubResource( 28 )
 nodes/walk_hsword/position = Vector2( 360, -100 )
-node_connections = [ "output", 0, "run_blend", "slash_speed", 0, "Animation 3", "run_hsword", 0, "run", "run_hsword", 1, "Animation 4", "walk_hcrossbow", 0, "walk_hsword", "walk_hcrossbow", 1, "Animation 2", "walk_hsword", 0, "idle_walk", "walk_hsword", 1, "Animation", "run_blend", 0, "sword_slash", "run_blend", 1, "run_hcrossbow", "run_hcrossbow", 0, "run_hsword", "run_hcrossbow", 1, "Animation 5", "sword_slash", 0, "walk_hcrossbow", "sword_slash", 1, "slash_speed" ]
+node_connections = [ "output", 0, "run_blend", "sword_slash", 0, "walk_hcrossbow", "sword_slash", 1, "slash_speed", "walk_hsword", 0, "idle_walk", "walk_hsword", 1, "Animation", "walk_hcrossbow", 0, "walk_hsword", "walk_hcrossbow", 1, "Animation 2", "run_hcrossbow", 0, "run_hsword", "run_hcrossbow", 1, "Animation 5", "run_hsword", 0, "run", "run_hsword", 1, "Animation 4", "slash_speed", 0, "Animation 3", "run_blend", 0, "sword_slash", "run_blend", 1, "run_hcrossbow" ]
 
 [node name="lw_polly_char_v5" type="Spatial"]
 
