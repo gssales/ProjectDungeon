@@ -40,11 +40,9 @@ func _ready():
 func _physics_process(delta):
   var move_vec = Vector3()
   var direction = Vector3()
-  var n_cursor = cursor_pos.normalized()
   
   if Input.is_action_pressed("move_forward"):
     move_vec += Vector3.FORWARD
-    #irection += Vector3.FORWARD.rotated(Vector3.UP, n_cursor)
   if Input.is_action_pressed("move_left"):
     move_vec += Vector3.LEFT
   if Input.is_action_pressed("move_backward"):
@@ -156,9 +154,9 @@ func look_at_cursor():
   # cursor_pos = cursor_pos + Vector3(0,1,0)  #sobe a posição do cursor em 1 para que não fique no chão -> mirar com arcos
   
 
-func play_slash_anim(attack_speed):
+func play_slash_anim(attk_speed):
   # 0.708 == duração da animação
-  var scale = 0.708 / attack_speed
+  var scale = 0.708 / attk_speed
   
   anim_tree.set("parameters/slash_speed/scale", scale)
   anim_tree.set("parameters/sword_slash/active", true)

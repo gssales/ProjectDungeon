@@ -54,7 +54,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 10 )
 
 [node name="DetectGround" type="RayCast" parent="."]
 cast_to = Vector3( 0, -2.25, 0 )
-debug_shape_thickness = 5
+debug_shape_thickness = 5.0
 
 [node name="Model" type="Spatial" parent="."]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0 )
@@ -77,11 +77,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 visible = false
 
-[node name="Skeleton" parent="Model/lw_polly_char_v5/game_rig" index="0"]
-bones/16/bound_children = [ NodePath("Hand") ]
-
 [node name="Hand" type="BoneAttachment" parent="Model/lw_polly_char_v5/game_rig/Skeleton" index="1"]
-transform = Transform( 0.849559, -0.0361225, -0.52626, -0.21093, -0.937685, -0.276147, -0.483489, 0.345606, -0.804236, -1.46453, -0.291616, 0.172286 )
+transform = Transform( 0.702734, 0.225899, -0.67464, -0.470155, -0.564241, -0.678667, -0.533967, 0.794106, -0.290303, -1.10271, 0.112053, 1.76974 )
 bone_name = "Hand.R"
 
 [node name="AnimationTree" parent="Model/lw_polly_char_v5" index="2"]
@@ -91,11 +88,8 @@ parameters/idle_walk/blend_position = Vector2( 0, 1 )
 [node name="lw_polly_char" parent="Model" instance=ExtResource( 12 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
 
-[node name="Skeleton" parent="Model/lw_polly_char/game_rig" index="0"]
-bones/6/bound_children = [ NodePath("Hand") ]
-
 [node name="Hand" type="BoneAttachment" parent="Model/lw_polly_char/game_rig/Skeleton" index="1"]
-transform = Transform( 0.890451, -0.162602, -0.425036, -0.215174, -0.973424, -0.0783976, -0.400993, 0.161267, -0.901775, -1.68823, -0.366021, 0.173507 )
+transform = Transform( 0.891263, -0.158901, -0.424735, -0.211788, -0.974035, -0.0800123, -0.400993, 0.161267, -0.901775, -1.67423, -0.348152, 0.173507 )
 bone_name = "Hand.R"
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]

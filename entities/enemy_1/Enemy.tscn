@@ -72,7 +72,7 @@ shape = SubResource( 8 )
 
 [node name="DetectGround" type="RayCast" parent="."]
 cast_to = Vector3( 0, -2.25, 0 )
-debug_shape_thickness = 5
+debug_shape_thickness = 5.0
 
 [node name="Steering" parent="." instance=ExtResource( 3 )]
 

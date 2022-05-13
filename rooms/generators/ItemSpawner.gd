@@ -37,7 +37,7 @@ func generate(matrix, room_list, room_size, initial_room):
   var prob_array = []
   for i in range(items.size()):
     var item = items[i]
-    for x in range(item.rarity):
+    for _x in range(item.rarity):
       prob_array.push_back(i)
   prob_array.shuffle()
   
@@ -53,7 +53,7 @@ func generate(matrix, room_list, room_size, initial_room):
     if prob > 0.9:
       amount = 1
             
-    for i in range(amount):
+    for _i in range(amount):
       var item = ItemModel.instance()
       item.translate(Vector3(room.x * room_size.x + rand_range(-10, 10), 3 ,room.y * room_size.y + rand_range(-10, 10)))
       item.params = items[randi() % 2]

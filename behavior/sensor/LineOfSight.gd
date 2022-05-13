@@ -24,7 +24,15 @@ func update(_delta: float) -> void:
   
   var wanted_list = []
   for group in looking_for_groups: # problema quando nodo é deletado 
-    wanted_list.append_array(get_tree().get_nodes_in_group(group))
+    var nodes = get_tree().get_nodes_in_group(group)
+    #wanted_list.append_array(get_tree().get_nodes_in_group(group))
+    
+    #remove non valid instances if any
+    for node in nodes:
+      if not is_instance_valid(node):
+        nodes.erase(node)
+    
+    wanted_list.append_array(nodes)
   wanted_list.sort_custom(self, "sort_by_proximity")
   
   var seen_list = []

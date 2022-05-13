@@ -97,7 +97,9 @@ func _process(delta):
 
 func _input(event):
   if event.is_action_pressed("take_damage"):
-    get_tree().reload_current_scene()
+    #get_tree().reload_current_scene()
+    Global.current_level = 0
+    get_tree().change_scene("res://Generation.tscn")
 
 func generate_matrix(matrix_size):
   var matrix = empty_matrix(matrix_size)
@@ -288,6 +290,12 @@ func generate_level(level_number:int):
         add_child(ally)
       current_level.remove_child(player)
     
+    # deconectar fogs do mapa antigo antes de conectar novamente
+    var fogs = get_tree().get_nodes_in_group("fog_of_war")
+    for fog in fogs:
+      #if player.is_connected("position_changed", fog, "_on_Player_position_changed"):
+      player.disconnect("position_changed", fog, "_on_Player_position_changed") 
+    
     # deleta o mapa antigo 
     current_level.queue_free()
     
@@ -334,7 +342,9 @@ func generate_level(level_number:int):
   add_child(level_node)
   
   exit.connect("go_to_next_level", player.get_node("GameUILayer/GameUI"), "on_LevelExit_go_to_next_level")
-  player.get_node("DetectDarkness").connect("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed")
+  var detect_dark = player.get_node("DetectDarkness")
+  if not detect_dark.is_connected("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed"):
+    detect_dark.connect("darkness_changed", $WorldEnvironment, "_on_DetectDarkness_darkness_changed")
   
   # deconectar fogs do mapa antigo antes de conectar novamente
   var fogs = get_tree().get_nodes_in_group("fog_of_war")
