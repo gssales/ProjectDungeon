@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 [ext_resource path="res://player/Health.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://sfx/damage_taken.wav" type="AudioStream" id=9]
 [ext_resource path="res://player/lw_polly_char_v5.tscn" type="PackedScene" id=10]
 [ext_resource path="res://player/DetectDarkness.gd" type="Script" id=11]
+[ext_resource path="res://player/lw_polly_char_vfinal.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.870171
@@ -74,14 +75,28 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98 )
 
 [node name="lw_polly_char_v5" parent="Model" instance=ExtResource( 10 )]
 transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+visible = false
+
+[node name="Skeleton" parent="Model/lw_polly_char_v5/game_rig" index="0"]
+bones/16/bound_children = [ NodePath("Hand") ]
 
 [node name="Hand" type="BoneAttachment" parent="Model/lw_polly_char_v5/game_rig/Skeleton" index="1"]
-transform = Transform( 0.702319, 0.226841, -0.674756, -0.47094, -0.562746, -0.679363, -0.533821, 0.794897, -0.288399, -1.10106, 0.0304743, 1.7738 )
+transform = Transform( 0.849559, -0.0361225, -0.52626, -0.21093, -0.937685, -0.276147, -0.483489, 0.345606, -0.804236, -1.46453, -0.291616, 0.172286 )
 bone_name = "Hand.R"
 
 [node name="AnimationTree" parent="Model/lw_polly_char_v5" index="2"]
 active = true
 parameters/idle_walk/blend_position = Vector2( 0, 1 )
+
+[node name="lw_polly_char" parent="Model" instance=ExtResource( 12 )]
+transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+
+[node name="Skeleton" parent="Model/lw_polly_char/game_rig" index="0"]
+bones/6/bound_children = [ NodePath("Hand") ]
+
+[node name="Hand" type="BoneAttachment" parent="Model/lw_polly_char/game_rig/Skeleton" index="1"]
+transform = Transform( 0.890451, -0.162602, -0.425036, -0.215174, -0.973424, -0.0783976, -0.400993, 0.161267, -0.901775, -1.68823, -0.366021, 0.173507 )
+bone_name = "Hand.R"
 
 [node name="GameUILayer" type="CanvasLayer" parent="."]
 layer = 99
@@ -144,3 +159,4 @@ script = ExtResource( 11 )
 [connection signal="new_weapon_equipped" from="Inventory" to="." method="_on_Inventory_new_weapon_equipped"]
 
 [editable path="Model/lw_polly_char_v5"]
+[editable path="Model/lw_polly_char"]

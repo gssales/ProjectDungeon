@@ -25,8 +25,8 @@ var equipped_weapon : Node
 var attack_speed = 0.3
 var has_weapon = false
 
-onready var hand = $Model/lw_polly_char_v5/game_rig/Skeleton/Hand
-onready var anim_tree = $Model/lw_polly_char_v5/AnimationTree
+onready var hand = $Model/lw_polly_char/game_rig/Skeleton/Hand
+onready var anim_tree = $Model/lw_polly_char/AnimationTree
 
 func _ready():
   $Camera.look_at(self.transform.origin, Vector3.UP)
