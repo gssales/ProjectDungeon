@@ -18,6 +18,7 @@ var attk_delay = 1
 onready var attack_hitbox = $AttackHitbox/Area
 export(float) var damage = 5
 
+onready var anim_tree = $CSGMesh/bug/AnimationTree
 
 func _ready():
   max_speed = 2
@@ -31,6 +32,8 @@ func _ready():
   attk_timer.one_shot = true
   attk_timer.wait_time = attk_delay
   
+  anim_tree.active = true
+  
   #warning-ignore-all:return_value_discarded
   $WallSensor.connect("wall_detected", self, "_on_WallSensor_wall_detected")
   $LineOfSight.looking_for_groups.push_back("player")
@@ -42,6 +45,9 @@ func _ready():
 
 func _physics_process(delta):
   if health <= 0:
+    anim_tree.set("parameters/dying/active", true)
+    var time_in_seconds = 1
+    yield(get_tree().create_timer(time_in_seconds), "timeout")
     queue_free()
     
   if do_rotate:
@@ -77,11 +83,15 @@ func _physics_process(delta):
   if Vector2(_velocity.x, _velocity.z).length() > 0.000001:
     _heading = Vector3(_velocity.x, 0, _velocity.z).normalized() * 4
     look_at(transform.origin + _heading, Vector3.UP)
+    anim_tree.set("parameters/idle_walk/blend_amount", 1)
+  else :
+    anim_tree.set("parameters/idle_walk/blend_amount", 0)
     
   _velocity = move_and_slide_with_snap(_velocity, snap_vector, Vector3.DOWN)
   
   # Enemy attack
   if may_attack and attk_timer.is_stopped():
+    anim_tree.set("parameters/attack/active", true)
     for body in attack_hitbox.get_overlapping_bodies():
       if body.is_in_group("player"):
         print("attaking player")
