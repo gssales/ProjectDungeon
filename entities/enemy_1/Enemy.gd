@@ -46,10 +46,24 @@ func _ready():
 func _physics_process(delta):
   if health <= 0:
     anim_tree.set("parameters/dying/active", true)
+    $CollisionShape.set_deferred("disabled", true)
+    
     var time_in_seconds = 1
-    yield(get_tree().create_timer(time_in_seconds), "timeout")
+    var die_timer = Timer.new()
+    die_timer.wait_time = time_in_seconds
+    die_timer.one_shot = true
+    self.add_child(die_timer)
+    die_timer.start()
+    
+    yield(die_timer, "timeout")
+    # error resume: resumed function '_physics_process()' after yield, but class instance is gone. 
+    #  at script: res://entities/enemy_1/enemy.gd:50
+    # yield(get_tree().create_timer(time_in_seconds), "timeout") 
+    die_timer.queue_free()
     queue_free()
+    
     #die()
+    
     
   if do_rotate:
     var rot = (rotation_rad + rotated_rad) * delta * -1
