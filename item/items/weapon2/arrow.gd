@@ -12,6 +12,7 @@ export var shot = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
   set_as_toplevel(true)
+  $Particles.emitting = true
 
 func _physics_process(delta):
   #var forward_direct = global_transform.basis.x.normalized()
