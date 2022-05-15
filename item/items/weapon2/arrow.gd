@@ -2,7 +2,7 @@ extends RigidBody
 
 export(float) var SPEED = 80
 export(float) var DAMAGE = 7
-export(float) var KILL_TIME = 2
+export(float) var KILL_TIME = 10
 var timer = 0 
 export var shot = false
 #signal enemy_hit(enemy)

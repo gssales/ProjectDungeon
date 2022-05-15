@@ -1,8 +1,8 @@
 extends Spatial
 
 export(PackedScene) var bolt
-export(float) var bolt_spedd = 120
-export(float) var bolt_damage = 7
+export(float) var bolt_spedd = 80
+export(float) var bolt_damage = 30
 #var timer = 0
 
 # Called when the node enters the scene tree for the first time.

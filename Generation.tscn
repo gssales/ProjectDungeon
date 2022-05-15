@@ -14,8 +14,16 @@
 [sub_resource type="Environment" id=1]
 background_mode = 1
 ambient_light_color = Color( 0.0980392, 0.0980392, 0.239216, 1 )
+fog_depth_begin = 50.0
+fog_depth_curve = 4.92458
+fog_transmit_enabled = true
+fog_height_enabled = true
+fog_height_curve = 5.27803
 auto_exposure_scale = 0.2
 auto_exposure_speed = 64.0
+glow_bloom = 0.1
+glow_blend_mode = 0
+glow_bicubic_upscale = true
 
 [node name="LevelGeneration" type="Spatial"]
 script = ExtResource( 1 )
