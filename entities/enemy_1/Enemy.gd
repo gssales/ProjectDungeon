@@ -110,7 +110,7 @@ func _physics_process(delta):
     for body in attack_hitbox.get_overlapping_bodies():
       var d = rand_range(damage[0], damage[1])
       if body.is_in_group("player"):
-        print("attaking player")
+        #print("attacking player")
         body.get_node("Health").take_damage(d)
       
       elif body.is_in_group("ally"):
