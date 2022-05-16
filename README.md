@@ -39,7 +39,7 @@ Após clonar ou baixar o repositório:
 8. Em caminho de exportação:
 ![Caminho de Exportação](https://user-images.githubusercontent.com/73720035/168508521-e6b12c5a-b76b-4cf4-8df3-d0dc79b0b027.png)
 
-  - Selecione a pasta que contém os arquivos do projeto (o repositório) e clique "Salvar"
+  - Selecione a pasta de destino para o executável e clique "Salvar"
 
 9. Selecione "Exportar Projeto"
   - Desmarque a opção "Exportar com Depuração"
