@@ -8,4 +8,4 @@ func set_max_value(maximum):
 
 func _on_GameUI_NEW_health_changed(health):
   $TextureProgress.value = health
-  $Counter/Label.text = "%s/%s" % [health, maximum_value]
+  $Counter/Label.text = "%s/%s" % [round(health), maximum_value]
