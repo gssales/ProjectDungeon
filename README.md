@@ -26,8 +26,10 @@ Após clonar ou baixar o repositório:
 ![Em "Navegar"](https://user-images.githubusercontent.com/73720035/168504121-f532a3bc-ce78-4854-ad20-afd6017498b6.png)
 
 4. Abra o projeto:
-5. Clique em Projeto -> Exportar 
-6. Clique em Adicionar e selecione a sua plataforma alvo:
+![Projeto](https://user-images.githubusercontent.com/73720035/168508430-e12ee53d-6702-4f60-8272-24a6999832f9.png)
+
+6. Clique em Projeto -> Exportar 
+7. Clique em Adicionar e selecione a sua plataforma alvo:
 ![Projeto -> Exportar](https://user-images.githubusercontent.com/73720035/168504487-cf9d2bc1-1ed6-4e49-8a91-1be8b0740338.png)
 
 7. Se necessário, faça download dos Templates de Exportação pelo próprio Godot ou pelo site oficial: 
@@ -35,8 +37,8 @@ Após clonar ou baixar o repositório:
   - Export Templates (Standard)
 
 8. Em caminho de exportação:
-![Caminho de Exportação](https://user-images.githubusercontent.com/73720035/168504487-cf9d2bc1-1ed6-4e49-8a91-1be8b0740338.png)
- 
+![Caminho de Exportação](https://user-images.githubusercontent.com/73720035/168508521-e6b12c5a-b76b-4cf4-8df3-d0dc79b0b027.png)
+
   - Selecione a pasta que contém os arquivos do projeto (o repositório) e clique "Salvar"
 
 9. Selecione "Exportar Projeto"
