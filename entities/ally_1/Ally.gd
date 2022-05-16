@@ -54,7 +54,7 @@ func _ready():
 
 func _physics_process(delta):
   if health <= 0:
-    queue_free()
+    die()
   
   $Behavior.update(delta)
   
@@ -86,18 +86,29 @@ func _physics_process(delta):
   if may_attack and attk_timer.is_stopped():
     for body in attack_hitbox.get_overlapping_bodies():
       if body.is_in_group("Enemy"):
-        print("ally attaking enemy")
+        #print("ally attaking enemy")
         body.take_damage(damage)
       
       attk_timer.start(attk_delay)
 
+func die():
+  var c = load("res://player/lw_polly_char.tscn")
+  var body = c.instance()
+  get_parent().add_child(body)
+  body.transform = body.transform.scaled(Vector3(2,2,2)).rotated(Vector3.UP, PI +rotation.y)
+  body.transform.origin = transform.origin
+  body.body_sim()
+  queue_free()
+  
 func take_damage(amount):
+  if !$DamageSFX.is_playing():
+    $DamageSFX.play()
   health -= amount
   if health < 0:
     health = 0 
     
 func _on_LineOfSight_update_closest_entity(entity):
-  if entity != null:
+  if entity != null and is_instance_valid(entity):
     line_of_sight_state.foe_on_sight = true
     line_of_sight_state.distance_to_foe = get_position().distance_to(entity.global_transform.origin)
     line_of_sight_state.foe_position = entity.global_transform.origin
@@ -131,13 +142,13 @@ func _on_PartyManager_tick_sensor(delta):
 func _on_AttackState_entity_attack(entity):
   if entity == self:
     may_attack = true
-    print(self, "can_attack")
+    #print(self, "can_attack")
     attk_timer.start(attk_delay) 
 
 func _on_AttackState_entity_cannot_attack(entity):
   if entity == self:
     may_attack = false
-    print(self, "cannot_attack")
+    #print(self, "cannot_attack")
     attk_timer.start(attk_delay)
 
 func add_to_party():

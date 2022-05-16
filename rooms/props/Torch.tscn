@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/props/OmniLight.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/Smoke30Frames_0.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/torch1-diff.png" type="Texture" id=3]
+[ext_resource path="res://assets/models/torch1.obj" type="ArrayMesh" id=4]
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.1
@@ -19,10 +22,68 @@ size = Vector3( 0.248, 0.2, 0.2 )
 flags_unshaded = true
 albedo_color = Color( 1, 0.996078, 0.698039, 1 )
 
-[node name="Torch" type="Spatial"]
+[sub_resource type="SphereShape" id=5]
+radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.301587, 0.402116, 0.492063, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.915527, 0.539236, 0.114441, 1, 0.884277, 0.809583, 0.252157, 1, 0.841309, 0.432063, 0.115023, 1, 0.0405273, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 7 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 0 ), 0.0, 0.318, 0, 0, Vector2( 0.311321, 0.595455 ), 0.246035, 0.246035, 0, 0, Vector2( 1, 0.0465909 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=15]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+trail_divisor = 11
+emission_shape = 1
+emission_sphere_radius = 0.33
+direction = Vector3( 0, 1, 0 )
+spread = 0.1
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.1
+angular_velocity = 40.0
+angular_velocity_random = 1.0
+linear_accel = 4.0
+linear_accel_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_random = 0.8
+scale_curve = SubResource( 15 )
+color_ramp = SubResource( 14 )
+hue_variation = -0.05
+hue_variation_random = 1.0
+anim_speed = 1.0
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="QuadMesh" id=13]
+material = SubResource( 16 )
+
+[node name="Torch" type="KinematicBody" groups=["torch"]]
 
 [node name="Model" type="CSGMesh" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0.2 )
+visible = false
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
@@ -32,8 +93,28 @@ mesh = SubResource( 3 )
 material = SubResource( 4 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74207, 1.2014 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.621398, 0.805906 )
 light_color = Color( 0.976471, 0.85098, 0.482353, 1 )
 shadow_enabled = true
 omni_range = 18.0
 script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.268613 )
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -1.74846e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.74846e-08, 0.115618, -0.696055, 0 )
+mesh = ExtResource( 4 )
+skeleton = NodePath("")
+material/0 = SubResource( 6 )
+
+[node name="Particles" type="Particles" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.795148, 2.32407, 0.303446 )
+amount = 100
+lifetime = 0.5
+visibility_aabb = AABB( -1.61253, -2.06018, -1.47355, 3.22506, 4.12035, 2.9471 )
+local_coords = false
+draw_order = 2
+process_material = SubResource( 11 )
+draw_pass_1 = SubResource( 13 )

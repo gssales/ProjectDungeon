@@ -2,7 +2,9 @@ extends Spatial
 
 signal camera_rotation(new_rotation)
 export var lerp_movement = false
-export var distance = 30
+export var distance = 50
+const MAX_DISTANCE = 80
+const MIN_DISTANCE = 25
 var veloc = Vector3.ZERO
 
 func _ready():
@@ -13,10 +15,10 @@ func _process(delta):
   var update_camera = false
   if Input.is_action_just_released("zoom_in"):
     update_camera = true
-    distance -= 5*distance * delta
+    distance = max(distance - 5*distance * delta, MIN_DISTANCE)
   if Input.is_action_just_released("zoom_out"):
     update_camera = true
-    distance += 5*distance * delta
+    distance = min(distance + 5*distance * delta, MAX_DISTANCE)
   
   if lerp_movement:
     veloc = veloc * 23/24

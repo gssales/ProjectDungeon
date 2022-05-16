@@ -6,12 +6,12 @@ signal update_closest_entity(entity)
 
 var seen_entities := []
 
-var hear_radius = 5
+var hear_radius = 15
 var view_radius = 30
 var field_of_view = PI/3
 var looking_for_groups = []
   
-func sort_by_proximity(node_a, node_b):
+func sort_by_proximity(node_a, node_b): # cuidado ao usar: problema quando um dos nodos é deletado
   return get_position().distance_squared_to(node_b.transform.origin) \
     > get_position().distance_squared_to(node_a.transform.origin)
 
@@ -23,8 +23,16 @@ func update(_delta: float) -> void:
   var heading = to_global(Vector3.FORWARD) - get_position()
   
   var wanted_list = []
-  for group in looking_for_groups:
-    wanted_list.append_array(get_tree().get_nodes_in_group(group))
+  for group in looking_for_groups: # problema quando nodo é deletado 
+    var nodes = get_tree().get_nodes_in_group(group)
+    #wanted_list.append_array(get_tree().get_nodes_in_group(group))
+    
+    #remove non valid instances if any
+    for node in nodes:
+      if not is_instance_valid(node):
+        nodes.erase(node)
+    
+    wanted_list.append_array(nodes)
   wanted_list.sort_custom(self, "sort_by_proximity")
   
   var seen_list = []
@@ -52,7 +60,7 @@ func update(_delta: float) -> void:
       emit_signal("entity_entered", seen)
       seen_entities.push_front(seen)
       
-  if seen_entities.size() > 0:
+  if seen_entities.size() > 0: # problema quando nodo é deletado 
     seen_entities.sort_custom(self, "sort_by_proximity")
     var entity = seen_entities[0]
     emit_signal("update_closest_entity", entity)

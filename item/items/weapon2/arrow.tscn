@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://item/items/weapon2/arrow.gd" type="Script" id=1]
 
@@ -7,7 +7,12 @@ radius = 0.113572
 height = 2.00792
 
 [sub_resource type="SpatialMaterial" id=11]
-albedo_color = Color( 0.247059, 0.141176, 0, 1 )
+albedo_color = Color( 0, 0, 0, 1 )
+emission_enabled = true
+emission = Color( 0.247059, 0.141176, 0, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
 
 [sub_resource type="CylinderMesh" id=12]
 material = SubResource( 11 )
@@ -16,10 +21,15 @@ bottom_radius = 0.05
 radial_segments = 8
 
 [sub_resource type="SpatialMaterial" id=13]
-albedo_color = Color( 0.741176, 0.741176, 0.741176, 1 )
+albedo_color = Color( 0, 0, 0, 1 )
 metallic = 1.0
 metallic_specular = 1.0
 roughness = 0.35
+emission_enabled = true
+emission = Color( 0.741176, 0.741176, 0.741176, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
 
 [sub_resource type="CylinderMesh" id=14]
 material = SubResource( 13 )
@@ -27,13 +37,71 @@ top_radius = 0.0
 bottom_radius = 0.1
 height = 0.35
 
+[sub_resource type="SpatialMaterial" id=21]
+albedo_color = Color( 0, 0, 0, 1 )
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="PrismMesh" id=18]
+material = SubResource( 21 )
+size = Vector3( 0.25, 0.3, 0.025 )
+
+[sub_resource type="SpatialMaterial" id=22]
+albedo_color = Color( 0, 0, 0, 1 )
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="PrismMesh" id=20]
+material = SubResource( 22 )
+size = Vector3( 0.25, 0.3, 0.025 )
+
 [sub_resource type="CapsuleShape" id=16]
-radius = 0.213749
+radius = 0.303064
 height = 2.01
+
+[sub_resource type="SpatialMaterial" id=30]
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="Curve" id=28]
+min_value = 1.0
+max_value = 2.0
+_data = [ Vector2( 0, 1.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 2 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=29]
+curve = SubResource( 28 )
+
+[sub_resource type="ParticlesMaterial" id=25]
+emission_shape = 2
+emission_box_extents = Vector3( 0.05, 0.05, 1.5 )
+direction = Vector3( 0, 0, -1 )
+spread = 2.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+angle = 360.0
+angle_random = 0.5
+scale_curve = SubResource( 29 )
+
+[sub_resource type="QuadMesh" id=31]
+size = Vector2( 0.05, 0.05 )
 
 [node name="Arrow" type="RigidBody" groups=["projectile"]]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.000810146, 0, 0 )
 collision_layer = 0
+collision_mask = 9
 mass = 0.5
 gravity_scale = 0.0
 continuous_cd = true
@@ -53,11 +121,31 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.9407e-08, 1.01525, 0 )
 mesh = SubResource( 14 )
 material/0 = null
 
+[node name="ArrowBack1" type="MeshInstance" parent="ArrowBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41067e-08, -1.00904, 4.41214e-08 )
+mesh = SubResource( 18 )
+material/0 = null
+
+[node name="ArrowBack2" type="MeshInstance" parent="ArrowBody"]
+transform = Transform( -4.37114e-08, -8.74228e-08, -1, -3.55271e-15, 1, -8.74228e-08, 1, -3.55271e-15, -4.37114e-08, 4.41067e-08, -1.00904, 4.41214e-08 )
+mesh = SubResource( 20 )
+material/0 = null
+
 [node name="Area" type="Area" parent="."]
 collision_layer = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.07, 0, 0 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 16 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+material_override = SubResource( 30 )
+cast_shadow = 0
+speed_scale = 2.0
+visibility_aabb = AABB( -0.638872, -0.457886, -1.60317, 1.27774, 0.915771, 3.20634 )
+local_coords = false
+process_material = SubResource( 25 )
+draw_pass_1 = SubResource( 31 )
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

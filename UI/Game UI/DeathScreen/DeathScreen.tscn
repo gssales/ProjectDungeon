@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/Game UI/DeathScreen/DeathScreen.gd" type="Script" id=1]
 [ext_resource path="res://UI/PauseMenu/UI_background.png" type="Texture" id=2]
+[ext_resource path="res://UI/PauseTheme.theme" type="Theme" id=3]
 
 [node name="DeathScreen" type="CanvasLayer"]
 pause_mode = 2
@@ -30,9 +31,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -150.0
-margin_top = -100.0
+margin_top = -113.0
 margin_right = 150.0
-margin_bottom = 100.0
+margin_bottom = 113.0
 rect_min_size = Vector2( 300, 200 )
 texture = ExtResource( 2 )
 patch_margin_left = 8
@@ -46,11 +47,12 @@ __meta__ = {
 [node name="Label" type="Label" parent="Popup/Panel"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -48.0
-margin_top = 32.0
-margin_right = 48.0
-margin_bottom = 46.0
-text = "-- You Died -- "
+margin_left = -63.0
+margin_top = 27.0
+margin_right = 63.0
+margin_bottom = 50.0
+theme = ExtResource( 3 )
+text = "-- You Died --"
 align = 1
 uppercase = true
 __meta__ = {
@@ -63,18 +65,20 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -95.0
-margin_top = -24.0
+margin_top = -49.0
 margin_right = 95.0
-margin_bottom = 61.0
+margin_bottom = 97.0
 rect_min_size = Vector2( 190, 85 )
 custom_constants/separation = 10
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Restart" type="Button" parent="Popup/Panel/VBoxContainer"]
+margin_top = 10.0
 margin_right = 190.0
-margin_bottom = 35.0
+margin_bottom = 45.0
 rect_min_size = Vector2( 190, 35 )
 text = "Restart"
 __meta__ = {
@@ -82,14 +86,25 @@ __meta__ = {
 }
 
 [node name="MainMenuBTN" type="Button" parent="Popup/Panel/VBoxContainer"]
-margin_top = 45.0
+margin_top = 55.0
 margin_right = 190.0
-margin_bottom = 80.0
+margin_bottom = 90.0
 rect_min_size = Vector2( 190, 35 )
 text = "Return to main menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="QuitBTN" type="Button" parent="Popup/Panel/VBoxContainer"]
+margin_top = 100.0
+margin_right = 190.0
+margin_bottom = 135.0
+rect_min_size = Vector2( 190, 35 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Popup/Panel/VBoxContainer/Restart" to="." method="_on_Restart_pressed"]
 [connection signal="pressed" from="Popup/Panel/VBoxContainer/MainMenuBTN" to="." method="_on_MainMenuBTN_pressed"]
+[connection signal="pressed" from="Popup/Panel/VBoxContainer/QuitBTN" to="." method="_on_QuitBTN_pressed"]

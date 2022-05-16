@@ -1,27 +1,50 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://rooms/building/Floor.gd" type="Script" id=1]
+[ext_resource path="res://rooms/props/Ladder.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/textures/ft_broken01_n.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/ft_broken01_c.png" type="Texture" id=4]
 
-[sub_resource type="PlaneMesh" id=3]
-size = Vector2( 23, 28 )
+[sub_resource type="CubeMesh" id=5]
+size = Vector3( 36, 1, 36 )
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.278431, 0.286275, 0.305882, 1 )
+albedo_color = Color( 0.701961, 0.737255, 0.815686, 1 )
+albedo_texture = ExtResource( 4 )
+normal_enabled = true
+normal_scale = 2.0
+normal_texture = ExtResource( 3 )
+uv1_scale = Vector3( 0.055, 0.055, 0.055 )
+uv1_offset = Vector3( 1, 1, 0 )
+uv1_triplanar = true
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 11.5, 0.5, 14 )
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.121569, 0.121569, 0.129412, 1 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 18, 0.5, 18 )
 
 [node name="Floor" type="StaticBody"]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
-length = 23.0
-depth = 28.0
 
 [node name="Plane" type="CSGMesh" parent="."]
-mesh = SubResource( 3 )
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, -0.5, 0 )
+mesh = SubResource( 5 )
 material = SubResource( 2 )
+
+[node name="Hole" type="CSGCylinder" parent="Plane"]
+visible = false
+operation = 2
+radius = 2.0
+height = 2.5
+sides = 24
+material = SubResource( 4 )
+
+[node name="Ladder" parent="Plane/Hole" instance=ExtResource( 2 )]
+transform = Transform( -0.999954, -0.0044391, -0.00855037, 0, 0.887518, -0.460773, 0.00963403, -0.460752, -0.887477, 0, -1.69554, -0.29288 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )

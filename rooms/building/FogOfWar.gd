@@ -16,5 +16,5 @@ func _on_Player_position_changed(new_positon, velocity):
     tween.interpolate_property(material, "albedo_color", Color(0,0,0,1), Color(0,0,0,0), 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN)
     tween.start()
     
-func _on_Tween_tween_completed():
+func _on_Tween_tween_completed(object, key):
   queue_free()

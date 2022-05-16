@@ -10,8 +10,6 @@ script = ExtResource( 4 )
 [node name="Walls" type="Spatial" parent="."]
 
 [node name="Floor" parent="." instance=ExtResource( 2 )]
-length = 36.0
-depth = 36.0
 
 [node name="FogOfWar" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 0 )

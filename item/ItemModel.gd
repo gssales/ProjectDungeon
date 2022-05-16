@@ -9,10 +9,11 @@ export var params = {
   _range=2.0,
   damageRange=[5,10],
   attack_speed = 300, #in milisecs
-  modelPath="res://item/items/models/item.obj",
+  modelPath="res://item/items/sword/simple_sword.tscn",
+  model_transform=Transform(Vector3(0, 0.1,-1), Vector3(-1, 0, 0), Vector3(0, 1, 0.1), Vector3(0,0.05,0)),
   icon_path = "res://assets/Icon1.png",
   weapon_model = "res://item/items/weapon1/Sword_model1.tscn",
-  hitbox = "res://item/items/weapon1/Attack_Hitbox1.tscn"
+  hitbox = "res://item/items/weapon1/Attack_Hitbox1.tscn",
 }
 
 var _shader_sheen_level = -1.25
@@ -33,8 +34,11 @@ func _ready():
   transform.origin = origin
   
   var mesh = load(params.modelPath) # may slow down loading when generating
-  $Spatial/Sheen.mesh = mesh
-  $Spatial/Model.mesh = mesh
+#  $Spatial/Sheen.add_child(mesh.instance())
+  var item_model = mesh.instance()
+  item_model.name = "Model"
+  $Spatial/Model.add_child(item_model)
+  $Spatial/Model.transform = params.model_transform
   
   var texture = load(params.icon_path)
   $ItemTooltip.texture = texture
@@ -50,9 +54,5 @@ func _physics_process(delta):
   if not $RayCast.is_colliding():
     _velocity = _velocity + Vector3.DOWN * 10 * delta
   _velocity = move_and_slide(_velocity, Vector3.UP)
-  
-  if showTooltip:
-    $ItemTooltip.transform = $ItemTooltip.transform.looking_at(get_viewport().get_camera().transform.origin, Vector3.UP)
-    
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://behavior/sensor/WallSensor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://behavior/sensor/LineOfSight.tscn" type="PackedScene" id=2]
@@ -7,10 +7,12 @@
 [ext_resource path="res://behavior/Steering.tscn" type="PackedScene" id=5]
 [ext_resource path="res://behavior/sensor/BattleSensor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://behavior/sensor/LeaderSensor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://sfx/damage_dealt.wav" type="AudioStream" id=8]
+[ext_resource path="res://player/lw_polly_char.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.65
-height = 1.65
+height = 3.03974
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0, 0.529412, 1, 1 )
@@ -27,6 +29,9 @@ albedo_color = Color( 0.14902, 0.14902, 0.14902, 1 )
 material = SubResource( 7 )
 size = Vector3( 1, 0.5, 0.5 )
 
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.196078, 0.247059, 1, 1 )
+
 [sub_resource type="BoxShape" id=8]
 extents = Vector3( 1.5, 1, 2 )
 
@@ -39,18 +44,86 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="CSGMesh" type="CSGMesh" parent="."]
+[node name="CSGMesh" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="CSGMesh"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+visible = false
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Eyes" type="MeshInstance" parent="CSGMesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843472, -0.596589 )
+visible = false
 mesh = SubResource( 5 )
 material/0 = null
+
+[node name="lw_polly_char" parent="CSGMesh" instance=ExtResource( 9 )]
+transform = Transform( -2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, 0, 0, 0 )
+
+[node name="Character" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="0"]
+material/0 = SubResource( 9 )
+
+[node name="Physical Bone Spine" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="2"]
+transform = Transform( 1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, 1, 0, 1.03835, 0 )
+body_offset = Transform( 1, 0, 8.52651e-14, 0, 1, 0, -8.52651e-14, 0, 1, 0, 0, 0 )
+
+[node name="Physical Bone Chest" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="3"]
+transform = Transform( 1, 5.24025e-14, 6.1439e-08, -8.01066e-09, 0.991464, 0.130384, -6.09143e-08, -0.130384, 0.991464, -1.77636e-15, 2.56982, 1.08206e-22 )
+body_offset = Transform( 1, -1.77636e-15, 1.7053e-13, 2.4869e-14, 1, 0, 2.84217e-14, 0, 1, 0, 0, 0 )
+
+[node name="Physical Bone Neck" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="4"]
+transform = Transform( 1, 1.59872e-14, -1.91847e-13, 4.84406e-15, 0.962094, -0.27272, 3.2685e-13, 0.27272, 0.962094, 1.06581e-13, 4.20178, -0.4751 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99856e-14, -4.76837e-07, 0.281234 )
+body_offset = Transform( 1, 4.9738e-14, 9.9476e-14, 1.06581e-14, 1, 0, -3.55271e-14, 1.19209e-07, 1, -4.79616e-14, 4.76837e-07, -0.281234 )
+
+[node name="Physical Bone ShoulderR" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="5"]
+transform = Transform( -0.496092, -0.868249, 0.00600649, 0.868271, -0.49608, 0.00343109, 5.70301e-07, 0.00691755, 0.999976, -0.480413, 3.92903, -0.212563 )
+body_offset = Transform( 1, 6.44283e-08, -2.60161e-09, -2.0437e-07, 1, 5.58794e-09, -1.9802e-09, -9.31323e-10, 1, 0, 0, 0 )
+
+[node name="Physical Bone UpperArmR" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="6"]
+transform = Transform( -0.93265, -0.360195, 0.0206004, 0.360784, -0.931129, 0.0532525, 4.13356e-07, 0.0570984, 0.998369, -1.32303, 3.44759, -0.205849 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21832e-16, -2.22044e-16, 1.49012e-08 )
+body_offset = Transform( 1, -4.29906e-09, -2.15978e-08, -6.1253e-08, 1, 1.49012e-08, -8.776e-09, 1.11759e-08, 1, 0, 0, -1.49012e-08 )
+
+[node name="Physical Bone LowerArmR" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="7"]
+transform = Transform( -0.387404, -0.347849, -0.853769, -0.0918605, -0.906913, 0.411183, -0.917322, 0.237721, 0.319388, -2.05102, 1.5657, -0.0904485 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.56533e-08, 5.28058e-08, 2.57467e-09 )
+body_offset = Transform( -0.107968, -0.0859452, -0.990433, -0.113866, 0.990769, -0.0735605, 0.987612, 0.104836, -0.116757, 0, -5.96046e-08, 5.96046e-08 )
+
+[node name="Physical Bone ShoulderL" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="8"]
+transform = Transform( -0.496092, 0.868249, -0.0060065, -0.868271, -0.49608, 0.00343109, -5.13782e-07, 0.00691755, 0.999976, 0.480413, 3.92903, -0.212563 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.61207e-15, -1.19209e-07, -5.55112e-17 )
+body_offset = Transform( 1, -6.38547e-08, 3.79231e-09, 2.05363e-07, 1, 4.65661e-09, -1.1128e-09, -4.65661e-10, 1, 0, 1.19209e-07, 0 )
+
+[node name="Physical Bone UpperArmL" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="9"]
+transform = Transform( -0.93265, 0.360195, -0.0206005, -0.360783, -0.931129, 0.0532526, -3.9787e-07, 0.0570984, 0.998369, 1.32303, 3.44759, -0.205849 )
+body_offset = Transform( 1, 1.31981e-08, 9.5595e-09, -1.07233e-07, 1, -3.35276e-08, -2.48463e-08, 3.72529e-09, 1, 0, 0, 0 )
+
+[node name="Physical Bone LowerArmL" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="10"]
+transform = Transform( -0.393936, 0.425568, 0.814683, 0.0577466, -0.873145, 0.48403, 0.917322, 0.237721, 0.319388, 2.05102, 1.5657, -0.0904483 )
+body_offset = Transform( -0.124855, 0.168024, 0.977845, 0.143641, 0.978234, -0.149749, -0.981722, 0.121763, -0.146273, 0, 0, 0 )
+
+[node name="Physical Bone UpperLegR2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="11"]
+transform = Transform( -0.998704, -0.0509078, -0.00334575, 0.0509756, -0.99839, -0.0247301, -0.00208144, -0.0248684, 0.999689, -0.615755, 0.236121, -0.0133287 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.33682e-18, 9.71449e-17, 1.86265e-09 )
+body_offset = Transform( 1, 1.48466e-08, 2.32831e-09, -6.46469e-09, 0.999997, -5.21541e-08, -2.32831e-10, 7.45058e-09, 0.999999, 0, 0, -1.86265e-09 )
+
+[node name="Physical Bone LowerLegR2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="12"]
+transform = Transform( -0.00167068, -0.066198, 0.997806, 0.0489421, -0.996617, -0.0660371, 0.998807, 0.0487247, 0.00490486, -0.763686, -2.66506, -0.0855929 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.70063e-08, 4.27498e-09, 1.62455e-10 )
+body_offset = Transform( 0.00239528, 0.0172607, -0.999843, -0.114814, 0.993245, 0.0168716, 0.993389, 0.114756, 0.00436083, 0, 0, -3.72529e-08 )
+
+[node name="Physical Bone UpperLegL2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="13"]
+transform = Transform( -0.99877, 0.0495373, 0.00436581, -0.0496742, -0.997942, -0.0405498, 0.0023481, -0.0407164, 0.999169, 0.615755, 0.236121, -0.0133287 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.95385e-25, 6.245e-17, -1.86265e-09 )
+body_offset = Transform( 1, -3.12866e-09, 0, 4.4216e-08, 1, 3.35276e-08, -5.12227e-09, 0, 1, 0, 0, 1.86265e-09 )
+
+[node name="Physical Bone LowerLegL2" parent="CSGMesh/lw_polly_char/game_rig/Skeleton" index="14"]
+transform = Transform( -0.00185651, 0.0459649, -0.998941, -0.0493969, -0.997725, -0.0458174, -0.998783, 0.0492595, 0.0041228, 0.759703, -4.2092, -0.131644 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0763401, -1.54194, -0.0708086 )
+body_offset = Transform( 0.00244, 0.00346715, 0.999986, 0.0951024, 0.995458, -0.00368345, -0.995469, 0.0951099, 0.00209919, 0.07634, 1.54194, 0.0708085 )
 
 [node name="AttackHitbox" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
@@ -61,7 +134,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 shape = SubResource( 8 )
 
 [node name="DetectGround" type="RayCast" parent="."]
-cast_to = Vector3( 0, -2, 0 )
+cast_to = Vector3( 0, -2.25, 0 )
 debug_shape_thickness = 5.0
 
 [node name="LeaderSensor" parent="." instance=ExtResource( 7 )]
@@ -75,3 +148,9 @@ debug_shape_thickness = 5.0
 [node name="Steering" parent="." instance=ExtResource( 5 )]
 
 [node name="Behavior" parent="." instance=ExtResource( 3 )]
+
+[node name="DamageSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 8 )
+unit_db = 4.0
+
+[editable path="CSGMesh/lw_polly_char"]
